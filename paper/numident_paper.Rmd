@@ -66,11 +66,9 @@ We are also in the process of linking both the DMF and the NARA Numident records
   \label{fig:tp}
 \end{figure}
 
-To illustrate the structure and content of the publicly-released National Archive Numident files, we show in figure 1 the records that were released for the actress Lana Turner who died in 1995 and for the Supreme Justice Thurgood Marshall, who died in 1993.
+To illustrate the structure and content of the publicly-released National Archive Numident files, we show in figure 1 the records that were released for the actress Lana Turner who died in 1995 and for the Supreme Court Justice Thurgood Marshall, who died in 1993.
 
 \newpage
-
-### Thurgood Marshall
 
 For Thurgood Marshall, we have one application and one death record: 
 
@@ -104,9 +102,9 @@ For Thurgood Marshall, we have one application and one death record:
 |-----:|--------:|------:|------:|----:|----:|
 |  1993|       36|      7|      1|    2|   24|
 
-\newpage 
+Table 1: NARA Numident Application and Death Record for Supreme Court Justice Thurgood Marshall. 
 
-### Lana Turner
+\newpage 
 
 For Lana Turner we have four application records, corresponding it seems to name changes each time she was married.
 
@@ -136,7 +134,6 @@ For Lana Turner we have four application records, corresponding it seems to name
 
 **Death Record:** 
 
-
 |       ssn| sex|zip_residence |lname  |mname |fname | byear| dyear| socstate| bmonth|
 |---------:|---:|:-------------|:------|:-----|:-----|-----:|-----:|--------:|------:|
 | 567183907|   2|900255240     |TURNER |      |LANA  |  1921|  1995|        6|      2|
@@ -145,8 +142,11 @@ For Lana Turner we have four application records, corresponding it seems to name
 |------:|----:|----:|
 |      6|    8|   29|
 
+Table 2: NARA Numident Application and Death Record for actress Lana Turner. 
 
-In order to facilitate analysis of the Numident dataset, we have created the Berkeley Unified Numident Mortality Database. This file condenses the Numident  death, application, and claims records into a single file with one record per person. This file is available for download at ___ . The file includes about 49 million records, 28 variables, and is about 5.7 Gb in size.
+\newpage
+
+|        In order to facilitate analysis of the NARA Numident records, we have created the Berkeley Unified Numident Mortality Database. This file condenses the Numident death, application, and claims records into a single file with one record per person. This file is available for download at ___ . The file includes about 49 million records, 28 variables, and is about 5.7 Gb in size.
 
 For Lana Turner, the BUNMD data record is:
 
@@ -163,25 +163,26 @@ For Lana Turner, the BUNMD data record is:
 |NA           |TURNER  |   1.047614|        74| 1.105444|
 
 
-To faciliate analysis with the Numident files, we have created a cleaned and harmonized version of the file: Berkeley Unified Mortality Numident Database (BUNMD). The Numident records released by NARA contain 49,459,293 death records entries, 72,120,516 applications entries corresponding to 40,870,455 unique individuals, and 25,228,257 claims entries corresponding to 25,140,847 unique individuals. The BUNMD file takes the most important information in these files and condenses it into one database with one record per person. Every death from the original Numident record was included in the BUNMD, and other covariates were added on from the application and claims records. See Figure xx. We have condensed the multiple numident entries, choosing a single value for sex, race, birthplace, and parents' names across multiple applications. The BUNMD file contains constructed variables indicating the total number of application and claim entries per person. It also includes constructed variables for date of first application and state in which social security number was issued. Please see the technical appendix for more details on the construction of this file. 
+
+|        To facilitate analysis of the NARA Numident records, we introduce a cleaned and harmonized version of the data— the Berkeley Unified Mortality Numident Database (BUNMD). The original NARA Numident release contained 49,459,293 death records entries, 72,120,516 applications entries corresponding to 40,870,455 unique individuals, and 25,228,257 claims entries corresponding to 25,140,847 unique individuals. The BUNMD condenses those records into one file with a single record per person. The BUNMD contains every death entry in the NARA Numident. We then use a set of decision rules to select a single value of birthplace, race, sex, etc. across all an individual's application and claims entries. We construct variables reporting (1) total number of application, (2) total number claim entries, (3) age of first application, (4) state the Social Security number was issued. Figure 2 shows the process for constructing the BUNMD. Please see the technical appendix for more details on the construction of this file. In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request.
 
 \begin{figure}
   \centering
-  \subfloat[\label{fig:tp01}]{\includegraphics[width=4in]{../illustrations/numident_flowchart}}
+  \subfloat[\label{fig:tp01}]{\includegraphics[width=5in]{../illustrations/numident_flowchart}}
   \caption{Berkeley Unified Numident Mortality Database creation flowchart. }
   \label{fig:tp}
 \end{figure}
 
-In order to study name changes, race changes, and other features, the original Numident files are useful.
+
 
 ## Numident Coverage
 
-The Numident records publicly released by the National Archives are a subset of the master Numident records. Specifically, the release contained records for individuals with a verified death between 1936 and 2007 or persons over 110 years of age as of December 31st, 2018.  The process by which records were selected into this public released Numident is not well defined. Figure XX shows the total count of deaths in the BUNMD (age 65+) compared to the Human Mortality Database (HMD). Numident Sample 1 corresponds to all deaths restricted to age 65+, occurring between 1988 and 2005, to the cohorts of 1900-1940. Sample 2 corresponds to deaths restricted to age 65+ occurring between 1988 and 2005, to the cohorts of 1900-1940, with complete information on sex, place of birth, and race.
+|        The Numident records publicly released by the National Archives are a subset of the master Numident records. Specifically, the release contained records for individuals with a verified death between 1936 and 2007 or persons over 110 years of age as of December 31st, 2018. The process by which records were selected into this public released Numident is not well defined. Figure XX shows the total count of deaths in the BUNMD (age 65+) compared to the Human Mortality Database (HMD). Numident Sample 1 corresponds to all deaths restricted to age 65+, occurring between 1988 and 2005, to the cohorts of 1900-1940. Sample 2 corresponds to deaths restricted to age 65+ occurring between 1988 and 2005, to the cohorts of 1900-1940, with complete information on sex, place of birth, and race.
 
 \begin{figure}
   \centering
   \subfloat[\label{fig:tp01}]{\includegraphics[width=5in]{../illustrations/death_coverage_bunmd.png}}
-  \caption{Berkeley Unified Numident Mortality Database creation flowchart. }
+  \caption{BUNMD Death Coverage for persons 65+}
   \label{fig:tp}
 \end{figure}
 
@@ -190,7 +191,7 @@ Figure 3 shows the death coverage of the BUNMD file for persons 65+. Coverage is
 \begin{figure}
   \centering
   \subfloat[\label{fig:tp01}]{\includegraphics[width=7in]{../illustrations/lexis_combine_plot.png}}
-  \caption{Berkeley Unified Numident Mortality Database creation flowchart. }
+  \caption{Lexis diagram of BUNMD death coverage}
   \label{fig:tp}
 \end{figure}
 
