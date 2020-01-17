@@ -46,7 +46,7 @@ We took the following steps to clean each file:
 
 ## Geography
 
-|     There are several geography variables in the NARA Numident records. The Numident application entries has information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The NARA Numident uses two variables to convey birthplace. The first variable denotes whether a person was foreign born. The second variable contains a two-letter state or country abbreviation. We harmonize these two variables into one variable with a numeric coding schema. This coding schema matches the IPUMS-USA BPLD (Birthplace, detailed) schema. 
+|     There are several geography variables in the NARA Numident records. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The NARA Numident uses two variables to convey birthplace. The first variable denotes whether a person was foreign born. The second variable contains a two-letter state or country abbreviation. We harmonize these two variables into one variable with a numeric coding schema. This coding schema matches the IPUMS-USA BPLD (Birthplace, detailed) schema. 
 
 |     The Numident death entries contains the 9-digit ZIP code of the residence at the time of death. Sometimes, the full 9-digit ZIP is not available. An "x" represents a missing ZIP code digit. This is the original convention used by the Social Security Administration. 
 

@@ -61,7 +61,7 @@ We are also in the process of linking both the DMF and the NARA Numident records
 
 \begin{figure}
   \centering
-  \subfloat[\label{fig:tp01}]{\includegraphics[width=7in]{/Users/casey/Documents/censoc/numident_paper/illustrations/entries_per_ssn.png}}
+  \includegraphics[width=7in]{/Users/casey/Documents/censoc/numident_paper/illustrations/entries_per_ssn.png}
   \caption{Number of entries per person for the Numident Application and Claims files.}
   \label{fig:tp}
 \end{figure}
@@ -164,11 +164,11 @@ For Lana Turner, the BUNMD data record is:
 
 
 
-|        To facilitate analysis of the NARA Numident records, we introduce a cleaned and harmonized version of the data— the Berkeley Unified Mortality Numident Database (BUNMD). The original NARA Numident release contained 49,459,293 death records entries, 72,120,516 applications entries corresponding to 40,870,455 unique individuals, and 25,228,257 claims entries corresponding to 25,140,847 unique individuals. The BUNMD condenses those records into one file with a single record per person. The BUNMD contains every death entry in the NARA Numident. We then use a set of decision rules to select a single value of birthplace, race, sex, etc. across all an individual's application and claims entries. We construct variables reporting (1) total number of application, (2) total number claim entries, (3) age of first application, (4) state the Social Security number was issued. Figure 2 shows the process for constructing the BUNMD. Please see the technical appendix for more details on the construction of this file. In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request.
+|        To facilitate analysis of the NARA Numident records, we introduce a cleaned and harmonized version of the data— the Berkeley Unified Mortality Numident Database (BUNMD). The original NARA Numident release contained 49,459,293 death records entries, 72,120,516 applications entries corresponding to 40,870,455 unique individuals, and 25,228,257 claims entries corresponding to 25,140,847 unique individuals. The BUNMD condenses those records into one file with a single record per person. The BUNMD contains every death entry in the NARA Numident. We then use a set of decision rules to select a single value of birthplace, race, sex, etc. across all an individual's application and claims entries. We construct variables reporting (1) total number of application, (2) total number claim entries, (3) age of first application, (4) state the Social Security number was issued. Figure 2 shows the process for constructing the BUNMD. Please see the technical appendix for more details on the construction of this file. In order to study name changes, race changes, and other features, the original NARA Numident records are useful. They are available upon request.
 
 \begin{figure}
   \centering
-  \subfloat[\label{fig:tp01}]{\includegraphics[width=5in]{../illustrations/numident_flowchart}}
+  \includegraphics[width=5in]{../illustrations/numident_flowchart}
   \caption{Berkeley Unified Numident Mortality Database creation flowchart. }
   \label{fig:tp}
 \end{figure}
@@ -177,30 +177,30 @@ For Lana Turner, the BUNMD data record is:
 
 ## Numident Coverage
 
-|        The Numident records publicly released by the National Archives are a subset of the master Numident records. Specifically, the release contained records for individuals with a verified death between 1936 and 2007 or persons over 110 years of age as of December 31st, 2018. The process by which records were selected into this public released Numident is not well defined. Figure XX shows the total count of deaths in the BUNMD (age 65+) compared to the Human Mortality Database (HMD). Numident Sample 1 corresponds to all deaths restricted to age 65+, occurring between 1988 and 2005, to the cohorts of 1900-1940. Sample 2 corresponds to deaths restricted to age 65+ occurring between 1988 and 2005, to the cohorts of 1900-1940, with complete information on sex, place of birth, and race.
+
+|        The NARA Numident records are a subset of the master Numident records. NARA documentation states that their released records are for individuals with a verified death between 1936 and 2007 or persons over 110 years of age as of December 31st, 2018. This alone does not explain the coverage patterns we observe. Figure 3 compares the total number of deaths for persons age 65+ in the BUNMD to the Human Mortality Database (HMD). Death Coverage is nearly complete between 1988 and 2005. Figure 4 shows the coverage visualized on a age-period Lexis surface, an established demographic visualization technique. The left panel shows the BUNMD death coverage — the proportion of total deaths in the United States captured in the BUNMD — for ages 0 to 100 from 1940 to 2010. Coverage is low. The right panel zooms in on the relatively high coverage death coverage for persons dying between age 65 and 100 between 1985 and 2005. This is an important limitation of the BUNMD dataset.  
+
+|        To address this, we create two BUNMD samples to allow researchers to use mortality records when coverage is most complete . The Sample 1 includes deaths to persons age 65+, occurring between 1988 and 2005, from the cohorts of 1900-1940. Sample 2 is the subset of Sample 1 records with complete information on sex, birthplace, and race. For each sample, we constructed inverse probability weights to the Human Mortality database on age at death, year of birth, year of death, and sex.  
 
 \begin{figure}
   \centering
-  \subfloat[\label{fig:tp01}]{\includegraphics[width=5in]{../illustrations/death_coverage_bunmd.png}}
+  \includegraphics[width=5in]{../illustrations/death_coverage_bunmd.png}
   \caption{BUNMD Death Coverage for persons 65+}
   \label{fig:tp}
 \end{figure}
 
-Figure 3 shows the death coverage of the BUNMD file for persons 65+. Coverage is highest for the years 1988-2005, at over 95%. 
-
 \begin{figure}
   \centering
-  \subfloat[\label{fig:tp01}]{\includegraphics[width=7in]{../illustrations/lexis_combine_plot.png}}
+  \includegraphics[width=7in]{../illustrations/lexis_combine_plot.png}
   \caption{Lexis diagram of BUNMD death coverage}
   \label{fig:tp}
 \end{figure}
 
-- Coverage
+Notes: 
 - the material below we’ve mostly done — we’re going to weight by age*dyear*sex.
 TODO
 - check on race
 - check on state
-- comparison with HMD (year, age.at.death, sex)
 - race (maybe NCHS) see Berkeley Mortality Database for nice versions of Black, White death counts.
 - key thing is if inverse HMD weights which are not based on race work.
 - real issue here is weights and their pros and cons. and what we can give evidence for about pros and cons.
@@ -261,12 +261,15 @@ For cohorts that are extinct (or very nearly so), Cox regression provides a conv
 
 #### Geography
 
-The BUNMD contains place of birth and residence of death geographic data. For place of birth, the resolution is state-level for those born within the United States and country-level for those born outside of the United States. Geographic codes for birthplace are identical to the IPUMS BPL codes. The geographic resolution for residence of death is at the ZIP code level; occasionally, the resolution is ZIP+4. The use of ZIP codes for spatial analysis has an accompanying set of challenges (@Grubesic). Figure xx shows life expectancy at age 65 by ZIP code for Ohio. Figure xx+1 shows life expectancy by ZIP code for Cayuga county. Life expectancy is lowest within Cleveland, and higher in the suburbs surrounding Cleveland, suggesting a large life expectancy gap. Differences in life expectancy can be explained by race and educational differences. These health disparities — well-documented in the United States — are likely driven by racial segregation. 
+|        There are several geography variables in the BUNMD. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The Numident death entries contains the 5 or 9-digit ZIP code of the residence at the time of death. ZIP Codes as a unit for spatial analysis can offer insights into a variety of spatial questions. However, they do have an accompanying set of challenges (@Grubesic). 
+
+|        Figure 5 shows life expectancy at age 65 by ZIP Code in Ohio for the pooled for the cohorts of 1915 to 1920. Figure 6 focuses in Cleveland's Cayuga county. Life expectancy is lower in Cleveland, and higher in the surrounding suburbs. These old-age mortality disparities — well-documented in the United States — are likely driven by racial segregation.
+
 
 \begin{figure}
   \centering
   \includegraphics[width=7in]{../illustrations/micro_geography_ohio.png}
-  \caption{Ohio expectancy at age 65 for ohio, disaggregated by ZIP code. Cohorts of 1915 to 1920.}
+  \caption{Ohio life expectancy at age 65 by ZIP Code for pooled cohorts of 1915 to 1920.}
   \label{fig:tp}
 \end{figure}
 
@@ -274,7 +277,7 @@ The BUNMD contains place of birth and residence of death geographic data. For pl
 \begin{figure}
   \centering
   \includegraphics[width=7in]{../illustrations/micro_geography_cleveland.png}
-  \caption{ZIP Codes surrounding Cleveland.}
+  \caption{Life expectancy at age 65 by ZIP Code for pooled cohorts of 1915 to 1920.}
   \label{fig:tp}
 \end{figure}
 
