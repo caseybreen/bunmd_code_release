@@ -261,9 +261,9 @@ For cohorts that are extinct (or very nearly so), Cox regression provides a conv
 
 #### Geography
 
-|        There are several geography variables in the BUNMD. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The Numident death entries contains the 5 or 9-digit ZIP code of the residence at the time of death. ZIP Codes as a unit for spatial analysis can offer insights into a variety of spatial questions. However, they do have an accompanying set of challenges (@Grubesic). 
+|        There are several geography variables in the BUNMD. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The Numident death entries contains the 5 or 9-digit ZIP code of the residence at the time of death. ZIP Codes as a unit for spatial analysis can offer insights into a variety of spatial questions, but have an accompanying set of challenges (@Grubesic). 
 
-|        Figure 5 shows life expectancy at age 65 by ZIP Code in Ohio for the pooled for the cohorts of 1915 to 1920. Figure 6 focuses in Cleveland's Cayuga county. Life expectancy is lower in Cleveland, and higher in the surrounding suburbs. These old-age mortality disparities — well-documented in the United States — are likely driven by racial segregation.
+|        Figure 5 shows life expectancy at age 65 by ZIP Code in Ohio for the pooled for the cohorts of 1915 to 1920. Figure 6 focuses on Cleveland's Cayuga County. Life expectancy is lower in Cleveland, and higher in the surrounding suburbs. These old-age mortality disparities — well-documented in the United States — are likely driven by racial segregation.
 
 
 \begin{figure}
@@ -280,6 +280,11 @@ For cohorts that are extinct (or very nearly so), Cox regression provides a conv
   \caption{Life expectancy at age 65 by ZIP Code for pooled cohorts of 1915 to 1920.}
   \label{fig:tp}
 \end{figure}
+
+
+## Gompertz Mortality
+
+As race is often used to predict 
 
 
 ### Conclusion 
