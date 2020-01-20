@@ -282,12 +282,23 @@ For cohorts that are extinct (or very nearly so), Cox regression provides a conv
 \end{figure}
 
 
-## Gompertz Mortality
+#### Gompertz Mortality
 
-As race is often used to predict 
+The BUNMD can also be used to looks at race differentials in mortality by state. One can look at how disparities in old-age mortaltiy changes over time within a given state, and look at within cohort black/white mortality crossovers. In Figure 7, we compare estimates of life expectancy at age 65 for Whites and Blacks change for the cohorts of 1900 to 1920 for the state of Alabama.
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=7in]{../illustrations/alabama_gompertz.png}
+  \caption{Gompertz E65 estimates for Alabama for Whites and Blacks. }
+  \label{fig:tp}
+\end{figure}
 
 
 ### Conclusion 
+
+The NARA Numident release has created a new administrative data resource for researchers studying mortality. We introduce a publicly-available cleaned and harmonized version of the dataset with over 49-million deaths. The high spatial resolution allows for fine-scaled geographic studies, and demographic covariates. We introduce methods to overcome a shortcoming of the dataset, namely that the death coverage is only high for a narrow window of deaths. 
+
 
 \newpage
 
@@ -329,9 +340,10 @@ No — too hard a topic … but not bad for another paper
 
 ## Public distribution, acknowledgement, conditions
 
-Thank Lynn Goodsell, guy from SSA, Berkeley HMD.
+The authors benefitted from helpful discussions with Lynn Goodsell, guy from SSA, Berkeley HMD, etc. 
 
-Distribute file  Distribute original SS-5 Files? 
+The original SS-5 Files are available for download at __________? 
+
 
 For: Demographic Research or Demography (DR has the advantage of infinite extra cool links etc and being totally free and accessible — which is probably what we want; prestige of Demography not really needed for this paper (and it might not get accepted because of its nature).
 
