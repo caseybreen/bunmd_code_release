@@ -340,7 +340,7 @@ No — too hard a topic … but not bad for another paper
 
 ## Public distribution, acknowledgement, conditions
 
-The authors benefitted from helpful discussions with Lynn Goodsell, guy from SSA, Berkeley HMD, etc. 
+The authors benefitted from helpful discussions with Lynn Goodsell, guy from SSA, Berkeley HMD, etc. TODO.  
 
 The original SS-5 Files are available for download at __________? 
 
