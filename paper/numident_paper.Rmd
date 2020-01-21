@@ -22,7 +22,7 @@ affiliation: UC Berkeley
 
 # for rticles::asa_article
 
-abstract: With the release of Social Security application and death records, the National Archives and Records Administration (NARA) has created a new administrative data resource for researchers studying mortality. This publicly available data provides demographic researchers access to over 49 million mortality records with rich geographic detail. We document the contents of this data set, provide free access to a cleaned and harmonized version of the data, and discuss statistical methods for estimating mortality differentials based on this deaths-only data set.
+abstract: With the release of Social Security application and death records, the National Archives and Records Administration (NARA) has created a new administrative data resource for researchers studying mortality. This publicly available data provides demographic researchers access to over 49 million mortality records with rich geographic detail. In this note, we document the contents of this data set, provide free access to a cleaned and harmonized version of the data, and discuss statistical methods for estimating mortality differentials based on this deaths-only data set.
 
 
 #linestretch: 1.5
