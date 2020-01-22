@@ -112,6 +112,7 @@ knitr::kable(numident %>%
 
 **Label**: Race
 
+
 **Description**: race is a numeric variable reporting the person's race, as recorded in a Numident Application Files.
 
 ```{r, eval = F, echo = F}
@@ -218,7 +219,7 @@ numident %>%
 
 \vspace{75pt}
 
-![](/users/casey/Documents/censoc/documentation/casey_pdf_documentation/berkeley_unified_numident/byear_plot.png)
+![](codebook_illustrations/byear_plot.png)
 
 
 
@@ -325,7 +326,7 @@ knitr::kable(numident %>%
 \vspace{75pt}
 \begin{center}
 \end{center}
-![](/users/casey/Documents/censoc/documentation/casey_pdf_documentation/berkeley_unified_numident/dyear_plot.png) 
+![](codebook_illustrations/dyear_plot.png) 
 
 
 ```{r, echo = F, eval = F}
@@ -482,7 +483,7 @@ knitr::kable(numident %>%
 
 \vspace{50pt}
 
-![](/Users/casey/Documents/censoc/documentation/casey_pdf_documentation/berkeley_unified_numident/death_age.png)
+![](codebook_illustrations/death_age.png)
 
 ```{r, echo = F, eval = F}
 numident %>%
@@ -675,7 +676,7 @@ numident %>%
 
 \vspace{50pt}
 
-![](/Users/casey/Documents/censoc/documentation/casey_pdf_documentation/berkeley_unified_numident/age_app.png)
+![](codebook_illustrations/age_app.png)
 
 \newpage 
 
@@ -781,7 +782,7 @@ numident %>%
 
 \vspace{50pt}
 
-![](/Users/casey/Documents/censoc/documentation/casey_pdf_documentation/berkeley_unified_numident/weights.png)
+![](codebook_illustrations/weights.png)
 
 \newpage 
 
@@ -814,62 +815,4 @@ numident %>%
 
 \vspace{50pt}
 
-![](/Users/casey/Documents/censoc/documentation/casey_pdf_documentation/berkeley_unified_numident/cweights.png)
-
-\newpage 
-
-**\Large{Original Numident File Source}**
-
-Variable     | Source|
-|:-------------|:---------------------------------------------|
-|ssn           |Death Files                                   |
-|fname         |Death Files                                   |
-|mname         |Death Files                                   |
-|lname         |Death Files                                   |
-|sex           |Death, Application, or Claim Files            |
-|race          |Application Files                             |
-|race_change   |Constructed                                   |
-|bpl           |Application or Claim Files                    |
-|byear         |Death Files                                   |
-|bmonth        |Death Files                                   |
-|bday          |Death Files                                   |
-|dyear         |Death Files                                   |
-|dmonth        |Death Files                                   |
-|dday          |Death Files                                   |
-|death_age     |Constructed                                   |
-|zip_residence |Death Files                                   |
-|socstate      |Constructed                                   |
-|father_fname  |Application or Claim Files                    |
-|father_mname  |Application or Claim Files                    |
-|father_lname  |Application or Claim Files                    |
-|mother_fname  |Application or Claim Files                    |
-|mother_mname  |Application or Claim Files                    |
-|mother_lname  |Application or Claim Files                    |
-|age_first_app |Constructed                                   |
-|number_apps   |Constructed                                   |
-|number_claims |Constructed                                   |
-|weight        |Constructed                                   |
-|cweight       |Constructed                                   |
-
-\newpage 
-
-
-**\Large{Selection Strategy}**
-
-For persons with multiple application or claim records, there was occasional response inconsistency for sex, race, place of birth, and parents' names. We developed a set of decision rules to select the best value for the Berkeley Unified Numident Mortality Database: 
-
-- **sex**: When available, select the person's sex from their death record. If unavailable in their death record, select sex from their most recent application record. If unavailable in their death record and their application records, select sex from their most recent claim record. 
-
-- **race**: Select the person's race from their most recent application record. 
-
-- **bpl**: Select the person's race from their most recent application record. If unavailable in their application records, select from their most recent claim record.
-
-- **father_fname**: Select the person's father's first name that is the maximum number of characters across applications. 
-- **father_mname**: Select the person's father's middle name that is the maximum number of characters across applications. 
-- **father_lname**: Select the person's father's last name that is the maximum number of characters across applications. 
-- **mother_fname**: Select the person's mother's first name that is the maximum number of characters across applications.
-- **mother_mname**: Select the person's mother's middle name that is the maximum number of characters across applications.
-- **mother_lname**: Select the person's mother's last name that is the maximum number of characters across applications.
-
-
-
+![](codebook_illustrations/cweights.png)

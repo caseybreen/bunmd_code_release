@@ -123,7 +123,7 @@ For Lana Turner we have four application records, corresponding it seems to name
 |                |LANA  |TURNER |TOPPING |MILDRED      |F            |TURNER       |
 |                |LANA  |TURNER |BARKER  |             |             |             |
 |                |LANA  |TURNER |DANTE   |             |             |             |
-
+†
 |father_fname |father_mname |father_lname | year_cycle| month_cycle|
 |:------------|:------------|:------------|----------:|-----------:|
 |JOHN         |M            |TURNER       |       1937|           3|
