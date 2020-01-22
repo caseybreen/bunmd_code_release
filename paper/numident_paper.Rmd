@@ -22,7 +22,7 @@ affiliation: UC Berkeley
 
 # for rticles::asa_article
 
-abstract: With the release of Social Security application and death records, the National Archives and Records Administration (NARA) has created a new administrative data resource for researchers studying mortality. This publicly available data provides demographic researchers access to over 49 million mortality records with rich geographic detail. In this note, we document the contents of this data set, provide free access to a cleaned and harmonized version of the data, and discuss statistical methods for estimating mortality differentials based on this deaths-only data set.
+abstract: With the release of Social Security application and death records, the National Archives and Records Administration (NARA) has created a new administrative data resource for researchers studying mortality. This publicly available microdata provides demographic researchers access to over 49 million mortality records with demographic covariates and fine geographic detail. In this paper, we document the contents of this data set, provide access to a publicy available, cleaned and harmonized version of the data, and discuss statistical methods for estimating mortality differentials based on this deaths-only data set.
 
 
 #linestretch: 1.5
@@ -51,13 +51,13 @@ nocite: '@*'
 
 |        While administrative mortality data sets have been used by a small set of researchers who have been able to work with government employees inside restricted computing environments [@chetty_association_2016; @mehta_life_2016], the Numident data is openly accessible to all researchers. Our hope is that the public availability of this data will encourage more mortality research using administrative records, enhance the replicability and debate about results, and open up new avenues of research. To facilitate mortality research with the Numident records, we have created a cleaned and harmonized version of the Numident records with enhanced documentation: the Berkeley Unified Numident Mortality Database (BUNMD). 
 
-|        Another publicly available data resource for mortality research is the Social Security Death Master File (DMF). The DMF was first made available in 1988, and is extracted quarterly from the Numident records [@hill_social_nodate]. The file has been used by some researchers to study mortality, particularly at older ages [@gavrilov_mortality_2012]. While the file has high death coverage for deaths of persons aged 65 or older from 1975 - 2005, it lacks the covariates, such as sex, race, or place of birth, available in the NARA Numident records [@hill_social_nodate]. The methods we provide here are also useful for researchers working with the DMF. 
+|        Another publicly available data resource for mortality research is the Social Security Death Master File (DMF). The DMF was first made available in 1988, and is extracted quarterly from the Numident records [@hill_social_2001]. The file has been used by some researchers to study mortality, particularly at older ages [@gavrilov_mortality_2012]. While the file has high death coverage for deaths of persons aged 65 or older from 1975 - 2005, it lacks the covariates, such as sex, race, or place of birth, available in the NARA Numident records [@hill_social_2001]. The methods we provide here are also useful for researchers working with the DMF. 
 
-We are also in the process of linking both the DMF and the NARA Numident records to the full-count 1940 Census, to create a rich, public linked administrative dataset for the study of mortality (CENSOC).
+We are also in the process of linking both the DMF and the NARA Numident records to the full-count 1940 Census, to create a rich, public linked administrative dataset for the study of mortality (@hill_social_2001).
 
 ## The Content of the NARA Numident files
 
-|        The NARA Numident records contain three types of entries: applications, claims, and deaths. The Social Security Administration adds a new entry to the Numident when a Social Security cardholder submits a new application or claim. New entries never overlay old entries. Instead, a new entry is added to the Numident. This ensures that no information is never overwritten in the Numident. Figure 1 shows the distribution of application and claim entries per person. While 43.3% of persons in the Numident have multiple application entries, only 0.3% of persons have multiple claim entries. No persons have multiple death entries.
+|        The NARA Numident records contain three types of entries: applications, claims, and deaths. The Social Security Administration adds a new entry to the Numident when a Social Security cardholder submits a new application or claim. New entries never overlay old entries. Instead, a new entry is added to the Numident, ensuring that information is in the Numident is never overwritten. Figure 1 shows the distribution of application and claim entries per person. While 43.3% of persons in the Numident have multiple application entries, only 0.3% of persons have multiple claim entries. No persons have multiple death entries.
 
 \begin{figure}
   \centering
@@ -123,7 +123,7 @@ For Lana Turner we have four application records, corresponding it seems to name
 |                |LANA  |TURNER |TOPPING |MILDRED      |F            |TURNER       |
 |                |LANA  |TURNER |BARKER  |             |             |             |
 |                |LANA  |TURNER |DANTE   |             |             |             |
-†
+
 |father_fname |father_mname |father_lname | year_cycle| month_cycle|
 |:------------|:------------|:------------|----------:|-----------:|
 |JOHN         |M            |TURNER       |       1937|           3|
@@ -196,15 +196,6 @@ For Lana Turner, the BUNMD data record is:
   \label{fig:tp}
 \end{figure}
 
-Notes: 
-- the material below we’ve mostly done — we’re going to weight by age*dyear*sex.
-TODO
-- check on race
-- check on state
-- race (maybe NCHS) see Berkeley Mortality Database for nice versions of Black, White death counts.
-- key thing is if inverse HMD weights which are not based on race work.
-- real issue here is weights and their pros and cons. and what we can give evidence for about pros and cons.
-- Variables
 
 ## Estimation: Deaths without Denominators 
 
@@ -261,7 +252,7 @@ For cohorts that are extinct (or very nearly so), Cox regression provides a conv
 
 #### Geography
 
-|        There are several geography variables in the BUNMD. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The Numident death entries contains the 5 or 9-digit ZIP code of the residence at the time of death. ZIP Codes as a unit for spatial analysis can offer insights into a variety of spatial questions, but have an accompanying set of challenges (@Grubesic). 
+|        There are several geography variables in the BUNMD. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The Numident death entries contains the 5 or 9-digit ZIP code of the residence at the time of death. ZIP Codes as a unit for spatial analysis can offer insights into a variety of spatial questions, but have an accompanying set of challenges (@grubesic_use_2006). 
 
 |        Figure 5 shows life expectancy at age 65 by ZIP Code in Ohio for the pooled for the cohorts of 1915 to 1920. Figure 6 focuses on Cleveland's Cayuga County. Life expectancy is lower in Cleveland, and higher in the surrounding suburbs. These old-age mortality disparities — well-documented in the United States — are likely driven by racial segregation.
 
@@ -302,40 +293,6 @@ The NARA Numident release has created a new administrative data resource for res
 
 \newpage
 
-### Notes
-
-- can get old-age mortality using reverse survival (good application would be black/white , elo, preston et al)
-
-? other approaches ... no, but can mention in a few sentences and refer to Monica’s paper / dissertation
-
-## Case studies:
-
-Pick a subset that are the BEST.
-- Race x state (just black and white)
-- BPL x time of 1st application (proxy for time of arrival -- Mexicans and Fillipinos)
-- Something with own name and name of parents
-- [So what this means is that we want “race”, “bpl”, time of first application, anything we might have on citizenship (but that’s not crucial for the 1st data set production), and then we want all the name info there is]
-
-### Coverage
-- state, not really for substance, but still good for coverage
-- first name, last name
-- could do an ancestry corrector. my guess is that last name doesn’t matter much. and neither does 1st name … but i don’t know.
-- Nicknames — as a proxy for social class. can distinguish blacks and whites. 
-- Yes, by country … super interesting but a lot of detail (e.g., when people came to the U.S. that is a bit hard to infer — but can use 1st date … this is kind of a paper in and of itself)
-- n_ss5 applications: maybe a proxy for carelessness losing cards, life instability 
-- daylight savings time …?
-No — too hard a topic … but not bad for another paper 
-- ZIP code (say by income or house value or average educ): one illustrative example, e.g., Manhattan or NYC or Ohio
-- Choose a case study that data is available for (like from NCHS) to validate our approach   (daylight savings time?); (state?)
-- Choose case studies that can’t be done with other data … (race x daylight savings time?)(BPL !!!)(anything involving names) (anything involving exact date of birth).
-- Influenza?????
-
-
-- Weighting and HMD comparison  (casey can do this with Josh’s old code -- but it does need to be adapted, because I was using pre-tabled data from HMD, and if you use numideath, you have to table it yourself into a Dx vector with ages of death as names(Dx) for the functions to work) (also find an example where weighting makes a difference) 
-- Truncated gompertz vs regression (but this can be in one of the case studies)
-- Case studies: all on age at death
-- Race x state
-- Nicknames (use 1940 to get social class score of nicknames …?)
 
 
 ## Public distribution, acknowledgement, conditions
@@ -375,3 +332,49 @@ For: Demographic Research or Demography (DR has the advantage of infinite extra 
   \includegraphics[width=7in]{../illustrations/claim_coverage.png}
   \captionsetup{labelformat=empty}
 \end{figure}
+
+
+
+### Notes
+
+- can get old-age mortality using reverse survival (good application would be black/white , elo, preston et al)
+
+? other approaches ... no, but can mention in a few sentences and refer to Monica’s paper / dissertation
+
+- the material below we’ve mostly done — we’re going to weight by age*dyear*sex.
+TODO
+- check on race
+- check on state
+- race (maybe NCHS) see Berkeley Mortality Database for nice versions of Black, White death counts.
+- key thing is if inverse HMD weights which are not based on race work.
+- real issue here is weights and their pros and cons. and what we can give evidence for about pros and cons.
+- Variables
+
+#### Case studies:
+
+Pick a subset that are the BEST.
+- Race x state (just black and white)
+- BPL x time of 1st application (proxy for time of arrival -- Mexicans and Fillipinos)
+- Something with own name and name of parents
+- [So what this means is that we want “race”, “bpl”, time of first application, anything we might have on citizenship (but that’s not crucial for the 1st data set production), and then we want all the name info there is]
+
+#### Coverage
+- state, not really for substance, but still good for coverage
+- first name, last name
+- could do an ancestry corrector. my guess is that last name doesn’t matter much. and neither does 1st name … but i don’t know.
+- Nicknames — as a proxy for social class. can distinguish blacks and whites. 
+- Yes, by country … super interesting but a lot of detail (e.g., when people came to the U.S. that is a bit hard to infer — but can use 1st date … this is kind of a paper in and of itself)
+- n_ss5 applications: maybe a proxy for carelessness losing cards, life instability 
+- daylight savings time …?
+No — too hard a topic … but not bad for another paper 
+- ZIP code (say by income or house value or average educ): one illustrative example, e.g., Manhattan or NYC or Ohio
+- Choose a case study that data is available for (like from NCHS) to validate our approach   (daylight savings time?); (state?)
+- Choose case studies that can’t be done with other data … (race x daylight savings time?)(BPL !!!)(anything involving names) (anything involving exact date of birth).
+- Influenza?????
+
+
+- Weighting and HMD comparison  (casey can do this with Josh’s old code -- but it does need to be adapted, because I was using pre-tabled data from HMD, and if you use numideath, you have to table it yourself into a Dx vector with ages of death as names(Dx) for the functions to work) (also find an example where weighting makes a difference) 
+- Truncated gompertz vs regression (but this can be in one of the case studies)
+- Case studies: all on age at death
+- Race x state
+- Nicknames (use 1940 to get social class score of nicknames …?)
