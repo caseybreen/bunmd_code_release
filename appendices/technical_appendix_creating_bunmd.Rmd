@@ -59,7 +59,20 @@ We took the following steps to clean each file:
   \label{fig:tp}
 \end{figure}
 
-\newpage 
+\newpage
+
+## BUNMD
+
+The BUNMD file contains 28 variables and 49,459,293 records. Using death records not in the high-coverage subsamples of the BUNMD presents challenges. See the BUNMD Codebook for variable descriptions, value labels, and tabulations.
+
+## BUNMD Samples and Weights
+
+|     We create two high death coverage samples from the BUNMD. Sample 1 contains individuals with high coverage: the cohorts of 1900-1940 dying between 1988 and 2005. Sample 2 contains cohorts for 1900-1940 dying between 1988 and 2005 with a valid value for sex, race, and birthplace. We two sets of  weights, one for each sample. We constructed a post-stratification weight to the Human Mortality Database (HMD) totals. We broke the sample into cells cross-classified by year of birth, year of death, age at death, and sex. We weighted each cell to the HMD "Deaths by Lexis triangles" total. 
+
+\begin{equation}
+  W_j = \frac{\text{HMD deaths in cell j}}{\text{Numident Sample 1 deaths in cell j}} 
+\end{equation}
+
 
 ## Combining Numident Entries into the BUNMD File
 
@@ -115,17 +128,7 @@ Variable     | Source|
 |weight        |Constructed                                   |
 |cweight       |Constructed                                   |
 
-## BUNMD Samples and Weights
 
-|     To facilitate mortality research, we created two samples from the BUNMD. Sample 1 contains individuals with high coverage: the cohorts of 1900-1940 dying between 1988 and 2005. Sample 2 contains cohorts for 1900-1940 dying between 1988 and 2005 with a valid value for sex, race, and birthplace. We two sets of  weights, one for each sample. We constructed a post-stratification weight to the Human Mortality Database (HMD) totals. We broke the sample into cells cross-classified by year of birth, year of death, age at death, and sex. We weighted each cell to the HMD "Deaths by Lexis triangles" total. 
 
-\begin{equation}
-  W_j = \frac{\text{HMD deaths in cell j}}{\text{Numident Sample 1 deaths in cell j}} \qquad\text{for each age.at.death X cohort X sex X year.of.death cell
-        $n \rightarrow \infty$}
-\end{equation}
-
-## BUNMD
-
-The BUNMD file contains 28 variables and 49,459,293 records. Using death records not in the high-coverage subsamples of the BUNMD presents challenges. See the BUNMD Codebook for variable descriptions, value labels, and tabulations.
 
 

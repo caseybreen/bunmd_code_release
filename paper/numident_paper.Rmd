@@ -270,7 +270,7 @@ Figure 5 shows life expectancy at age 65 by ZIP Code in Ohio for pooled cohorts 
 
 #### Gompertz Mortality
 
-The BUNMD can also be used to look at race differentials in mortality by state. In Figure 7, we compare how estimates of life expectancy at age 65 for Whites and Blacks change over time for the cohorts of 1900 to 1920 in the state of Alabama.
+The BUNMD can also be used to look at race differentials in mortality by state. In Figure 7, we compare how estimates of life expectancy at age 65 for Whites and Blacks change over time for the cohorts of 1900 to 1920 in the state of Alabama using a Gompertz model. The size of the BUNMD allows researchers to identify  heterogeneity and identify patterns of mortality obscured by composite population patterns [@vaupel_heterogeneitys_1985].   
 
 
 \begin{figure}
@@ -282,7 +282,7 @@ The BUNMD can also be used to look at race differentials in mortality by state. 
 
 ### Conclusion 
 
-The NARA Numident release has created a new administrative data resource for researchers studying mortality. We introduce the BUNMD, a cleaned and harmonized version of the NARA Numident records with over 49-million deaths. We provide an overview of statistical methods for estimating mortality using this deaths-only dataset. The high spatial resolution and demographic covariates open up new avenues for research, and the open-access nature of the data ensures that research is reproducible and extendable. 
+The NARA Numident release has created a new administrative data resource for researchers studying mortality. We introduce the BUNMD, a cleaned and harmonized version of the NARA Numident records with over 49-million deaths. We provide an overview of statistical methods for estimating mortality using this deaths-only dataset. The high spatial resolution and demographic covariates open up new avenues for high-resolution mortality research, and the open-access nature of the data ensures that research is reproducible and extendable. 
 
 ## Public distribution, acknowledgement, conditions
 
