@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  15 FEB 2020 09:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  15 FEB 2020 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -860,120 +860,120 @@ Package pdftex.def Info: ../illustrations/numident_flowchart.png  used on input
 File: ../illustrations/death_coverage_bunmd.png Graphic file (type png)
 <use ../illustrations/death_coverage_bunmd.png>
 Package pdftex.def Info: ../illustrations/death_coverage_bunmd.png  used on inp
-ut line 426.
+ut line 427.
 (pdftex.def)             Requested size: 361.35394pt x 253.1452pt.
 <../illustrations/lexis_combine_plot.png, id=63, 1058.45438pt x 581.17125pt>
 File: ../illustrations/lexis_combine_plot.png Graphic file (type png)
 <use ../illustrations/lexis_combine_plot.png>
 Package pdftex.def Info: ../illustrations/lexis_combine_plot.png  used on input
- line 432.
+ line 433.
 (pdftex.def)             Requested size: 505.88814pt x 277.77072pt.
 
-Overfull \hbox (36.13312pt too wide) in paragraph at lines 432--433
+Overfull \hbox (36.13312pt too wide) in paragraph at lines 433--434
  [][] 
  []
 
 [7 <../illustrations/numident_flowchart.png>] [8 <../illustrations/death_covera
 ge_bunmd.png> <../illustrations/lexis_combine_plot.png>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 462.
+(Font)              <12> on input line 463.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 462.
+(Font)              <8> on input line 463.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 462.
+(Font)              <6> on input line 463.
 [9] [10]
-<../illustrations/micro_geography_cleveland.png, id=108, 910.90312pt x 605.2612
+<../illustrations/micro_geography_cleveland.png, id=105, 910.90312pt x 605.2612
 5pt>
 File: ../illustrations/micro_geography_cleveland.png Graphic file (type png)
 <use ../illustrations/micro_geography_cleveland.png>
 Package pdftex.def Info: ../illustrations/micro_geography_cleveland.png  used o
-n input line 557.
+n input line 558.
 (pdftex.def)             Requested size: 433.62863pt x 288.13008pt.
-<../illustrations/alabama_gompertz.png, id=109, 694.84593pt x 407.27156pt>
+[11 <../illustrations/micro_geography_cleveland.png (PNG copy)>]
+<../illustrations/alabama_gompertz.png, id=115, 694.84593pt x 407.27156pt>
 File: ../illustrations/alabama_gompertz.png Graphic file (type png)
 <use ../illustrations/alabama_gompertz.png>
 Package pdftex.def Info: ../illustrations/alabama_gompertz.png  used on input l
-ine 573.
+ine 574.
 (pdftex.def)             Requested size: 505.8868pt x 296.51653pt.
 
-Overfull \hbox (36.13177pt too wide) in paragraph at lines 573--574
+Overfull \hbox (36.13177pt too wide) in paragraph at lines 574--575
  [][] 
  []
 
-[11 <../illustrations/micro_geography_cleveland.png (PNG copy)>] [12 <../illust
-rations/alabama_gompertz.png (PNG copy)>] [13] [14]
-<../illustrations/bunmd_coverage.png, id=165, 2559.5625pt x 3312.375pt>
+[12 <../illustrations/alabama_gompertz.png (PNG copy)>] [13] [14] [15]
+<../illustrations/bunmd_coverage.png, id=169, 2559.5625pt x 3312.375pt>
 File: ../illustrations/bunmd_coverage.png Graphic file (type png)
 <use ../illustrations/bunmd_coverage.png>
 Package pdftex.def Info: ../illustrations/bunmd_coverage.png  used on input lin
-e 693.
+e 694.
 (pdftex.def)             Requested size: 502.60817pt x 650.43411pt.
 
-Overfull \hbox (32.85315pt too wide) in paragraph at lines 693--694
+Overfull \hbox (32.85315pt too wide) in paragraph at lines 694--695
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 24.50409pt on input line 695.
+LaTeX Warning: Float too large for page by 24.50409pt on input line 696.
 
-<../illustrations/death_coverage.png, id=166, 2559.5625pt x 3312.375pt>
+<../illustrations/death_coverage.png, id=170, 2559.5625pt x 3312.375pt>
 File: ../illustrations/death_coverage.png Graphic file (type png)
 <use ../illustrations/death_coverage.png>
 Package pdftex.def Info: ../illustrations/death_coverage.png  used on input lin
-e 699.
+e 700.
 (pdftex.def)             Requested size: 502.60817pt x 650.43411pt.
 
-Overfull \hbox (32.85315pt too wide) in paragraph at lines 699--700
+Overfull \hbox (32.85315pt too wide) in paragraph at lines 700--701
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 24.50409pt on input line 701.
+LaTeX Warning: Float too large for page by 24.50409pt on input line 702.
 
-<../illustrations/application_coverage.png, id=167, 2559.5625pt x 3312.375pt>
+<../illustrations/application_coverage.png, id=171, 2559.5625pt x 3312.375pt>
 File: ../illustrations/application_coverage.png Graphic file (type png)
 <use ../illustrations/application_coverage.png>
 Package pdftex.def Info: ../illustrations/application_coverage.png  used on inp
-ut line 705.
+ut line 706.
 (pdftex.def)             Requested size: 502.60817pt x 650.43411pt.
 
-Overfull \hbox (32.85315pt too wide) in paragraph at lines 705--706
+Overfull \hbox (32.85315pt too wide) in paragraph at lines 706--707
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 24.50409pt on input line 707.
+LaTeX Warning: Float too large for page by 24.50409pt on input line 708.
 
-<../illustrations/claim_coverage.png, id=168, 2559.5625pt x 3312.375pt>
+<../illustrations/claim_coverage.png, id=172, 2559.5625pt x 3312.375pt>
 File: ../illustrations/claim_coverage.png Graphic file (type png)
 <use ../illustrations/claim_coverage.png>
 Package pdftex.def Info: ../illustrations/claim_coverage.png  used on input lin
-e 711.
+e 712.
 (pdftex.def)             Requested size: 502.60817pt x 650.43411pt.
 
-Overfull \hbox (32.85315pt too wide) in paragraph at lines 711--712
+Overfull \hbox (32.85315pt too wide) in paragraph at lines 712--713
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 24.50409pt on input line 713.
+LaTeX Warning: Float too large for page by 24.50409pt on input line 714.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 715.
-[15 <../illustrations/bunmd_coverage.png>] [16 <../illustrations/death_coverage
-.png>] [17 <../illustrations/application_coverage.png>] [18 <../illustrations/c
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 716.
+[16 <../illustrations/bunmd_coverage.png>] [17 <../illustrations/death_coverage
+.png>] [18 <../illustrations/application_coverage.png>] [19 <../illustrations/c
 laim_coverage.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 715.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 716.
 (./numident_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 715.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 715.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 715.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 716.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 716.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 716.
  ) 
 Here is how much of TeX's memory you used:
- 15590 strings out of 492649
- 234411 string characters out of 6129622
- 350944 words of memory out of 5000000
- 19027 multiletter control sequences out of 15000+600000
- 82167 words of font info for 123 fonts, out of 8000000 for 9000
+ 15592 strings out of 492649
+ 234416 string characters out of 6129622
+ 350945 words of memory out of 5000000
+ 19030 multiletter control sequences out of 15000+600000
+ 82076 words of font info for 122 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,11n,77p,908b,432s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
@@ -991,10 +991,10 @@ ic/lm/lmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr17
 .pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/l
 ocal/texlive/2018/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texli
 ve/2018/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on numident_paper.pdf (18 pages, 1803161 bytes).
+Output written on numident_paper.pdf (19 pages, 1803757 bytes).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
- 238 compressed objects within 3 object streams
- 90 named destinations out of 1000 (max. 500000)
- 16515 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 304 PDF objects out of 1000 (max. 8388607)
+ 252 compressed objects within 3 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 16539 words of extra memory for PDF output out of 17280 (max. 10000000)
 

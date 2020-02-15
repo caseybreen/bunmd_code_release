@@ -168,7 +168,7 @@ The BUNMD condenses the NARA Numident records into a single file with one record
 
 ## Numident Coverage
 
-The NARA Numident records are a subset of the complete Numident. One challenge of working with the NARA Numident records is that the Social Security Administration's process for selecting the records to transfer to NARA for their public release is not well-defined. The NARA documentation states that the first transfer of records contained: "individuals with a verified death between 1936 and 2007 or who would have been over 110 years old by December 31, 2007" [@record_group_47_numerical_2019]. This alone, however, does not clarify the patterns of death coverage in the NARA Numident. Figure 3 compares the total number of deaths for persons age 65+ in the BUNMD to the Human Mortality Database (HMD). Death Coverage is nearly complete between 1988 and 2005. Figure 4 shows the coverage visualized on an age-period Lexis surface, an established demographic visualization technique [@scholey_visualizing_2017]. Each cell represents death coverage, measured as the proportion of total deaths in the HMD captured in the BUNMD. 
+The NARA Numident records are a subset of the complete Numident. One challenge of working with the NARA Numident records is that the Social Security Administration's process for selecting the records to transfer to NARA for their public release is not well-defined. The NARA documentation states that the first transfer of records contained: "individuals with a verified death between 1936 and 2007 or who would have been over 110 years old by December 31, 2007" [@record_group_47_numerical_2019]. This alone, however, does not clarify the patterns of death coverage in the NARA Numident. Figure 3 compares the total number of deaths for persons age 65+ in the BUNMD to the Human Mortality Database (HMD). Death Coverage is nearly complete between 1988 and 2005. Figure 4 shows the coverage visualized on an age-period Lexis surface, an established demographic visualization technique [@scholey_visualizing_2017]. Each cell represents death coverage, measured as the ratio of the total count of deaths in the BUNMD to the total count of deaths in HMD for a given age and year.   
 
 We create two BUNMD samples with high death coverage. Sample 1 includes deaths to persons age 65+, occurring between 1988 to 2005, from the birth cohorts of 1900 to 1940. Sample 2 is the subset of Sample 1 records with complete information on sex, birthplace, and race. For each sample, we constructed inverse probability weights to the Human Mortality database on age at death, year of birth, year of death, and sex.  
 
@@ -189,9 +189,9 @@ We create two BUNMD samples with high death coverage. Sample 1 includes deaths t
 
 The BUNMD file includes only individuals who have died. For extinct cohorts (in which all members have died), it is possible to use classical methods of “extinct generations” to calculate mortality rates. These methods are appropriate for the cohorts born before 1900, for which only a few survivors to age 105 will die after 2005. For later cohorts, however, we have developed several different methods, which can be chosen based on suitability for the research question of interest.
 
-The first method is to fit parametric survival models (Gompertz and Makeham), using maximum likelihood for doubly-truncated cohorts. The second method is to use ordinary regression, inflating the observed coefficients in order to account for truncation. Finally, we introduce the cox regression method. 
+The first method is to fit parametric survival models (Gompertz and Makeham), using maximum likelihood for doubly-truncated cohorts. The second method is to use ordinary regression, inflating the observed coefficients in order to account for truncation. Finally, we introduce the Cox regression method. 
 
-#### Method 1: Parametric survival models
+### Method 1: Parametric survival models
 
 Human mortality has a characteristic pattern in older ages. To a first approximation — first noticed by Benjamin Gompertz — mortality hazards rise exponentially with age. 
 
@@ -214,7 +214,7 @@ L = \prod (     f_i(\theta)   /   (   F_R(\theta) - F_L(\theta)   )    )
 
 The estimates of the vector $\theta$ of parameters can be obtained by maximizing the likelihood, or, equivalently, the log-likelihood. 
 
-#### Method 2: Ordinary Least Squares Regression
+### Method 2: Ordinary Least Squares Regression
 
 Regression on age at death is an easy and effective way to analyze the Numident mortality data. Regression coefficients tell the effect of covariates on the mean age at death. Because left and right truncation ages vary by cohort, it is important to include fixed effect terms for each year of birth. Models of the form:
 
@@ -229,7 +229,7 @@ Truncation, however, will tend to bias downward the estimated effects of any cov
 
 Simulation tells us that the magnitudes of the regression coefficients need to be inflated by a factor of about 2 or 3 for many of the cohorts that are covered by the Numident files. The table below gives the inflation factors for each cohort, based on a simulation of a Gompertz distribution with M = xxx and b = xxx (the values found by fitting to the untruncated cohort of 1910 using HMD data). The interpretation of these numbers is that a regression coefficient of 0.5, say comparing Men and Women, found using the data from the cohort of 1910 (observed from 1988 to 2005) translates to a difference of life expectancy at age 65 of 0.5 x 2.3 = 1.15 years.
 
-#### Method 3: Cox regression for extinct cohorts
+### Method 3: Cox regression for extinct cohorts
 
 For cohorts that are extinct (or very nearly so), Cox regression provides a convenient method. Cohorts born in 1900 or earlier are observed to age 105. Cox regression makes no distributional assumptions about the shape of mortality, but does assume proportional effects on the hazards. (@wachter_essential_2014).
 
