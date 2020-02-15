@@ -45,7 +45,7 @@ The Numerical Identification System (Numident) forms the backbone of the U.S. So
 
 The NARA Numident is micro-level dataset with over 49 million death records. It includes information on race, sex, birthplace, ZIP Code of residence at the time of death, and administrative variables, such as a person's age when they submitted their first Social Security application and their total number of Social Security applications. There are no direct measures of socioeconomic status in the NARA Numident. To overcome this, the records can be linked at the individual level to other data sources, either by Social Security number or a combination of other key identifiers, to obtain income and education covariates [@goldstein_censoc_2019]. The death coverage is nearly complete for deaths to persons age 65+ for the window of 1988-2005. The large size of the NARA Numident will open up new avenues for research into smaller population subgroups and disparities later in the life-course, when cohorts are a fraction of their original size. 
 
-The NARA Numident records do present some challenges for mortality estimation. As the mortality records only include deaths, there is no measure of survivorship. As mortality rates must be estimated without denominators, traditional statistical methods relying on exposure to risk are not appropriate. Additionally, the observed deaths are left and right truncated, which makes calculating unbiased estimates of mortality difficult. We introduce appropriate methods for estimating mortality with truncated data in the absence of accurate exposure to risk measures. 
+There are several specific considerations for using the NARA Numident records for mortality estimation. As the mortality records only include deaths, there is no measure of survivorship. Mortality rates must be estimated without denominators, so traditional statistical methods relying on exposure to risk are not appropriate. Additionally, the observed deaths are left and right truncated, which makes calculating unbiased estimates of mortality difficult. We introduce appropriate methods for estimating mortality with truncated data in the absence of accurate exposure to risk measures. 
 
 While administrative mortality datasets have been used by a small set of researchers who have been able to work with government employees inside restricted computing environments [@chetty_association_2016; @mehta_life_2016], the NARA Numident data is openly accessible to all researchers. Our hope is that the public availability of this data will encourage more mortality research using administrative records, enhance the replicability and debate about results, and open up new avenues of research. To facilitate mortality research with the NARA Numident records, we have created a cleaned and harmonized version of the Numident records with enhanced documentation: the Berkeley Unified Numident Mortality Database (BUNMD). 
 
@@ -59,9 +59,8 @@ The NARA Numident records contain three types of entries: applications, claims, 
 
 \begin{figure}
   \centering
-  \includegraphics[width=7in]{/Users/casey/Documents/censoc/numident_paper/illustrations/entries_per_ssn.png}
+  \includegraphics[width=7in]{../illustrations/entries_per_ssn.png}
   \caption{Number of entries per person for the Numident Application and Claims files.}
-  \label{fig:tp}
 \end{figure}
 
 \newpage
@@ -159,20 +158,17 @@ We introduce a cleaned and harmonized version of the NARA Numident records: the 
 |:------------|:--------|--------:|---------:|--------:|
 |NA           |TURNER  |   1.047614|        74| 1.105444|
 
-
-
-The BUNMD condenses the NARA Numident records into a single file with one record per person. The original NARA Numident release contained 49,459,293 death records entries, 72,120,516 applications entries for 40,870,455 unique persons, and 25,228,257 claims entries for 25,140,847 unique persons. To construct the BUNMD, we first identify the most important variables in the NARA Numident. We then identified every person with a death record. We then merged on three variables from the application and claims entries: birthplace, race, and sex (if not available in the death records). We used a set of decision rules to reconcile discrepant values across entries (see technical appendix for more details). Finally, we construct variables reporting (1) total number of applications, (2) total number of claims, (3) age at first Social Security application, (4) state in which the Social Security number was issued. Figure 2 shows the process for constructing the BUNMD. In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request.
+The BUNMD condenses the NARA Numident records into a single file with one record per person. The original NARA release contained 49,459,293 death records entries, 72,120,516 applications entries for 40,870,455 unique persons, and 25,228,257 claims entries for 25,140,847 unique persons. To construct the BUNMD, we first selected key variables from the death records. For each record with a death entry, we added additional covariates from the application and claims entries. For individuals with multiple application or claims entries, we used a set of decision rules to reconcile discrepant values across entries (see technical appendix for more details). Finally, we constructed variables reporting (1) total number of applications, (2) total number of claims, (3) age at first Social Security application, (4) state in which the Social Security number was issued. Figure 2 shows the process for constructing the BUNMD. In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request.
 
 \begin{figure}
   \centering
   \includegraphics[width=5in]{../illustrations/numident_flowchart}
   \caption{Berkeley Unified Numident Mortality Database creation flowchart. }
-  \label{fig:tp}
 \end{figure}
 
 ## Numident Coverage
 
-The NARA Numident records are a subset of the complete Numident. One challenge of working with the NARA Numident records is that the Social Security Administration's process for selecting the records to transfer to NARA for their public release is not well-defined. The NARA documentation states that the first transfer of records contained: "individuals with a verified death between 1936 and 2007 or who would have been over 110 years old by December 31, 2007" [@record_group_47_numerical_2019]. This alone, however, does not clarify the patterns of death coverage in the NARA Numident. Figure 3 compares the total number of deaths for persons age 65+ in the BUNMD to the Human Mortality Database (HMD). Death Coverage is nearly complete between 1988 and 2005. Figure 4 shows the coverage visualized on an age-period Lexis surface, an established demographic visualization technique [@scholey_visualizing_2017]. Each Age x Year cell represents death coverage, measured as the proportion of total deaths in the HMD captured in the BUNMD. 
+The NARA Numident records are a subset of the complete Numident. One challenge of working with the NARA Numident records is that the Social Security Administration's process for selecting the records to transfer to NARA for their public release is not well-defined. The NARA documentation states that the first transfer of records contained: "individuals with a verified death between 1936 and 2007 or who would have been over 110 years old by December 31, 2007" [@record_group_47_numerical_2019]. This alone, however, does not clarify the patterns of death coverage in the NARA Numident. Figure 3 compares the total number of deaths for persons age 65+ in the BUNMD to the Human Mortality Database (HMD). Death Coverage is nearly complete between 1988 and 2005. Figure 4 shows the coverage visualized on an age-period Lexis surface, an established demographic visualization technique [@scholey_visualizing_2017]. Each cell represents death coverage, measured as the proportion of total deaths in the HMD captured in the BUNMD. 
 
 We create two BUNMD samples with high death coverage. Sample 1 includes deaths to persons age 65+, occurring between 1988 to 2005, from the birth cohorts of 1900 to 1940. Sample 2 is the subset of Sample 1 records with complete information on sex, birthplace, and race. For each sample, we constructed inverse probability weights to the Human Mortality database on age at death, year of birth, year of death, and sex.  
 
@@ -180,14 +176,12 @@ We create two BUNMD samples with high death coverage. Sample 1 includes deaths t
   \centering
   \includegraphics[width=5in]{../illustrations/death_coverage_bunmd.png}
   \caption{BUNMD Death Coverage for persons 65+}
-  \label{fig:tp}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=7in]{../illustrations/lexis_combine_plot.png}
   \caption{Lexis diagrams of BUNMD death coverage. The left panel shows the BUNMD death coverage for 1940 to 2010. The right panel zooms in on age-period area where coverage is highest. }
-  \label{fig:tp}
 \end{figure}
 
 
@@ -231,23 +225,22 @@ Regression on age at death is an easy and effective way to analyze the Numident 
 
 provide estimates of the effect of the covariates on the age of death in the sample, controlling for birth cohort truncation effects.
 
-Truncation, however, will tend to bias downward the estimated effects of any covariates. (CITE). Truncation excludes the tails of the distribution, thus reducing the average difference between groups. The idea is that the average differences between groups will be measured to be much smaller if we exclude the tails of the distribution.
+Truncation, however, will tend to bias downward the estimated effects of any covariates [@greene_censored_2005]. Truncation excludes the tails of the distribution, thus reducing the average difference between groups. The idea is that the average differences between groups will be measured to be much smaller if we exclude the tails of the distribution.
 
 Simulation tells us that the magnitudes of the regression coefficients need to be inflated by a factor of about 2 or 3 for many of the cohorts that are covered by the Numident files. The table below gives the inflation factors for each cohort, based on a simulation of a Gompertz distribution with M = xxx and b = xxx (the values found by fitting to the untruncated cohort of 1910 using HMD data). The interpretation of these numbers is that a regression coefficient of 0.5, say comparing Men and Women, found using the data from the cohort of 1910 (observed from 1988 to 2005) translates to a difference of life expectancy at age 65 of 0.5 x 2.3 = 1.15 years.
 
 #### Method 3: Cox regression for extinct cohorts
 
-For cohorts that are extinct (or very nearly so), Cox regression provides a convenient method. Cohorts born in 1900 or earlier are observed to age 105. Cox regression makes no distributional assumptions about the shape of mortality, but does assume proportional effects on the hazards. (cite).
+For cohorts that are extinct (or very nearly so), Cox regression provides a convenient method. Cohorts born in 1900 or earlier are observed to age 105. Cox regression makes no distributional assumptions about the shape of mortality, but does assume proportional effects on the hazards. (@wachter_essential_2014).
 
 
 ### Case Studies
 
-#### Geography
+### Geography
 
 There are several geography variables in the BUNMD. The Social Security application entries include information on birthplace. For persons born in the United States, the geographic resolution is state-level, and for persons born outside of the United States, the geographic resolution is country-level. The Numident death entries contains the 9-digit ZIP Code of residence at the time of death for a portion of records. ZIP Codes, while not the most robust geographic unit of analysis, can offer insights into a variety of spatial questions [@grubesic_use_2006]. 
 
-Figure 5 shows life expectancy at age 65 by ZIP Code in Ohio's Cayuga County, whose largest city is Cleveland, for the birth cohort of 1900. Life expectancy is lower in inner-city Cleveland, and higher in its surrounding suburbs. These old-age mortality disparities — well-documented in the United States — are likely driven by racial segregation.
-
+Figure 5 shows life expectancy at age 65 for the birth cohort of 1900 in Ohio's Cuyahoga County by ZIP Code. Life expectancy is lower in inner-city Cleveland, and higher in its surrounding suburbs. These old-age mortality disparities are likely driven by racial segregation.
 
 <!-- \begin{figure} -->
 <!--   \centering -->
@@ -261,25 +254,25 @@ Figure 5 shows life expectancy at age 65 by ZIP Code in Ohio's Cayuga County, wh
   \centering
   \includegraphics[width=6in]{../illustrations/micro_geography_cleveland.png}
   \caption{Life expectancy at age 65 in Cuyahoga County for the birth cohort of 1900.}
-  \label{fig:tp}
 \end{figure}
 
 
-#### Gompertz Mortality
+### Gompertz Mortality
 
-The BUNMD can also be used to look at race differentials in mortality by state. In Figure 7, we compare how estimates of life expectancy at age 65 for Whites and Blacks change over time for the cohorts of 1900 to 1920 in the state of Alabama using a Gompertz model. The size of the BUNMD allows researchers to identify  heterogeneity and identify patterns of mortality obscured by composite population patterns [@vaupel_heterogeneitys_1985].   
+
+The BUNMD can also be used to look at race differentials in mortality by state. In Figure 7, we compare estimates of life expectancy at age 65 for Whites and Blacks over time for the cohorts of 1900 to 1920 in the state of Alabama using a Gompertz model. The size of the BUNMD allows researchers to identify heterogeneity and identify patterns of mortality obscured by composite population patterns [@vaupel_heterogeneitys_1985].   
 
 
 \begin{figure}
   \centering
   \includegraphics[width=7in]{../illustrations/alabama_gompertz.png}
   \caption{Gompertz E65 estimates for Alabama for Whites and Blacks. }
-  \label{fig:tp}
 \end{figure}
 
 ### Conclusion 
 
 The NARA Numident release has created a new administrative data resource for researchers studying mortality. We introduce the BUNMD, a cleaned and harmonized version of the NARA Numident records with over 49-million deaths. We provide an overview of statistical methods for estimating mortality using this deaths-only dataset. The high spatial resolution and demographic covariates open up new avenues for high-resolution mortality research, and the open-access nature of the data ensures that research is reproducible and extendable. 
+
 
 ## Public distribution, acknowledgement, conditions
 
@@ -299,27 +292,23 @@ The original SS-5 Files are available for download at __________?
   \centering
   \includegraphics[width = 7in]{../illustrations/bunmd_coverage.png}
   \caption*{}
-  \label{fig:tp}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width = 7in]{../illustrations/death_coverage.png}
   \caption*{}
-  \label{fig:tp}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width = 7in]{../illustrations/application_coverage.png}
   \caption*{}
-  \label{fig:tp}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=7in]{../illustrations/claim_coverage.png}
   \caption*{}
-  \label{fig:tp}
 \end{figure}
 
