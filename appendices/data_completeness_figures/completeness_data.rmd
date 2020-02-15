@@ -17,8 +17,8 @@ Read in a .csv with three variables:
 ```{r}
 coverage <- read_csv("percent_na_coverage.csv") %>% 
   mutate(all.missing = case_when(
-    value <= 0.01 ~ "yes",
-    value > 0.01 ~ "no"
+    value < 0.01 ~ "< 1% Completeness",
+    value >= 0.01 ~ ">= 1% Completeness"
   ))
 ```
 
@@ -27,7 +27,7 @@ death_completeness <- coverage %>%
   filter(numident_file == "deaths") %>% 
   filter(!str_detect(name, "FILLER")) %>% 
 ggplot() + 
-  geom_point(aes(x = reorder(name, value), y = value, shape = all.missing), size = 3, show.legend = FALSE) + 
+  geom_point(aes(x = reorder(name, value), y = value, shape = all.missing), size = 3, show.legend = TRUE) + 
   geom_segment( aes(x = name, xend = name, y=0, yend=value), color="black") +
   theme_classic() +
   geom_segment(aes(
@@ -40,10 +40,12 @@ ggplot() +
   size = 0.1
   ) + # Draw dashed lines
   coord_flip() + 
-  scale_shape_manual(values = c(16, 1)) +
+  scale_shape_manual(values = c(1, 16)) +
   labs(title = "Numident Death Files Variable Completeness",
        x = "Variable",
-       y = "Completeness %")
+       y = "Completeness %",
+       shape = " ") + 
+  theme(legend.position = "bottom", legend.text=element_text(size=12))
 
 ggsave(plot = death_completeness, filename = "/Users/casey/Documents/censoc/numident_paper/illustrations/death_coverage.png", height = 11, width = 8.5)
 ```
@@ -54,7 +56,7 @@ app_completeness <- coverage %>%
   filter(!str_detect(name, "FILLER")) %>% 
   #filter(value > 0) %>% 
 ggplot() + 
-  geom_point(aes(x = reorder(name, value), y = value, shape = all.missing), size = 3, show.legend = FALSE) + 
+  geom_point(aes(x = reorder(name, value), y = value, shape = all.missing), size = 3) + 
   geom_segment( aes(x = name, xend = name, y=0, yend=value), color="black") +
   theme_classic() +
   geom_segment(aes(
@@ -67,10 +69,12 @@ ggplot() +
   size = 0.1
   ) + # Draw dashed lines
   coord_flip() + 
-  scale_shape_manual(values = c(16, 1)) +
+  scale_shape_manual(values = c(1, 16)) +
   labs(title = "Numident Application Files Variable Completeness",
        x = "Variable",
-       y = "Completeness %") +
+       y = "Completeness %",
+       shape = " ") + 
+  theme(legend.position = "bottom", legend.text=element_text(size=12)) +
   ylim(0, 100)
 
 ggsave(plot = app_completeness, filename = "/Users/casey/Documents/censoc/numident_paper/illustrations/application_coverage.png", height = 11, width = 8.5)
@@ -82,7 +86,7 @@ claim_coverage <- coverage %>%
   filter(!str_detect(name, "FILLER")) %>% 
  # filter(value > 1) %>% 
 ggplot() + 
-  geom_point(aes(x = reorder(name, value), y = value, shape = all.missing), size = 3, show.legend = FALSE) + 
+  geom_point(aes(x = reorder(name, value), y = value, shape = all.missing), size = 3) + 
   geom_segment( aes(x = name, xend = name, y=0, yend=value), color="black") +
   theme_classic() +
   geom_segment(aes(
@@ -95,11 +99,12 @@ ggplot() +
   size = 0.1
   ) + # Draw dashed lines
   coord_flip() + 
-  scale_shape_manual(values = c(16, 1)) +
+  scale_shape_manual(values = c(1, 16)) +
   labs(title = "Numident Claim Files Variable Completeness",
        x = "Variable",
-       y = "Completeness %") + 
-  guides(fill=FALSE)
+       y = "Completeness %",
+       shape = " ") + 
+  theme(legend.position = "bottom", legend.text=element_text(size=12))
 
 ggsave(plot = claim_coverage, filename = "/Users/casey/Documents/censoc/numident_paper/illustrations/claim_coverage.png", height = 11, width = 8.5)
 ```
@@ -126,7 +131,9 @@ ggplot() +
   scale_shape_manual(values = c(16, 1)) +
   labs(title = "Berkeley Unified Numident Mortality Database (BUNMD) Completeness",
        x = "Variable",
-       y = "Completeness %") + 
+       y = "Completeness %",
+       shape = " ") + 
+  theme(legend.position = "bottom")
   ylim(0, 100)
 
 
