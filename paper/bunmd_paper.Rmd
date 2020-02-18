@@ -33,6 +33,12 @@ fontsize: 12pt
 header-includes:
   \usepackage{subfig}
   \usepackage{adjustbox}
+  \usepackage{pdflscape}
+  \usepackage{float}
+  \usepackage{booktabs}
+  \newcommand{\blandscape}{\begin{landscape}}
+  \newcommand{\elandscape}{\end{landscape}}
+  \setlength\intextsep{2.5mm}
 nocite: '@*'
 ---
 
@@ -68,95 +74,137 @@ The NARA Numident records contain three types of entries: applications, claims, 
 
 To illustrate the structure and content of the NARA Numident records, we show the released records for the actress Lana Turner, who died in 1995, and for the Supreme Court Justice Thurgood Marshall, who died in 1993. For Thurgood Marshall, we have one application and one death record: 
 
-**Application Record:**
-
-|ssn       |citizenship_code |cycle_date |entry_code |dob      | sex|
-|---------:|:----------------|:----------|:----------|:--------|---:|
-| 131074264|                 |193712XX   |0          |07021908 |   1|
 
 
-| race|pob_state_country | year_cycle| month_cycle|pob_foreign_ind |
-|----:|:-----------------|----------:|-----------:|:---------------|
-|    2|MD                |       1937|          12|                |
+\blandscape
+\setlength\intextsep{2.5mm}
+## Thurgood Marshall 
 
-|fname    |mname |lname    |mother_fname |mother_mname |mother_lname |
-|:--------|:-----|:--------|:------------|:------------|:------------|
-|THURGOOD |      |MARSHALL |NORMA        |A            |WILLIAMS     |
+\vspace{-.3cm}
 
-|father_fname |father_mname |father_lname |
-|:------------|:------------|:------------|
-|WILLIAM      |C            |MARSHALL     | 
+**NARA Numident Record**
 
-**Death Record:**
+\vspace{-.1cm}
 
-|       ssn| sex|zip_residence |lname    |mname |fname    | byear|
-|---------:|---:|:-------------|:--------|:-----|:--------|-----:|
-| 131074264|   1|220411335     |MARSHALL |      |THURGOOD |  1908|
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllll}
+\toprule
+entry & ssn & cycle\_date & dob & sex & race & pob & fname & mname & lname & mother\_fname & mother\_lname & father\_fname & father\_lname\\
+\midrule
+application 1& 131074264 & 12/1937 & 07/02/1908 & 1 & 2 & MD & THURGOOD &  & MARSHALL & NORMA & WILLIAMS & WILLIAM & MARSHALL\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\vspace{-.35cm}
+
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllll}
+\toprule
+entry & ssn & sex & zip\_residence & lname & mname & fname & byear & dyear & socstate & bmonth & dmonth & bday & dday\\
+\midrule
+death & 131074264 & 1 & 220411335 & MARSHALL &  & THURGOOD & 1908 & 1993 & 36 & 7 & 1 & 2 & 24\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\vspace{-.35cm}
+
+**Berkeley Unified Numident Mortality Database (BUNMD) Record**
+
+\vspace{-.1cm}
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllllll}
+\toprule
+ssn & zip\_residence & lname & fname & byear & dyear & socstate & bmonth & dmonth & bday & dday & race & race\_change & sex & bpl & death\_age\\
+\midrule
+131074264 & 220411335 & MARSHALL & THURGOOD & 1908 & 1993 & 36 & 7 & 1 & 2 & 24 & 2 & 0 & 1 & 2400 & 84\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\vspace{-1cm}
 
 
-| dyear| socstate| bmonth| dmonth| bday| dday|
-|-----:|--------:|------:|------:|----:|----:|
-|  1993|       36|      7|      1|    2|   24|
+## Lana Turner
 
-Table 1: NARA Numident application and death record for Supreme Court Justice Thurgood Marshall. 
+\vspace{-.5cm}
+
+
+**NARA Numident Record**
+
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllll}
+\toprule
+entry & ssn & cycle\_date & dob & sex & race & pob & fname & mname & lname & mother\_fname & mother\_lname & father\_fname & father\_lname\\
+\midrule
+application 1 & 567183907 & 03/1937 & 02/08/1921 & 2 & 1 & ID & LANA &  & TURNER & MILDRED & COWAN & JOHN & TURNER\\
+application 2 & 567183907 & 07/1949 & 02/08/1921 & 2 & 1 & ID & LANA & TURNER & TOPPING & MILDRED & TURNER & JOHN & TURNER\\
+application 3 & 567183907 & 11/1956 & 02/08/1921 & 2 & 1 &  & LANA & TURNER & BARKER &  &  &  & \\
+application 4 & 567183907 & 09/1970 & 02/08/1921 & 2 & 0 & NA & LANA & TURNER & DANTE &  &  &  & \\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\vspace{-.35cm}
+
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllll}
+\toprule
+entry \ ssn & sex & zip\_residence & lname & mname & fname & byear & dyear & socstate & bmonth & dmonth & bday & dday\\
+\midrule
+death \ 567183907 & 2 & 900255240 & TURNER &  & LANA & 1921 & 1995 & 6 & 2 & 6 & 8 & 29\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\vspace{-.35cm}
+
+**Berkeley Unified Numident Mortality Database (BUNMD) Record**
+
+\begin{table}[H]
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{rlllrrrrrrrrrrrr}
+\toprule
+ssn & zip\_residence & lname & fname & byear & dyear & socstate & bmonth & dmonth & bday & dday & race & race\_change & sex & bpl & death\_age\\
+\midrule
+567183907 & 900255240 & TURNER & LANA & 1921 & 1995 & 6 & 2 & 6 & 8 & 29 & 1 & 0 & 2 & 1600 & 74\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\vspace{-.35cm}
+
+Table 1: A stylized example of how the NARA Numident records were combined to create the BUNMD. For this specific example, several variables were excluded (e.g. person's middle names, parent's names, etc.). 
+
+\elandscape
 
 \newpage 
 
 For Lana Turner we have four application records, likely corresponding to name changes each time she was married.
 
-**Application Record:**
-
-|       ssn|citizenship_code |cycle_date |entry_code |dob      | sex| race|pob_state_country |
-|---------:|:----------------|:----------|:----------|:--------|---:|----:|:-----------------|
-| 567183907|                 |193703XX   |0          |02081921 |   2|    1|ID                |
-| 567183907|                 |194907XX   |2          |02081921 |   2|    1|ID                |
-| 567183907|                 |195611XX   |2          |02081921 |   2|    1|                  |
-| 567183907|                 |197009XX   |2          |02081921 |   2|    0|UN                |
-
-|pob_foreign_ind |fname |mname  |lname   |mother_fname |mother_mname |mother_lname |
-|:---------------|:-----|:------|:-------|:------------|:------------|:------------|
-|                |LANA  |       |TURNER  |MILDRED      |F            |COWAN        |
-|                |LANA  |TURNER |TOPPING |MILDRED      |F            |TURNER       |
-|                |LANA  |TURNER |BARKER  |             |             |             |
-|                |LANA  |TURNER |DANTE   |             |             |             |
-
-|father_fname |father_mname |father_lname | year_cycle| month_cycle|
-|:------------|:------------|:------------|----------:|-----------:|
-|JOHN         |M            |TURNER       |       1937|           3|
-|JOHN         |V            |TURNER       |       1949|           7|
-|             |             |             |       1956|          11|
-|             |             |             |       1970|           9|
-
-
-**Death Record:** 
-
-|       ssn| sex|zip_residence |lname  |mname |fname | byear| dyear| socstate| bmonth|
-|---------:|---:|:-------------|:------|:-----|:-----|-----:|-----:|--------:|------:|
-| 567183907|   2|900255240     |TURNER |      |LANA  |  1921|  1995|        6|      2|
-
-| dmonth| bday| dday|
-|------:|----:|----:|
-|      6|    8|   29|
-
 Table 2: NARA Numident application and death record for actress Lana Turner. 
 
 \newpage
 
-
-
 We introduce a cleaned and harmonized version of the NARA Numident records: the Berkeley Unified Mortality Numident Database (BUNMD). This file condenses the Numident death, application, and claims records into a single file with one record per person. This file is available for download at ___ . The file includes about 49 million records, 28 variables, and is about 5.7 Gb in size. For Lana Turner, the BUNMD data record is:
-
-|ssn       |zip_residence|lname|mname |fname | byear| dyear| socstate| bmonth| dmonth|
-|---------:|:------------|:----|:-----|:-----|-----:|-----:|--------:|------:|------:|
-| 567183907|900255240    |TURNER|     |LANA  |  1921|  1995|      600|      2|      6|
-
-| bday| dday| number_apps| race| race_change| number_claims| sex|bpl  |father_fname     |
-|----:|----:|-----------:|----:|-----------:|-------------:|---:|:--- |:----------------|
-|    8|   29|           4|    1|           0|             0|   2| 1600|JOHN               |
-
-|father_mname |father_lname |   weight| death_age|  cweight|
-|:------------|:--------|--------:|---------:|--------:|
-|NA           |TURNER  |   1.047614|        74| 1.105444|
 
 The BUNMD condenses the NARA Numident records into a single file with one record per person. The original NARA release contained 49,459,293 death records entries, 72,120,516 applications entries for 40,870,455 unique persons, and 25,228,257 claims entries for 25,140,847 unique persons. To construct the BUNMD, we first selected key variables from the death records. For each record with a death entry, we added additional covariates from the application and claims entries. For individuals with multiple application or claims entries, we used a set of decision rules to reconcile discrepant values across entries (see technical appendix for more details). Finally, we constructed variables reporting (1) total number of applications, (2) total number of claims, (3) age at first Social Security application, (4) state in which the Social Security number was issued. Figure 2 shows the process for constructing the BUNMD. In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request.
 

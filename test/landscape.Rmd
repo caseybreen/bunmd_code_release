@@ -1,0 +1,116 @@
+---
+title: "Formatted tables"
+output:
+  pdf_document: default
+  html_notebook: default
+header-includes:
+- \usepackage{pdflscape}
+- \usepackage{float}
+- \usepackage{booktabs}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
+- \setlength\intextsep{2.5mm}
+---
+
+
+\blandscape
+## Thurgood Marshall 
+
+**Numident Record**
+
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+- \setlength\intextsep{2.5mm}
+
+
+\begin{tabular}{llllllllllllll}
+\toprule
+entry & ssn & cycle\_date & dob & sex & race & pob & fname & mname & lname & mother\_fname & mother\_lname & father\_fname & father\_lname\\
+\midrule
+application 1& 131074264 & 12/1937 & 07/02/1908 & 1 & 2 & MD & THURGOOD &  & MARSHALL & NORMA & WILLIAMS & WILLIAM & MARSHALL\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllll}
+\toprule
+entry & ssn & sex & zip\_residence & lname & mname & fname & byear & dyear & socstate & bmonth & dmonth & bday & dday\\
+\midrule
+death & 131074264 & 1 & 220411335 & MARSHALL &  & THURGOOD & 1908 & 1993 & 36 & 7 & 1 & 2 & 24\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+**Berkeley Unified Numident Mortality Database (BUNMD) Record**
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllllll}
+\toprule
+ssn & zip\_residence & lname & fname & byear & dyear & socstate & bmonth & dmonth & bday & dday & race & race\_change & sex & bpl & death\_age\\
+\midrule
+131074264 & 220411335 & MARSHALL & THURGOOD & 1908 & 1993 & 36 & 7 & 1 & 2 & 24 & 2 & 0 & 1 & 2400 & 84\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+
+## Lana Turner
+
+**Numident Record**
+
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllll}
+\toprule
+entry & ssn & cycle\_date & dob & sex & race & pob & fname & mname & lname & mother\_fname & mother\_lname & father\_fname & father\_lname\\
+\midrule
+application 1 & 567183907 & 03/1937 & 02/08/1921 & 2 & 1 & ID & LANA &  & TURNER & MILDRED & COWAN & JOHN & TURNER\\
+application 2 & 567183907 & 07/1949 & 02/08/1921 & 2 & 1 & ID & LANA & TURNER & TOPPING & MILDRED & TURNER & JOHN & TURNER\\
+application 3 & 567183907 & 11/1956 & 02/08/1921 & 2 & 1 &  & LANA & TURNER & BARKER &  &  &  & \\
+application 4 & 567183907 & 09/1970 & 02/08/1921 & 2 & 0 & NA & LANA & TURNER & DANTE &  &  &  & \\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\begin{table}[H]
+\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{llllllllllllll}
+\toprule
+entry \ ssn & sex & zip\_residence & lname & mname & fname & byear & dyear & socstate & bmonth & dmonth & bday & dday\\
+\midrule
+death \ 567183907 & 2 & 900255240 & TURNER &  & LANA & 1921 & 1995 & 6 & 2 & 6 & 8 & 29\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+**Berkeley Unified Numident Mortality Database (BUNMD) Record**
+
+\begin{table}[H]
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\begin{tabular}{rlllrrrrrrrrrrrr}
+\toprule
+ssn & zip\_residence & lname & fname & byear & dyear & socstate & bmonth & dmonth & bday & dday & race & race\_change & sex & bpl & death\_age\\
+\midrule
+567183907 & 900255240 & TURNER & LANA & 1921 & 1995 & 6 & 2 & 6 & 8 & 29 & 1 & 0 & 2 & 1600 & 74\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+Table 1: A stylized example of how the NARA Numident records were combined to create the BUNMD. For this specific example, several variables were excluded (e.g. person's middle names, parent's names, etc.). 
+
+\elandscape
+
+
