@@ -22,7 +22,6 @@ affiliation: UC Berkeley
 
 abstract:   With the release of Social Security application (SS-5), claim, and death records, the National Archives and Records Administration (NARA) has created a new administrative data resource for researchers studying mortality. While much progress has been made in understanding the demographic determinants of mortality in the United States using survey data, the lack of a population-level register data is a barrier to further advances in mortality research. This publicly available micro-level dataset provides researchers access to over 49 million mortality records with demographic covariates and fine geographic detail, allowing for high-resolution mortality research. In this paper, we document the contents of this dataset, provide access to a cleaned and harmonized version of the data, and discuss statistical methods for estimating mortality differentials based on this deaths-only dataset.
 
-
 #linestretch: 1.5
 linestretch: 1.2
 
@@ -38,7 +37,6 @@ header-includes:
   \usepackage{booktabs}
   \newcommand{\blandscape}{\begin{landscape}}
   \newcommand{\elandscape}{\end{landscape}}
-  \setlength\intextsep{2.5mm}
 nocite: '@*'
 ---
 
@@ -69,12 +67,7 @@ The NARA Numident records contain three types of entries: applications, claims, 
   \caption{Number of entries per person for the Numident Application and Claims files.}
 \end{figure}
 
-\newpage
-
-
-To illustrate the structure and content of the NARA Numident records, we show the released records for the actress Lana Turner, who died in 1995, and for the Supreme Court Justice Thurgood Marshall, who died in 1993. For Thurgood Marshall, we have one application and one death record: 
-
-
+To illustrate the structure and content of the NARA Numident records, we show the released records for the actress Lana Turner, who died in 1995, and for the Supreme Court Justice Thurgood Marshall, who died in 1993. For Thurgood Marshall, we have one application and one death record. For Lana Turner, we have one death record and four application records, likely corresponding to name changes each time she was married.
 
 \blandscape
 \setlength\intextsep{2.5mm}
@@ -196,14 +189,6 @@ Table 1: A stylized example of how the NARA Numident records were combined to cr
 
 \elandscape
 
-\newpage 
-
-For Lana Turner we have four application records, likely corresponding to name changes each time she was married.
-
-Table 2: NARA Numident application and death record for actress Lana Turner. 
-
-\newpage
-
 We introduce a cleaned and harmonized version of the NARA Numident records: the Berkeley Unified Mortality Numident Database (BUNMD). This file condenses the Numident death, application, and claims records into a single file with one record per person. This file is available for download at ___ . The file includes about 49 million records, 28 variables, and is about 5.7 Gb in size. For Lana Turner, the BUNMD data record is:
 
 The BUNMD condenses the NARA Numident records into a single file with one record per person. The original NARA release contained 49,459,293 death records entries, 72,120,516 applications entries for 40,870,455 unique persons, and 25,228,257 claims entries for 25,140,847 unique persons. To construct the BUNMD, we first selected key variables from the death records. For each record with a death entry, we added additional covariates from the application and claims entries. For individuals with multiple application or claims entries, we used a set of decision rules to reconcile discrepant values across entries (see technical appendix for more details). Finally, we constructed variables reporting (1) total number of applications, (2) total number of claims, (3) age at first Social Security application, (4) state in which the Social Security number was issued. Figure 2 shows the process for constructing the BUNMD. In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request.
@@ -275,12 +260,11 @@ provide estimates of the effect of the covariates on the age of death in the sam
 
 Truncation, however, will tend to bias downward the estimated effects of any covariates [@greene_censored_2005]. Truncation excludes the tails of the distribution, thus reducing the average difference between groups. The idea is that the average differences between groups will be measured to be much smaller if we exclude the tails of the distribution.
 
-Simulation tells us that the magnitudes of the regression coefficients need to be inflated by a factor of about 2 or 3 for many of the cohorts that are covered by the Numident files. The table below gives the inflation factors for each cohort, based on a simulation of a Gompertz distribution with M = xxx and b = xxx (the values found by fitting to the untruncated cohort of 1910 using HMD data). The interpretation of these numbers is that a regression coefficient of 0.5, say comparing Men and Women, found using the data from the cohort of 1910 (observed from 1988 to 2005) translates to a difference of life expectancy at age 65 of 0.5 x 2.3 = 1.15 years.
+Simulation tells us that the magnitudes of the regression coefficients need to be inflated by a factor of about 2 or 3 for many of the cohorts that are covered by the Numident files. The table below gives the inflation factors for each cohort, based on a simulation of a Gompertz distribution with M = 79.6 and b = 0.0826 (the values found by fitting to the untruncated cohort of 1910 using HMD data). The interpretation of these numbers is that a regression coefficient of 0.5, say comparing Men and Women, found using the data from the cohort of 1910 (observed from 1988 to 2005) translates to a difference of life expectancy at age 65 of 0.5 x 2.3 = 1.15 years.
 
 ### Method 3: Cox regression for extinct cohorts
 
 For cohorts that are extinct (or very nearly so), Cox regression provides a convenient method. Cohorts born in 1900 or earlier are observed to age 105. Cox regression makes no distributional assumptions about the shape of mortality, but does assume proportional effects on the hazards. (@wachter_essential_2014).
-
 
 ### Case Studies
 
@@ -300,7 +284,7 @@ Figure 5 shows life expectancy at age 65 for the birth cohort of 1900 in Ohio's 
 
 \begin{figure}
   \centering
-  \includegraphics[width=6in]{../illustrations/micro_geography_cleveland.png}
+  \includegraphics[width=7in]{../illustrations/micro_geography_cleveland_v3.png}
   \caption{Life expectancy at age 65 in Cuyahoga County for the birth cohort of 1900.}
 \end{figure}
 
