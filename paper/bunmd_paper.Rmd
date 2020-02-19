@@ -229,7 +229,7 @@ The first method is to fit parametric survival models (Gompertz and Makeham), us
 Human mortality has a characteristic pattern in older ages. To a first approximation — first noticed by Benjamin Gompertz — mortality hazards rise exponentially with age. 
 
 \begin{equation}
-h(x) = a * exp(b * x)
+h(x) = ae^{b * x}
 \end{equation}
 
 
@@ -284,16 +284,16 @@ Figure 5 shows life expectancy at age 65 for the birth cohort of 1900 in Ohio's 
 
 \begin{figure}
   \centering
-  \includegraphics[width=7in]{../illustrations/micro_geography_cleveland_v3.png}
+  \includegraphics[width=7in]{../illustrations/micro_geography_cleveland_v4.png}
   \caption{Life expectancy at age 65 in Cuyahoga County for the birth cohort of 1900.}
 \end{figure}
 
 
-### Gompertz Mortality
+### Gompertz maximum likelihood estimation: race differentials  
 
+Gompertz maximum likelihood estimation can also be used to look at race differentials in mortality by state in the BUNMD. This method combines the observed distribution of deaths over a certain window of deaths with external knowledge of human mortality age-patterns, allowing us to estimate mortality rates given a truncated window of deaths. We are assuming that the Gompertz model is appropriate and that the deaths we observe reflects the true population cohort distribution. Under-c verage will not bias estimates as long as the under-coverage is happening at random.  
 
-The BUNMD can also be used to look at race differentials in mortality by state. In Figure 7, we compare estimates of life expectancy at age 65 for Whites and Blacks over time for the cohorts of 1900 to 1920 in the state of Alabama using a Gompertz model. The size of the BUNMD allows researchers to identify heterogeneity and identify patterns of mortality obscured by composite population patterns [@vaupel_heterogeneitys_1985].   
-
+In Figure 7, we compare estimates of life expectancy at age 65 for Whites and Blacks over time for the cohorts of 1900 to 1920 in the state of Alabama using a Gompertz model. The size of the BUNMD allows researchers to identify heterogeneity and identify patterns of mortality obscured by composite population patterns [@vaupel_heterogeneitys_1985].  
 
 \begin{figure}
   \centering
