@@ -39,7 +39,7 @@ output:
 
 \newpage 
 
-**\huge{ssn}**
+**\huge ssn**
 \normalsize
 \vspace{12pt}
 
@@ -49,7 +49,7 @@ output:
 
 \newpage 
 
-**\huge{fname}**
+**\huge fname **
 \normalsize
 \vspace{12pt}
 
@@ -59,7 +59,7 @@ output:
 
 \newpage 
 
-**\huge{mname}**
+**\huge mname **
 \normalsize
 \vspace{12pt}
 
@@ -70,7 +70,7 @@ output:
 \newpage 
 
 
-**\huge{lname}**
+**\huge lname **
 \normalsize
 \vspace{12pt}
 
@@ -81,7 +81,7 @@ output:
 \newpage 
 
 
-**\huge{sex}**
+**\huge sex **
 \normalsize
 \vspace{12pt}
 
@@ -106,14 +106,15 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{race}**
+**\huge race **
 \normalsize
 \vspace{12pt}
 
 **Label**: Race
 
-
 **Description**: race is a numeric variable reporting the person's race, as recorded in a Numident Application Files.
+
+**Note**: Before 1980, the race schema in the Social Security application form contained three categories: White, Black, and Other. In 1980, the SSA added three categories: (1) Asian, Asian American, or Pacific Islander, (2) Hispanic, and (3) North American Indian or Alaskan Native. They also removed the Other category.
 
 ```{r, eval = F, echo = F}
 library(tidyverse)
@@ -142,14 +143,14 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{race\_change}**
+**\huge race\_change **
 \normalsize
 \vspace{12pt}
 
 **Label**: Change in Race Response Flag
 
 **Description**: race_change is a numeric dichotomous variable reporting whether an individual changed their race response across their Social Security Applications.
-
+ 
 ```{r, eval = F, echo = F}
 knitr::kable(numident %>%
                group_by(race_change) %>%
@@ -168,7 +169,7 @@ knitr::kable(numident %>%
 \newpage 
 
 
-**\huge{bpl}**
+**\huge bpl **
 \normalsize
 \vspace{12pt}
 
@@ -190,7 +191,7 @@ knitr::kable(list(t1, t2))
 
 \newpage 
 
-**\huge{byear}**
+**\huge byear **
 \normalsize
 \vspace{12pt}
 
@@ -225,7 +226,7 @@ numident %>%
 
 \newpage 
 
-**\huge{bmonth}**
+**\huge bmonth **
 \normalsize
 \vspace{12pt}
 
@@ -260,7 +261,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{bday}**
+**\huge bday **
 \normalsize
 \vspace{12pt}
 
@@ -315,7 +316,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{dyear}**
+**\huge dyear **
 \normalsize
 \vspace{12pt}
 
@@ -382,7 +383,7 @@ ggplot() +
 
 \newpage 
 
-**\huge{dmonth}**
+**\huge dmonth **
 \normalsize
 \vspace{12pt}
 
@@ -417,7 +418,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{dday}**
+**\huge dday **
 \normalsize
 \vspace{12pt}
 
@@ -473,7 +474,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{death\_age}**
+**\huge death\_age **
 \normalsize
 \vspace{12pt}
 
@@ -511,7 +512,7 @@ numident %>%
 
 \newpage 
 
-**\huge{zip\_residence}**
+**\huge zip\_residence **
 
 \normalsize
 
@@ -522,7 +523,7 @@ numident %>%
 **Description**: zip_residence is 9-character variable reporting a person's ZIP code of residence at time of death, as  in the Numident Death Files. 
 
 \newpage 
-**\huge{socstate}**
+**\huge socstate **
 
 \normalsize
 
@@ -579,7 +580,7 @@ knitr::kable(numident %>%
 \newpage 
 
 
-**\huge{father\_fname}**
+**\huge father\_fname **
 \normalsize
 \vspace{12pt}
 
@@ -589,7 +590,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{father\_mname}**
+**\huge father\_mname **
 \normalsize
 \vspace{12pt}
 
@@ -600,7 +601,7 @@ knitr::kable(numident %>%
 \newpage 
 
 
-**\huge{father\_lname}**
+**\huge father\_lname **
 \normalsize
 \vspace{12pt}
 
@@ -611,7 +612,7 @@ knitr::kable(numident %>%
 \newpage 
 
 
-**\huge{mother\_fname}**
+**\huge mother\_fname **
 \normalsize
 \vspace{12pt}
 
@@ -621,7 +622,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{mother\_mname}**
+**\huge mother\_mname **
 \normalsize
 \vspace{12pt}
 
@@ -632,7 +633,7 @@ knitr::kable(numident %>%
 \newpage 
 
 
-**\huge{mother\_lname}**
+**\huge mother\_lname **
 \normalsize
 \vspace{12pt}
 
@@ -642,7 +643,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{age\_first\_app}**
+**\huge age\_first\_app **
 
 \normalsize
 
@@ -680,7 +681,7 @@ numident %>%
 
 \newpage 
 
-**\huge{number\_apps}**
+**\huge number\_apps **
 
 \normalsize
 
@@ -720,7 +721,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{number\_claims}**
+**\huge number\_claims **
 
 \normalsize
 
@@ -753,7 +754,7 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge{weight}**
+**\huge weight**
 
 \normalsize
 
@@ -787,7 +788,7 @@ numident %>%
 \newpage 
 
 
-**\huge{cweight}**
+**\huge cweight**
 
 \vspace{12pt}
 
