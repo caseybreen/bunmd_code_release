@@ -5,36 +5,41 @@ output:
   html_notebook: default
 ---
 
-| Page  | Variable     | Label|
+| Page| Variable     | Label                                        |
 |----:|:-------------|:---------------------------------------------|
 |  2  |ssn           |Social Security Number                        |
 |  3  |fname         |First Name                                    |
 |  4  |mname         |Middle Name                                   | 
 |  5  |lname         |Last Name                                     |
 |  6  |sex           |Sex                                           |
-|  7  |race          |Race                                          |
-|  8  |race_change   |Change in Race Response Flag                  |
-|  9  |bpl           |Place of Birth                                |
-|  10 |byear         |Year of Birth                                 |
-|  11 |bmonth        |Month of Birth                                |
-|  12 |bday          |Day of Birth                                  |
-|  13 |dyear         |Year of Death                                 |
-|  14 |dmonth        |Month of Death                                |
-|  15 |dday          |Day of Death                                  |
-|  16 |death_age     |Age at Death (Years)                          |
-|  17 |zip_residence |ZIP Code of Residence at Time of Death        |
-|  18 |socstate      |State where Social Security Number Issued     |
-|  19 |father_fname  |Father's First Name                           |
-|  20 |father_mname  |Father's Middle Name                          |
-|  21 |father_lname  |Father's Last Name                            |
-|  22 |mother_fname  |Mother's First Name                           |
-|  23 |mother_mname  |Mother's Middle Name                          |
-|  24 |mother_lname  |Mother's Last Name                            |
-|  25 |age_first_app |Age at First Social Security Application      |
-|  26 |number_apps   |Number of Applications                        |
-|  27 |number_claims |Number of Claims                              |
-|  28 |weight        |High-Coverage Sub-Sample Weight               |
-|  29 |cweight       |High-Coverage "Complete" Sub-Sample Weight    |
+|  7  |race_first        |Race on First Application                 |
+|  8  |race_first_cyear  |First Race: Application Year              |
+|  9  |race_first_cmonth |First Race: Application Month             |
+|  10  |race_last         |Race on Last Application                  |
+|  11  |race_last_cyear   |Last Race: Application Year               |
+|  12  |race_last_cmonth  |Last Race: Application Year               |
+|  13 |race_change   |Change in Race Response Flag                  |
+|  14 |bpl           |Place of Birth                                |
+|  14 |byear         |Year of Birth                                 |
+|  15 |bmonth        |Month of Birth                                |
+|  16 |bday          |Day of Birth                                  |
+|  17 |dyear         |Year of Death                                 |
+|  18 |dmonth        |Month of Death                                |
+|  19 |dday          |Day of Death                                  |
+|  20 |death_age     |Age at Death (Years)                          |
+|  21 |zip_residence |ZIP Code of Residence at Time of Death        |
+|  22 |socstate      |State where Social Security Number Issued     |
+|  23 |father_fname  |Father's First Name                           |
+|  24 |father_mname  |Father's Middle Name                          |
+|  25 |father_lname  |Father's Last Name                            |
+|  26 |mother_fname  |Mother's First Name                           |
+|  27 |mother_mname  |Mother's Middle Name                          |
+|  28 |mother_lname  |Mother's Last Name                            |
+|  29 |age_first_app |Age at First Social Security Application      |
+|  30 |number_apps   |Number of Applications                        |
+|  31 |number_claims |Number of Claims                              |
+|  32 |weight        |High-Coverage Sub-Sample Weight               |
+|  33 |cweight       |High-Coverage "Complete" Sub-Sample Weight    |
 
 
 \newpage 
@@ -106,39 +111,108 @@ knitr::kable(numident %>%
 
 \newpage 
 
-**\huge race **
+
+**\huge race\_last **
 \normalsize
 \vspace{12pt}
 
-**Label**: Race
+**Label**: race last
 
-**Description**: race is a numeric variable reporting the person's race, as recorded in a Numident Application Files.
+**Description**: race_last is a numeric variable reporting a person's race, as recorded on their most recent application entry.
 
 **Note**: Before 1980, the race schema in the Social Security application form contained three categories: White, Black, and Other. In 1980, the SSA added three categories: (1) Asian, Asian American, or Pacific Islander, (2) Hispanic, and (3) North American Indian or Alaskan Native. They also removed the Other category.
 
 ```{r, eval = F, echo = F}
-library(tidyverse)
-library(bbplot)
-library(scales)
-
-
-knitr::kable(numident %>%
-    group_by(race) %>%
+knitr::kable(bunmd %>%
+    group_by(race_last) %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 3)) %>%
     mutate(label = c("White", "Black", "Other", "Asian", "Hispanic", "North American Native", "Missing")) %>%
     select(race, label, n, freq))
 ```
 
-| race|label                 |        n|   freq %|
-|----:|:---------------------|--------:|------:|
-|    1|White                 | 28419085| 57.500|
-|    2|Black                 |  4040911|  8.170|
-|    3|Other                 |   469721|  0.950|
-|    4|Asian                 |   305983|  0.619|
-|    5|Hispanic              |   794837|  1.610|
-|    6|North American Native |    89629|  0.181|
-|   NA|Missing               | 15339127| 31.000|
+| race_last|label                 |        n|   freq %|
+|---------:|:---------------------|--------:|------:|
+|         1|White                 | 28419085| 57.500|
+|         2|Black                 |  4040911|  8.170|
+|         3|Other                 |   469721|  0.950|
+|         4|Asian                 |   305983|  0.619|
+|         5|Hispanic              |   794837|  1.610|
+|         6|North American Native |    89629|  0.181|
+|        NA|Missing               | 15339127| 31.000|
+
+\newpage
+
+**\huge race_last_cyear **
+\normalsize
+\vspace{12pt}
+
+**Label:** First Race: Application Year
+
+**Description**: race_last_cyear is a numeric variable reporting the year of the application on which a person reported their last race. 
+
+\newpage 
+
+**\Huge race_last_cmonth **
+\normalsize
+\vspace{12pt}
+
+**Label:** First Race: Application Month
+
+**Description**: race_first_cmonth is a numeric variable reporting the month of the application on which a person reported their first race. This variable is only available for persons who submitted 2 or more applications.
+
+\newpage 
+
+**\huge race\_first **
+\normalsize
+\vspace{12pt}
+
+**Label**: race first
+
+**Description**: race_first is a numeric variable reporting a person's race, as recorded on their most first application entry. This variable is only available for persons who submitted 2 or more applications.
+
+**Note**: Before 1980, the race schema in the Social Security application form contained three categories: White, Black, and Other. In 1980, the SSA added three categories: (1) Asian, Asian American, or Pacific Islander, (2) Hispanic, and (3) North American Indian or Alaskan Native. They also removed the Other category.
+
+```{r, eval = F, echo = F}
+knitr::kable(bunmd %>%
+    group_by(race_last) %>%
+    tally() %>%
+    mutate(freq = signif(n*100 / sum(n), 3)) %>%
+    mutate(label = c("White", "Black", "Other", "Asian", "Hispanic", "North American Native", "Missing")) %>%
+    select(race, label, n, freq))
+```
+
+| race_first|label                 |        n|    freq%|
+|----------:|:---------------------|--------:|-------:|
+|          1|White                 | 12485938| 25.200|
+|          2|Black                 |  2369762|  4.790|
+|          3|Other                 |   332058|  0.671|
+|          4|Asian                 |    60605|  0.123|
+|          5|Hispanic              |   106111|  0.215|
+|          6|North American Native |     6833|  0.014|
+|         NA|Missing               | 34097986| 68.900|
+
+\newpage
+
+**\huge race_first_cyear **
+\normalsize
+\vspace{12pt}
+
+**Label:** First Race: Application Year
+
+**Description**: race_first_cyear is a numeric variable reporting the year of the application on which a person reported their first race. This variable is only available for persons who submitted 2 or more applications. 
+
+\vspace{12pt}
+
+\newpage 
+
+**\huge race_first_cmonth **
+\normalsize
+\vspace{12pt}
+
+**Label:** First Race: Application Month
+
+**Description**: race_first_cmonth is a numeric variable reporting the month of the application on which a person reported their first race. 
 
 
 \newpage 
