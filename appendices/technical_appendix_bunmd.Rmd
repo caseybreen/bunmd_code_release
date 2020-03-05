@@ -10,13 +10,11 @@ header-includes:
 nocite: '@*'
 ---
 
-## Supplementary Appendix
-
-|     This supplementary appendix presents the procedure for constructing the Berkeley Unified Numident Mortality Database (BUNMD) from the original NARA Numident Records. The BUNMD file contains 28 variables and 49,459,293 death records. See the BUNMD Codebook for variable descriptions, value labels, and tabulations. 
+|     This supplementary appendix presents the procedure for constructing the Berkeley Unified Numident Mortality Database (BUNMD) from the original NARA Numident Records. Please see the BUNMD Codebook for variable descriptions, value labels, and tabulations. 
 
 ### NARA Numident Records
 
-|     In 2013, the Social Security Administration transferred a set of Numident records to the National Archives (NARA). In 2019, we obtained the NARA Numident records, along with their accompanying documentation. The NARA Numident records are a subset of the records in the complete Numident. The NARA Numident records contain three types of entries: applications, claims, and deaths. NARA delivered each set of entries seperately as a set 20 fixed-width .txt files (3 x 20 = 60 files in total). 
+|     In 2013, the Social Security Administration transferred a set of Numident records to the National Archives (NARA). In 2019, we obtained the NARA Numident records and their accompanying documentation. The NARA Numident records are a subset of the records in the complete Numident. The NARA Numident records contain three types of entries: applications, claims, and deaths. NARA delivered each set of entries seperately as a set 20 fixed-width .txt files (3 x 20 = 60 files in total). 
 
 ### NARA Numident Metadata
 
@@ -28,7 +26,7 @@ We obtained three documents from the National Archives Technical Documentation s
 - Death Records Layout
 - Claim Records Layout	
 
-|     The record layout documents contain variable descriptions, value labels, and other technical notes on the variables in the original NARA Numident file. Most importantly, they provide the start and end position for each variable in the fixed-width files.
+|     The record layout documents contain variable descriptions, value labels, technical notes, and the start and end position for each variable in the 60 fixed-width .txt files.
 
 ### Code
 
@@ -40,24 +38,24 @@ We obtained three documents from the National Archives Technical Documentation s
 
 We took the following steps to clean each file: 
 
-1. We changed the variable names to be more concise and informative. For example, we renamed "NUMI_RACE" variable to "race."
+1. We changed the variable names to be more concise and informative. For example, we renamed the "NUMI_SEX" variable to "sex". 
 
 2. We harmonized the different codes to represent a missing value ("Unknown", "Unk", "Un", and "0") to "NA." 
 
 ### Combining NARA Numident Records into the BUNMD
 
 
-|     The goal in constructing the BUNMD was to combine the NARA Numident records into a single, harmonized file with one record per person. The original records contain over 100+ variables, many of which are not of general interest to the research community. Further, many of these variables are either completely empty or contain 99%+ missing values, as displayed in Figures 2-4. We select a set of general-interest variables with high completeness. 
+|     The goal in constructing the BUNMD was to combine the NARA Numident records into a single, harmonized file with one record per person. The original records contain over 100+ variables. Some are not of general interest to the research community, while others contain 99%+ missing values (as shown in Figures 2-4). We selected a set of general-interest variables with high completeness. 
 
-|     While a person can only have one death entry, they might have several application or claims entries. Some information may be recorded several times; for example, sex is reported in the application, claim, and death entries. Occasionally, a person reports different values of sex, race, place of birth, etc. across entries. To handle this response inconsistency, we developed a set of decision rules to select the a single value across entries (see Table 2). We denote this process "condensing" — selecting a single best value across entries. In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request. 
+|     While a person can only have one death entry, they might have several application or claims entries; information may be reported several times. For example, sex is reported in the application, claim, and death entries. Occasionally, a person reports different values of sex, race, place of birth, etc. across entries. To handle this response inconsistency, we developed a set of decision rules to select the a single value across entries (see Table 2). In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request. 
 
 ### Geography
 
-\textbf{Place of Birth:} There are several geography variables in the NARA Numident records. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The NARA Numident uses two variables to convey birthplace. The first variable denotes whether a person was foreign born. The second variable contains a two-letter state or country abbreviation. We harmonize these two variables into one variable with a numeric coding schema. This coding schema matches the IPUMS-USA BPLD (Birthplace, detailed) schema.
+\textbf{Place of Birth:} There are several geography variables in the NARA Numident records. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The NARA Numident uses two variables to convey birthplace. The first variable denotes whether a person was foreign born, and the second variable contains a two-letter state or country abbreviation. We harmonize these two variables into one variable with a numeric coding schema. This coding schema matches the IPUMS-USA BPLD (Birthplace, detailed) schema.
 
-\textbf{Place of Death:} The Numident death entries contains the 9-digit ZIP Code of the residence at the time of death. Sometimes, the full 9-digit ZIP Code is not available, and an "x" is used to represent a missing digit. This is the original convention used by the Social Security Administration.  
+\textbf{Place of Death:} The Numident death entries contains the 9-digit ZIP Code of the residence at the time of death. Sometimes, the full 9-digit ZIP Code is not available, and an "x" is used to represent a missing digit. This is the original convention used by the Social Security Administration.
 
-\textbf{Social Security State:} The first three digits of a Social Security number correspond to the state in which a Social Security number was issued (prior to 1973) or to the ZIP Code of the mailing address listed in the Social Security application (after 1973).  We constructed a variable "socstate" that reports the the State corresponding to the first three digits of the Social Security number. The SSA change the assignment process in 2011 — after the last Social Security number for a person in the BUNMD was issued — and the first three digits no longer correspond to a state.
+\textbf{Social Security State:} The first three digits of a Social Security number correspond to the state in which a Social Security number was issued (prior to 1973) or to the ZIP Code of the mailing address listed in the Social Security application (after 1973).  We constructed a variable "socstate" that reports the the state corresponding to the first three digits of the Social Security number. The Social Security Administration changed the assignment process in 2011 — after the last Social Security number for a person in the BUNMD was issued — and the first three digits no longer correspond to a state.
 
 (https://www.ssa.gov/employer/stateweb.htm; accessed 11/28/2019)
 
@@ -71,13 +69,10 @@ We took the following steps to clean each file:
 
 \newpage
 
-
-
 ### BUNMD Samples and Weights
 
-|     We create two BUNMD samples with high death coverage. Sample 1 includes deaths to
-persons age 65+, occurring between 1988 to 2005, from the birth cohorts of 1900 to 1940. Sample 2 is the subset of Sample 1 records with complete information on sex, birthplace, and race. For each sample, we constructed inverse probability weights to the Human Mortality database on age at death, year of birth, year of death, and sex.
-We broke the sample into cells cross-classified by year of birth, year of death, age at death, and sex. We weighted each cell to the HMD "Deaths by Lexis triangles" totals. This allows aggregation to HMD by period and cohort. 
+|     We created two BUNMD samples with high death coverage. Sample 1 includes deaths to
+persons age 65+, occurring between 1988 to 2005, from the birth cohorts of 1900 to 1940. Sample 2 is the subset of Sample 1 records with complete information on sex, birthplace, and race. For each sample, we constructed inverse probability weights to the Human Mortality Database (HMD) on age at death, year of birth, year of death, and sex. We broke the sample into cells cross-classified by year of birth, year of death, age at death, and sex. We weighted each cell to the HMD "Deaths by Lexis triangles" totals. This allows aggregation to HMD totals by period or cohort. 
 
 \begin{equation}
   W_j = \frac{\text{HMD deaths in cell j}}{\text{Numident Sample 1 deaths in cell j}} 

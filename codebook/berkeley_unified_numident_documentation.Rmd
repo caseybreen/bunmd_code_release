@@ -15,9 +15,9 @@ output:
 |  7  |race_first        |Race on First Application                 |
 |  8  |race_first_cyear  |First Race: Application Year              |
 |  9  |race_first_cmonth |First Race: Application Month             |
-|  10  |race_last         |Race on Last Application                  |
-|  11  |race_last_cyear   |Last Race: Application Year               |
-|  12  |race_last_cmonth  |Last Race: Application Year               |
+|  10 |race_last         |Race on Last Application                  |
+|  11 |race_last_cyear   |Last Race: Application Year               |
+|  12 |race_last_cmonth  |Last Race: Application Month              |
 |  13 |race_change   |Change in Race Response Flag                  |
 |  14 |bpl           |Place of Birth                                |
 |  14 |byear         |Year of Birth                                 |
@@ -50,7 +50,7 @@ output:
 
 **Label**: Social Security Number
 
-**Description**: ssn is 9-character variable corresponding to the person's Social Security number, as recorded in the Numident Death Files. Uniquely identifies all records in the dataset. 
+**Description**: ssn reports a person's Social Security number, as recorded in the Numident death records. Uniquely identifies all records in the dataset. 
 
 \newpage 
 
@@ -60,7 +60,7 @@ output:
 
 **Label**: First Name
 
-**Description**: fname is a character variable reporting the first 16 letters of the person's first name, as recorded in the Numident Death Files.
+**Description**: fname reports the first 16 letters of the person's first name, as recorded in the Numident death records
 
 \newpage 
 
@@ -70,7 +70,7 @@ output:
 
 **Label:** Middle Name
 
-**Description**: mname is a character variable reporting the first 16 letters of the person's middle name, as recorded in the Numident Death Files.
+**Description**: mname reports the first 16 letters of the person's middle name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -81,7 +81,7 @@ output:
 
 **Label:** Last Name 
 
-**Description**: lname is a character variable reporting the first 21 letters of the person's last name, as recorded in the Numident Death Files.
+**Description**: lname reports the first 21 letters of the person's last name, as recorded in the Numident death records 
 
 \newpage 
 
@@ -92,10 +92,10 @@ output:
 
 **Label:** Sex
 
-**Description**: sex is a numeric variable reporting the person's sex, as recorded in the Numident Death, Application, or Claims Files.
+**Description**: sex reports a person's sex, as recorded in the Numident death, application, or claims Records. 
 
 ```{r, eval = F, echo = F}
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
     group_by(sex) %>%
      tally() %>%
      mutate(freq = signif(n*100 / sum(n), 3)) %>%
@@ -118,7 +118,7 @@ knitr::kable(numident %>%
 
 **Label**: race last
 
-**Description**: race_last is a numeric variable reporting a person's race, as recorded on their most recent application entry.
+**Description**: race_last reports a person's race, as recorded on their most recent application entry.
 
 **Note**: Before 1980, the race schema in the Social Security application form contained three categories: White, Black, and Other. In 1980, the SSA added three categories: (1) Asian, Asian American, or Pacific Islander, (2) Hispanic, and (3) North American Indian or Alaskan Native. They also removed the Other category.
 
@@ -149,7 +149,7 @@ knitr::kable(bunmd %>%
 
 **Label:** First Race: Application Year
 
-**Description**: race_last_cyear is a numeric variable reporting the year of the application on which a person reported their last race. 
+**Description**: race_last_cyear reports the year of the application on which a person reported their last race. 
 
 \newpage 
 
@@ -157,9 +157,9 @@ knitr::kable(bunmd %>%
 \normalsize
 \vspace{12pt}
 
-**Label:** First Race: Application Month
+**Label:** Last Race: Application Month
 
-**Description**: race_first_cmonth is a numeric variable reporting the month of the application on which a person reported their first race. This variable is only available for persons who submitted 2 or more applications.
+**Description**: race_last_cmonth is a numeric variable reporting the month of the application on which a person reported their last race. This variable is only available for persons who submitted 2 or more applications.
 
 \newpage 
 
@@ -169,7 +169,7 @@ knitr::kable(bunmd %>%
 
 **Label**: race first
 
-**Description**: race_first is a numeric variable reporting a person's race, as recorded on their most first application entry. This variable is only available for persons who submitted 2 or more applications.
+**Description**: race_first reports a person's race, as recorded on their most recent application entry. This variable is only available for persons who submitted 2 or more applications.
 
 **Note**: Before 1980, the race schema in the Social Security application form contained three categories: White, Black, and Other. In 1980, the SSA added three categories: (1) Asian, Asian American, or Pacific Islander, (2) Hispanic, and (3) North American Indian or Alaskan Native. They also removed the Other category.
 
@@ -226,7 +226,7 @@ knitr::kable(bunmd %>%
 **Description**: race_change is a numeric dichotomous variable reporting whether an individual changed their race response across their Social Security Applications.
  
 ```{r, eval = F, echo = F}
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
                group_by(race_change) %>%
                tally() %>%
                mutate(freq = signif(n*100 / sum(n), 3)) %>%
@@ -249,7 +249,7 @@ knitr::kable(numident %>%
 
 **Label**: Birthplace
 
-**Description**: bpl is a numeric variable reporting the person's place of birth, as recorded in the Numident Application or Claims Files. The numeric codes match the detailed IPUMS-USA Birthplace codes. 
+**Description**: bpl is a numeric variable reporting the person's place of birth, as recorded in the Numident application or claims records. The numeric codes match the detailed IPUMS-USA Birthplace codes. 
 
 For a complete list of IPUMS Birthplace codes, please see: https://usa.ipums.org/usa-action/variables/BPL
 
@@ -271,10 +271,10 @@ knitr::kable(list(t1, t2))
 
 **Label**: Birth Year
 
-**Description**: byear is a numeric variable reporting the person's year of birth, as recorded in the Numident Death Files.  
+**Description**: byear is a numeric variable reporting the person's year of birth, as recorded in the Numident death records.
 
 ```{r, echo = F, eval = F}
-numident %>%
+censoc.dmf %>%
     group_by(byear) %>%
     summarise(n = n()) %>%
     ggplot(aes(x = byear, y = n)) + 
@@ -295,9 +295,6 @@ numident %>%
 \vspace{75pt}
 
 ![](codebook_illustrations/byear_plot.png)
-
-
-
 \newpage 
 
 **\huge bmonth **
@@ -306,10 +303,10 @@ numident %>%
 
 **Label:** Birth Month
 
-Description: bmonth is a numeric variable reporting the person's month of birth, as recorded in the Numident Death Files.   
+Description: bmonth is a numeric variable reporting the person's month of birth, as recorded in the Numident death records.   
 
 ```{r, eval = F, echo = F}
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
     group_by(bmonth) %>%
     tally() %>%
     mutate(freq % = signif(n*100 / sum(n), 2)) %>%
@@ -341,13 +338,13 @@ knitr::kable(numident %>%
 
 **Label**: Birth Day
 
-**Description**: bday is a numeric variable reporting the person's day of birth, as recorded in the Numident Death Files.
+**Description**: bday is a numeric variable reporting the person's day of birth, as recorded in the Numident death records.
 
-**Note:** It appears from the slight surplus of counts on the 1st and the 15th of the month that SSA might have done some imputation of missing values to these dates.
+**Note:** It appears from the surplus of counts on the 1st and the 15th of the month that SSA might have done some imputation of missing values to these dates.
 
 
 ```{r, eval = F, echo = F}
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
     group_by(bday) %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 2)) %>%
@@ -396,7 +393,7 @@ knitr::kable(numident %>%
 
 **Label**: Death Year
 
-**Description**: dyear is a numeric variable reporting the person's year of death, as recorded in the Numident Death Files.   
+**Description**: dyear is a numeric variable reporting the person's year of death, as recorded in the Numident death records.   
 
 \vspace{75pt}
 \begin{center}
@@ -407,27 +404,27 @@ knitr::kable(numident %>%
 ```{r, echo = F, eval = F}
 hmd_deaths <-  readHMDweb(CNTRY = "USA", item = "Deaths_1x1", username ="caseybreen@berkeley.edu", password = "censoc") %>% mutate(linking_key = paste(Year, Age, sep = "_" ))
 
-numident_deaths_age <- numident %>% 
+bunmd_deaths_age <- bunmd %>% 
   filter(death_age >= 65) %>% 
   group_by(Year = dyear) %>% 
   filter(Year > 1960) %>% 
   summarize(deaths = n()) %>% 
-  mutate(source = "Numident")
+  mutate(source = "bunmd")
 
-numident_deaths_age_sample1 <- numident %>% 
+bunmd_deaths_age_sample1 <- bunmd %>% 
   filter(death_age >= 65 & !is.na(weight)) %>% 
   group_by(Year = dyear) %>% 
   filter(Year > 1960) %>% 
   summarize(deaths = n()) %>% 
-  mutate(source = "Numident Sample 1")
+  mutate(source = "BUNMD Sample 1")
 
-numident_deaths_age_sample2 <- numident %>% 
+bunmd_deaths_age_sample2 <- bunmd %>% 
   filter(death_age >= 65) %>% 
   filter(!is.na(cweight)) %>% 
   group_by(Year = dyear) %>% 
   filter(Year > 1960) %>% 
   summarize(deaths = n()) %>% 
-  mutate(source = "Numident Sample 2")
+  mutate(source = "BUNMD Sample 2")
 
 
 hmd_deaths_age <- hmd_deaths %>%
@@ -463,10 +460,10 @@ ggplot() +
 
 **Label**: Death Month
 
-**Description**: dmonth is a numeric variable reporting the person's month of death, as recorded in the Numident Death Files.  
+**Description**: dmonth is a numeric variable reporting the person's month of death, as recorded in the Numident death records.  
 
 ```{r, echo = F, eval = F}
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
     group_by(dmonth) %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 3)) %>%
@@ -498,13 +495,13 @@ knitr::kable(numident %>%
 
 **Label**: Day of Death
 
-**Description**: dday is a numeric variable reporting the person's day of death, as recorded in the Numident Death Files.  
+**Description**: dday is a numeric variable reporting the person's day of death, as recorded in the Numident death records.  
 
-**Note:** It appears from the slight surplus of counts on the 1st and the 15th of the month that SSA might have done some imputation of missing values to these dates.
+**Note:** It appears from the surplus of counts on the 1st and the 15th of the month that SSA might have done some imputation of missing values to these dates.
 
 
 ```{r, echo = F, eval = F}
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
     group_by(dday) %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 2)) %>%
@@ -554,14 +551,14 @@ knitr::kable(numident %>%
 
 **Label**: Age at Death (Years)
 
-**Description**: death_age is a numeric variable reporting the person's age at death in years, calculated using birth and death information recorded in the Numident Death Files.   
+**Description**: death_age is a numeric variable reporting the person's age at death in years, calculated using birth and death information recorded in the Numident death records.   
 
 \vspace{50pt}
 
 ![](codebook_illustrations/death_age.png)
 
 ```{r, echo = F, eval = F}
-numident %>%
+bunmd %>%
   filter(death_age %in% c(0:110)) %>% 
     group_by(death_age) %>%
     summarise(n = n()) %>%
@@ -578,11 +575,7 @@ numident %>%
        y = "Count") + 
   scale_y_continuous(labels = comma) + 
   scale_x_continuous(breaks=pretty_breaks(n=5)) 
-
-
 ```
-
-
 
 \newpage 
 
@@ -594,7 +587,7 @@ numident %>%
 
 **Label**: ZIP Code of Residence at Time of Death
 
-**Description**: zip_residence is 9-character variable reporting a person's ZIP code of residence at time of death, as  in the Numident Death Files. 
+**Description**: zip_residence is a string variable (9-characters) reporting a person's ZIP code of residence at time of death, as  in the Numident death records. 
 
 \newpage 
 **\huge socstate **
@@ -605,12 +598,12 @@ numident %>%
 
 **Label**: State where Social Security Number Issued
 
-**Description**: The state in which the person's social security card was issued. Determined by first three (3) digits of Social Security number, as recorded in Numident Files. The numeric codes match the detailed IPUMS-USA Birthplace codes. 
+**Description**: The state in which the person's social security card was issued. Determined by first three (3) digits of Social Security number, as recorded in Numident death records. The numeric codes match the detailed IPUMS-USA Birthplace codes. 
 
 ```{r, eval = F, echo = F}
 state_fip_codes <- fread("/nobackup/90days/andreamg/state_fips_ipums.csv")
 
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
     group_by(socstate) %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 3)) %>%
@@ -660,7 +653,7 @@ knitr::kable(numident %>%
 
 **Label**: Father's First Name
 
-**Description**: father_fname is a character variable reporting the first 16 letters of the person's father's first name, as recorded in the Numident Death Files.
+**Description**: father_fname is a character variable reporting the first 16 letters of the person's father's first name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -670,7 +663,7 @@ knitr::kable(numident %>%
 
 **Label**: Father's Middle Name
 
-**Description**: father_mname is a character variable reporting the first 16 letters of the person's father's middle name, as recorded in the Numident Death Files.
+**Description**: father_mname is a character variable reporting the first 16 letters of the person's father's middle name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -681,7 +674,7 @@ knitr::kable(numident %>%
 
 **Label**: Father's Last Name 
 
-**Description**: father_lname is a character variable reporting the first 21 letters of the person's father's last name, as recorded in the Numident Death Files.
+**Description**: father_lname is a character variable reporting the first 21 letters of the person's father's last name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -692,7 +685,7 @@ knitr::kable(numident %>%
 
 **Label**: Mother's First Name
 
-**Description**: mother_fname is a character variable reporting the first 16 letters of the person's mother's first name, as recorded in the Numident Death Files.
+**Description**: mother_fname is a character variable reporting the first 16 letters of the person's mother's first name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -702,7 +695,7 @@ knitr::kable(numident %>%
 
 **Label**: Mother's Middle Name
 
-**Description**: mother_mname is a character variable reporting the first 16 letters of the person's mother's last name, as recorded in the Numident Death Files.
+**Description**: mother_mname is a character variable reporting the first 16 letters of the person's mother's last name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -713,7 +706,7 @@ knitr::kable(numident %>%
 
 **Label**: Mother's Last Name 
 
-**Description**: mother_lname is a character variable reporting the first 21 letters of the person's mother's middle name, as recorded in the Numident Death Files.
+**Description**: mother_lname is a character variable reporting the first 21 letters of the person's mother's middle name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -763,7 +756,7 @@ numident %>%
 
 **Label**: Total Number of Applications 
 
-**Description**: number_apps reports the person's total number of Social Security applications, as recorded in the Numident Application Files. 
+**Description**: number_apps reports the person's total number of Social Security applications, as recorded in the Numident application records. This variable was top-coded at 10. 
 
 
 ```{r, eval = F, echo = F}
@@ -771,7 +764,7 @@ topcode <- function(a, top) {
     return(ifelse(a > top, top, a))
 }
 
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
     mutate(number_apps = topcode(number_apps, 10)) %>%         
     group_by(number_apps) %>%
     tally() %>%
@@ -803,7 +796,7 @@ knitr::kable(numident %>%
 
 **Label**: Total Number of Claims 
 
-**Description**: number_claims reports the person's total number of Social Security claims, as recorded in the Numident Claim Files. 
+**Description**: number_claims reports the person's total number of Social Security claims, as recorded in the Numident claim records. This variable was top-coded at 3. 
 
 
 ```{r, eval = F, echo = F}
@@ -811,7 +804,7 @@ topcode <- function(a, top) {
     return(ifelse(a > top, top, a))
 }
 
-knitr::kable(numident %>%
+knitr::kable(bunmd %>%
     mutate(number_claims = topcode(number_claims, 3)) %>%         
     group_by(number_claims) %>%
     tally() %>%
@@ -839,7 +832,7 @@ knitr::kable(numident %>%
 **Description**: A post-stratification person-weight to Human Mortality Database (HMD) totals for persons (1) born between 1900-1940 (2) dying between 1988-2005 and (3) a recorded sex. Please see appendix for more details on weighting procedure. 
 
 ```{r, eval = F, echo = F}
-numident %>%
+bunmd %>%
     ggplot() + 
     geom_histogram(aes(x = weight)) + 
     bbc_style() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
@@ -871,7 +864,7 @@ numident %>%
 **Description**: A post-stratification person-weight to Human Mortality Database (HMD) totals for persons (1) born between 1900-1940 (2) dying between 1988-2005 (3) a recorded sex (4) recorded birth place and (5) recorded race. Please see appendix for more details on weighting procedure.
 
 ```{r, eval = F, echo = F}
-numident %>%
+bunmd %>%
   mutate(cweight_log = log(cweight, base = 10)) %>% 
     ggplot() + 
     geom_histogram(aes(x = cweight_log)) + 
