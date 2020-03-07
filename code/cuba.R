@@ -3,10 +3,10 @@
 ## (1) read in data and code variables
 library(memisc)
 library(data.table)
-path <- "~/Documents/data/matched_data/"
-dt <- fread(paste0(path, "berkeley_unified_numident_mortality_file_v01_complete.csv"))
+dt <- fread("/censoc/data/numident/3_ bunmd_complete.csv")
 nrow(dt)
-## [1] 18982919
+
+## [1] 189829190
 
 ## 2) create analysis variables
 

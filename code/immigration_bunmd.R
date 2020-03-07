@@ -234,7 +234,6 @@ m.cuba.eni <- lm(death_age ~ eni_hisp + Byear + as.factor(sex),
                  subset = N >= 25 & sex == 2)
 mtable(m.cuba.eni)
 
-
 m.cuba.eni.f <- lm(death_age ~ eni_hisp + Byear,
                  data = out,
                  subset = N >= 25 & sex == 2)
