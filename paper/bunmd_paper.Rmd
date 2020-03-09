@@ -161,6 +161,119 @@ Truncation, however, will tend to downwardly bias the estimated effects of any c
 
 Simulation tells us that the magnitudes of the regression coefficients need to be inflated by a factor of about 2 or 3 for many of the cohorts that are covered by the Numident files. The table below gives the inflation factors for each cohort, based on a simulation of a Gompertz distribution with M = 79.6 and b = 0.0826 (the values found by fitting to the untruncated cohort of 1910 using HMD data). The interpretation of these numbers is that a regression coefficient of 0.5, as in the example of comparing men and women, found using the data from the cohort of 1910 (observed from 1988 to 2005) translates to a difference of life expectancy at age 65 of 0.5 x 2.3 = 1.15 years.
 
+Table 2 below shows the adjustment factors implied by different
+choices of $b$ and $M$. The Human Mortality Database tells us that the
+birth cohort of 1910 had a modal age of death of about 84 and a
+senescence rate $\beta$ of about 0.1. We recommend these as
+default choices. As can be seen from the table, the adjustment factors
+are typically about 3, with much larger or smaller values found only
+in the extreme cases. When the distribution of mortality is very
+compressed (high $b$) and the modal age is young, the truncated tails
+are smaller and the adjustment factor is closer to 2. When the
+distribution of mortality is dispersed and the modal age is high, there
+is significant truncation, and the adjustment factor can be 5 or even
+higher.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{@{}lllllll@{}}
+\toprule
+    &                         &      &   &   $b$  &      &      \\
+    &                         & 0.08 & 0.09 & 0.1 & 0.11 & 0.12 \\ \cmidrule(l){2-7} 
+    & \multicolumn{1}{l|}{77} & 3.0    & 2.5  & 2.2 & 2.1  & 1.9  \\
+    & \multicolumn{1}{l|}{78} & 3.2  & 2.7  & 2.4 & 2.2  & 2.0  \\
+    & \multicolumn{1}{l|}{79} & 3.3  & 2.9  & 2.5 & 2.4  & 2.1  \\
+    & \multicolumn{1}{l|}{80} & 3.5  & 3.0  & 2.8 & 2.4  & 2.2  \\
+$M$ & \multicolumn{1}{l|}{81} & 3.9  & 3.2  & 2.8 & 2.5  & 2.4  \\
+    & \multicolumn{1}{l|}{82} & 4.1  & 3.3  & 3.1 & 2.6  & 2.5  \\
+    & \multicolumn{1}{l|}{83} & 4.3  & 3.7  & 3.2 & 2.9  & 2.6  \\
+    & \multicolumn{1}{l|}{84} & 4.7  & 3.8  & 3.4 & 3.1  & 2.7  \\
+    & \multicolumn{1}{l|}{85} & 4.9  & 3.8  & 3.6 & 3.2  & 2.9  \\
+    & \multicolumn{1}{l|}{86} & 5.6  & 4.6  & 3.9 & 3.4  & 3.0    \\
+    & \multicolumn{1}{l|}{87} & 6.1  & 5    & 4.2 & 3.7  & 3.3  \\
+    &                         &      &      &     &      &      \\ \bottomrule
+\end{tabular}
+\end{center}
+\caption*{Table 3: Regression coefficient adjustment factors for combined birth
+cohorts 1895 to 1920, estimated by simulation for different
+Gompertz parameter values $b$ and $M$.}
+\end{table}
+
+We recommend that users estimate the appropriate adjustment factor for
+their analysis by specifying their choice of birth cohorts. The Gompertz
+parameters can be left at their default values of $\beta = 0.1$ and $M
+= 84$ unless there is a reason to override these values based on
+external estimates.
+
+Users can do their full statistical analysis, including hypothesis
+testing and model selection, using regression on age at death with
+dummy variables for year of birth. The adjustment factors can then be
+applied when discussing the magnitude of results and comparing them to
+other research findings. When greater precision is desired, or
+comparisons among cohorts are made, then more complex methods are
+needed.
+
+We show regression results that report differences in mean age at death
+observed in the truncated range of ages observable from 1988 through
+2005. These differences will tend to be smaller the narrower the age
+window considered.
+
+For example, in the Figure \ref{fig:distribution_age_of_death} below, we show two distributions of age at
+death in which population A has life expectancy at age 65 of 18 and population B has life expectancy at age 65 of 19.
+
+
+<!-- \begin{figure}[H] -->
+<!--   \centering -->
+<!--   \includegraphics[width=6in]{../illustrations/regression_coefficient_adjustment.png} -->
+<!--   \caption{Regression coefficient adjustments for birth cohors of 1895-1920 using baseline mortality schedule parameters $b = 1/10$ and $M = 84$} -->
+<!--   \label{fig:regression_coeff} -->
+<!-- \end{figure} -->
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=6in]{../illustrations/distribution_age_of_death.png}
+  \caption{Regression coefficient adjustments for birth cohors of 1895-1920 using baseline mortality schedule parameters $b = 1/10$ and $M = 84$}
+  \label{fig:distribution_age_of_death}
+\end{figure}
+
+If we only observe deaths from ages 78 to 95, as we would for the
+cohort of 1910, the difference in these truncated means will only be
+..., understating the $e(65)$ difference by a factor of X.
+
+It is possible to estimate more sophisticated models that take into
+account truncation and provide parametric and other model-based
+estimates of the untruncated mortality distribution [@alexander_deaths_2018]. This
+is particularly useful for estimating changes in differences over
+time, when the researcher does not want to confound time trends in the
+effects of covariates with changing ages of truncation.
+
+The regression approach has the advantage of being simpler, faster
+and still easy to interpret. In order to translate regression results, we
+recommend using a multiplicative adjustment factor, estimated using
+simulation.
+
+The simulation assumes two Gompertz mortality schedules with the same
+senescence parameter $b$ but differing modal ages of death $M$,
+such that their life expectancy at age 65 differs by 1 year. A
+function in the computer language ${\tt R}$ , shown below, produces
+estimates of the adjustment factor needed to translate differences in
+truncated means to differences in $e(65)$.
+
+\begin{verbatim}
+get.bunmd.adjust.factor(byear.vec,
+                        b = 1/10, 
+                        M = 84,
+                        e65.diff = 1,
+                        N = 1 * 10^6)
+\end{verbatim}
+
+The function allows the user to specify the set of birth cohorts,
+e.g. \texttt{byear.vec = 1895:1920}. It also allows the user to modify
+the baseline mortality schedule parameters $b$ and $M$, as well as the
+simulated difference in $e(65)$. We find that the estimates are not sensitive to the choice of
+difference in $e(65)$, an encouraging result that permits use of the
+same adjustment factor to a range of observed differences in truncated
+means.
 
 ## 4. Case Studies
 
@@ -259,7 +372,7 @@ race question, when the only options were "White" (N = 35,000),
 "Black" (N = 1,000)  and "Other" (N = 800).
 
 We report the results of a regression of age of death on race, sex,
-and birth year in Table 2 below. We can see that Black Cuban
+and birth year in Table 3 below. We can see that Black Cuban
 immigrants died earlier than "White" Cuban immigrants. The effect of
 -0.8 years in the regression corresponds to a life expectancy
 difference at age 65 of about 3 years. (There is no clear difference
@@ -321,127 +434,11 @@ F Statistic & 669.305$^{***}$ (df = 23; 39817) \\
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
-\caption*{Table 2: Regression results for mean age at death of Cuban immigrants by
+\caption*{Table 3: Regression results for mean age at death of Cuban immigrants by
 race, birth year, and sex}
 \end{table} 
 
-
-### 4.4 Translating Regression Results into Life Expectancy at Age 65  
-
-We show regression results that report differences in mean age at death
-observed in the truncated range of ages observable from 1988 through
-2005. These differences will tend to be smaller the narrower the age
-window considered.
-
-For example, in the Figure \ref{fig:distribution_age_of_death} below, we show two distributions of age at
-death in which population A has life expectancy at age 65 of 18 and population B has life expectancy at age 65 of 19.
-
-
-<!-- \begin{figure}[H] -->
-<!--   \centering -->
-<!--   \includegraphics[width=6in]{../illustrations/regression_coefficient_adjustment.png} -->
-<!--   \caption{Regression coefficient adjustments for birth cohors of 1895-1920 using baseline mortality schedule parameters $b = 1/10$ and $M = 84$} -->
-<!--   \label{fig:regression_coeff} -->
-<!-- \end{figure} -->
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=6in]{../illustrations/distribution_age_of_death.png}
-  \caption{Regression coefficient adjustments for birth cohors of 1895-1920 using baseline mortality schedule parameters $b = 1/10$ and $M = 84$}
-  \label{fig:distribution_age_of_death}
-\end{figure}
-
-If we only observe deaths from ages 78 to 95, as we would for the
-cohort of 1910, the difference in these truncated means will only be
-..., understating the $e(65)$ difference by a factor of X.
-
-It is possible to estimate more sophisticated models that take into
-account truncation and provide parametric and other model-based
-estimates of the untruncated mortality distribution [@alexander_deaths_2018]. This
-is particularly useful for estimating changes in differences over
-time, when the researcher does not want to confound time trends in the
-effects of covariates with changing ages of truncation.
-
-The regression approach has the advantage of being simpler, faster
-and still easy to interpret. In order to translate regression results, we
-recommend using a multiplicative adjustment factor, estimated using
-simulation.
-
-The simulation assumes two Gompertz mortality schedules with the same
-senescence parameter $b$ but differing modal ages of death $M$,
-such that their life expectancy at age 65 differs by 1 year. A
-function in the computer language ${\tt R}$ , shown below, produces
-estimates of the adjustment factor needed to translate differences in
-truncated means to differences in $e(65)$.
-
-\begin{verbatim}
-get.bunmd.adjust.factor(byear.vec,
-                        b = 1/10, 
-                        M = 84,
-                        e65.diff = 1,
-                        N = 1 * 10^6)
-\end{verbatim}
-
-The function allows the user to specify the set of birth cohorts,
-e.g. \texttt{byear.vec = 1895:1920}. It also allows the user to modify
-the baseline mortality schedule parameters $b$ and $M$, as well as the
-simulated difference in $e(65)$. We find that the estimates are not sensitive to the choice of
-difference in $e(65)$, an encouraging result that permits use of the
-same adjustment factor to a range of observed differences in truncated
-means.
-
-Table 2 below shows the adjustment factors implied by different
-choices of $b$ and $M$. The Human Mortality Database tells us that the
-birth cohort of 1910 had a modal age of death of about 84 and a
-senescence rate $\beta$ of about 0.1. We recommend these as
-default choices. As can be seen from the table, the adjustment factors
-are typically about 3, with much larger or smaller values found only
-in the extreme cases. When the distribution of mortality is very
-compressed (high $b$) and the modal age is young, the truncated tails
-are smaller and the adjustment factor is closer to 2. When the
-distribution of mortality is dispersed and the modal age is high, there
-is significant truncation, and the adjustment factor can be 5 or even
-higher.
-
-Regression coefficient adjustment factors for combined birth
-cohorts 1895 to 1920, estimated by simulation for different
-Gompertz parameter values $b$ and $M$.
-
-\begin{center}
-\begin{tabular}{@{}lllllll@{}}
-\toprule
-    &                         &      &   &   $b$  &      &      \\
-    &                         & 0.08 & 0.09 & 0.1 & 0.11 & 0.12 \\ \cmidrule(l){2-7} 
-    & \multicolumn{1}{l|}{77} & 3.0    & 2.5  & 2.2 & 2.1  & 1.9  \\
-    & \multicolumn{1}{l|}{78} & 3.2  & 2.7  & 2.4 & 2.2  & 2.0  \\
-    & \multicolumn{1}{l|}{79} & 3.3  & 2.9  & 2.5 & 2.4  & 2.1  \\
-    & \multicolumn{1}{l|}{80} & 3.5  & 3.0  & 2.8 & 2.4  & 2.2  \\
-$M$ & \multicolumn{1}{l|}{81} & 3.9  & 3.2  & 2.8 & 2.5  & 2.4  \\
-    & \multicolumn{1}{l|}{82} & 4.1  & 3.3  & 3.1 & 2.6  & 2.5  \\
-    & \multicolumn{1}{l|}{83} & 4.3  & 3.7  & 3.2 & 2.9  & 2.6  \\
-    & \multicolumn{1}{l|}{84} & 4.7  & 3.8  & 3.4 & 3.1  & 2.7  \\
-    & \multicolumn{1}{l|}{85} & 4.9  & 3.8  & 3.6 & 3.2  & 2.9  \\
-    & \multicolumn{1}{l|}{86} & 5.6  & 4.6  & 3.9 & 3.4  & 3.0    \\
-    & \multicolumn{1}{l|}{87} & 6.1  & 5    & 4.2 & 3.7  & 3.3  \\
-    &                         &      &      &     &      &      \\ \bottomrule
-\end{tabular}
-\end{center}
-
-We recommend that users estimate the appropriate adjustment factor for
-their analysis by specifying their choice of birth cohorts. The Gompertz
-parameters can be left at their default values of $\beta = 0.1$ and $M
-= 84$ unless there is a reason to override these values based on
-external estimates.
-
-Users can do their full statistical analysis, including hypothesis
-testing and model selection, using regression on age at death with
-dummy variables for year of birth. The adjustment factors can then be
-applied when discussing the magnitude of results and comparing them to
-other research findings. When greater precision is desired, or
-comparisons among cohorts are made, then more complex methods are
-needed.
-
-### 4.5 Geography
+### 4.4 Geography
 There are several geography variables in the BUNMD. The Social Security application entries include information on birthplace. For persons born in the United States, the geographic resolution is state-level, and for persons born outside of the United States, the geographic resolution is country-level. The Numident death entries contains the 9-digit ZIP Code of residence at the time of death for a portion of records. ZIP Codes, while not the most robust geographic unit of analysis, can offer insights into a variety of spatial questions [@grubesic_use_2006]. 
 
 Figure \ref{fig:cleveland_life_expectancy} shows life expectancy at age 65 for the birth cohort of 1900 in Ohio's Cuyahoga County by ZIP Code. Life expectancy is lower in inner-city Cleveland, and higher in its surrounding suburbs. These old-age mortality disparities are likely driven by racial segregation.
@@ -460,7 +457,7 @@ Figure \ref{fig:cleveland_life_expectancy} shows life expectancy at age 65 for t
   \label{fig:cleveland_life_expectancy}
 \end{figure}
 
-### 4.6 Gompertz Maximum Likelihood Estimation: Race Differentials  
+### 4.5 Gompertz Maximum Likelihood Estimation: Race Differentials  
 Gompertz maximum likelihood estimation can also be used to look at race differentials in mortality by state in the BUNMD. This method combines the observed distribution of deaths over a certain window of deaths with external knowledge of human mortality age-patterns, allowing us to estimate mortality rates given a truncated window of deaths. We are assuming that the Gompertz model is appropriate and that the deaths we observe reflect the true population cohort distribution. Under-coverage will not bias estimates as long as the under-coverage is happening at random.  
 
 In Figure \ref{fig:gompertz}, we compare estimates of life expectancy at age 65 for Whites and Blacks over time for the cohorts of 1900 to 1920 in the state of Alabama using a Gompertz model. The size of the BUNMD allows researchers to identify heterogeneity and identify patterns of mortality obscured by composite population patterns [@vaupel_heterogeneitys_1985].  
@@ -472,8 +469,7 @@ In Figure \ref{fig:gompertz}, we compare estimates of life expectancy at age 65 
   \label{fig:gompertz}
 \end{figure}
 
-
-### 4. Conclusion 
+## 5. Conclusion 
 The National Archives release of Numident records has created a new administrative data resource for researchers studying mortality. We have created a single-file, cleaned and harmonized ersion of this data, the BUNMD, covering more than 49 million deaths. In this paper we have described the original data and the steps we took to create BUNMD. We have also provided an overview of statistical methods for estimating mortality using this deaths-only data set and provided a series of examples showing how to use the BUNMD. Our hope is that these public administrative recoreds, with their extraordinary spatial resolution and size will open up new avenues for high-resolution mortality research. Furthemore, we hope that the open-access nature of the data will help foster research that is reproducible and extendable. 
 
 \textbf{Public distribution, acknowledgement, conditions}
@@ -484,7 +480,148 @@ The original SS-5 Files are available for download at __________?
 
 \newpage 
 
-# References {-}
+#### References {-}
 
 <div id='refs'></div>
+
+
+\newpage 
+
+# Technical Appendix 
+
+This supplementary appendix presents the procedure for constructing the Berkeley Unified Numident Mortality Database (BUNMD) from the original NARA Numident Records. Please see the BUNMD Codebook for variable descriptions, value labels, and tabulations. 
+
+## 1.1 NARA Numident Records
+
+In 2013, the Social Security Administration transferred a set of Numident records to the National Archives (NARA). In 2019, we obtained the NARA Numident records and their accompanying documentation. The NARA Numident records are a subset of the records in the complete Numident. The NARA Numident records contain three types of entries: applications, claims, and deaths. NARA delivered each set of entries seperately as a set 20 fixed-width .txt files (3 x 20 = 60 files in total). 
+
+## 1.2 NARA Numident Metadata
+
+We obtained three documents from the National Archives Technical Documentation series:
+
+(https://aad.archives.gov/aad/popup-tech-info.jsp?s=5057; accessed 11/28/2019): 
+
+- Application (SS-5) Records Layout
+- Death Records Layout
+- Claim Records Layout	
+
+The record layout documents contain variable descriptions, value labels, technical notes, and the start and end position for each variable in the 60 fixed-width .txt files.
+
+## 1.3 Code
+
+All data processing was was done in the `R` Statistical Programming Language. The code to construct the BUNMD from the NARA Numident records is available at "Github.com/caseybreen/wcensoc/". 
+
+## 1.4 Pre-Processing
+
+For each of the three entry types, we read in the 20 fixed-width .txt files using the column position specified in the record layout documents. We then appended the 20 files into a single file, creating a single file for each of the three entry types. 
+
+We took the following steps to clean each file: 
+
+1. We changed the variable names to be more concise and informative. For example, we renamed the "NUMI_SEX" variable to "sex". 
+
+2. We harmonized the different codes to represent a missing value ("Unknown", "Unk", "Un", and "0") to "NA." 
+
+## 1.5 Combining NARA Numident Records into the BUNMD
+
+The goal in constructing the BUNMD was to combine the NARA Numident records into a single, harmonized file with one record per person. The original records contain over 100+ variables. Some are not of general interest to the research community, while others contain 99%+ missing values (as shown in Figures 2-4). We selected a set of general-interest variables with high completeness. 
+
+While a person can only have one death entry, they might have several application or claims entries; information may be reported several times. For example, sex is reported in the application, claim, and death entries. Occasionally, a person reports different values of sex, race, place of birth, etc. across entries. To handle this response inconsistency, we developed a set of decision rules to select the a single value across entries (see Table 2). In order to study name changes, race changes, and other features, the original NARA Numident records are useful, and are available upon request. 
+
+## 1.6 Geography
+
+
+
+\textbf{Place of Birth:} There are several geography variables in the NARA Numident records. The application entries have information on birthplace. For persons born in the United States, the geographic resolution is state-level. For persons born outside of the United States, the geographic resolution is country-level. The NARA Numident uses two variables to convey birthplace. The first variable denotes whether a person was foreign born, and the second variable contains a two-letter state or country abbreviation. We harmonize these two variables into one variable with a numeric coding schema. This coding schema matches the IPUMS-USA BPLD (Birthplace, detailed) schema.
+
+\textbf{Place of Death:} The Numident death entries contains the 9-digit ZIP Code of the residence at the time of death. Sometimes, the full 9-digit ZIP Code is not available, and an "x" is used to represent a missing digit. This is the original convention used by the Social Security Administration.
+
+\textbf{Social Security State:} The first three digits of a Social Security number correspond to the state in which a Social Security number was issued (prior to 1973) or to the ZIP Code of the mailing address listed in the Social Security application (after 1973).  We constructed a variable "socstate" that reports the the state corresponding to the first three digits of the Social Security number. The Social Security Administration changed the assignment process in 2011 — after the last Social Security number for a person in the BUNMD was issued — and the first three digits no longer correspond to a state.
+
+(https://www.ssa.gov/employer/stateweb.htm; accessed 11/28/2019)
+
+
+\begin{figure}
+  \centering
+  \subfloat[\label{fig:tp01}]{\includegraphics[width=5.5in]{../illustrations/numident_flowchart.png}}
+  \caption{BUNMD Construction Flow Chart}
+  \label{fig:tp}
+\end{figure}
+
+\newpage
+
+## 1.7 BUNMD Samples and Weights
+
+We created two BUNMD samples with high death coverage. Sample 1 includes deaths to
+persons age 65+, occurring between 1988 to 2005, from the birth cohorts of 1900 to 1940. Sample 2 is the subset of Sample 1 records with complete information on sex, birthplace, and race. For each sample, we constructed inverse probability weights to the Human Mortality Database (HMD) on age at death, year of birth, year of death, and sex. We broke the sample into cells cross-classified by year of birth, year of death, age at death, and sex. We weighted each cell to the HMD "Deaths by Lexis triangles" totals. This allows aggregation to HMD totals by period or cohort. 
+
+\begin{equation}
+  W_j = \frac{\text{HMD deaths in cell j}}{\text{Numident Sample 1 deaths in cell j}} 
+\end{equation}
+
+\newpage 
+
+**\large Decision Rules used for BUNMD**
+
+| Variable     | Numident Source | Decision Rule | 
+|:-------------|:---------------------------------------------|:------------------|
+|ssn           |Death Entry                                   |  -                |
+|fname         |Death Entry                                   |  -                |
+|mname         |Death Entry                                   |  -                |
+|lname         |Death Entry                                   |  -                |
+|byear         |Death Entry                                   |  -                |
+|bmonth        |Death Entry                                   |  -                |
+|bday          |Death Entry                                   |  -                |
+|dyear         |Death Entry                                   |  -                |
+|dmonth        |Death Entry                                   |  -                |
+|dday          |Death Entry                                   |  -                |
+|zip_residence |Death Entry                                   |  -                |
+|sex           |Death, Application, or Claim Entry            |Most Recent        |
+|race          |Application Entry                             |Most Recent        |
+|bpl           |Application or Claim Entry                    |Most Recent        |
+|father_fname  |Application or Claim Entry                    |Maximum Characters |
+|father_mname  |Application or Claim Entry                    |Maximum Characters |
+|father_lname  |Application or Claim Entry                    |Maximum Characters |
+|mother_fname  |Application or Claim Entry                    |Maximum Characters |
+|mother_mname  |Application or Claim Entry                    |Maximum Characters |
+|mother_lname  |Application or Claim Entry                    |Maximum Characters |
+|race_change   |Constructed                                   |  -                |
+|death_age     |Constructed                                   |  -                |
+|socstate      |Constructed                                   |  -                |
+|age_first_app |Constructed                                   |  -                |
+|number_apps   |Constructed                                   |  -                |
+|number_claims |Constructed                                   |  -                |
+|weight        |Constructed                                   |  -                |
+|cweight       |Constructed                                   |  -                |
+
+Table 1: The decision rules used to construct the BUNMD. For a given variable, we selected values from the Death record if available. If it wasn't available in the death record, we used a decision rule to select it from the Application record. If it wasn't available in either the Death or Application entry, we selected it from the Claim record. 
+
+
+\newpage 
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 6.9in]{../illustrations/bunmd_coverage_completeness.png}
+  \caption{}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 6.9in]{../illustrations/death_coverage.png}
+  \caption{}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 6.9in]{../illustrations/application_coverage.png}
+  \caption{}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=6.9in]{../illustrations/claim_coverage.png}
+  \caption{}
+\end{figure}
+
+\newpage
+
 

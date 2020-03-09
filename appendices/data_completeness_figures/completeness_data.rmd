@@ -47,7 +47,7 @@ ggplot() +
        shape = " ") + 
   theme(legend.position = "bottom", legend.text=element_text(size=12))
 
-ggsave(plot = death_completeness, filename = "/Users/casey/Documents/censoc/numident_paper/illustrations/death_coverage.png", height = 11, width = 8.5)
+ggsave(plot = death_completeness, filename = "/Users/casey/Documents/censoc/bunmd_paper/illustrations/death_coverage.png", height = 11, width = 8.5)
 ```
 
 ```{r}
@@ -77,7 +77,7 @@ ggplot() +
   theme(legend.position = "bottom", legend.text=element_text(size=12)) +
   ylim(0, 100)
 
-ggsave(plot = app_completeness, filename = "/Users/casey/Documents/censoc/numident_paper/illustrations/application_coverage.png", height = 11, width = 8.5)
+ggsave(plot = app_completeness, filename = "/Users/casey/Documents/censoc/bunmd_paper/illustrations/application_coverage.png", height = 11, width = 8.5)
 ```
 
 ```{r}
@@ -106,7 +106,7 @@ ggplot() +
        shape = " ") + 
   theme(legend.position = "bottom", legend.text=element_text(size=12))
 
-ggsave(plot = claim_coverage, filename = "/Users/casey/Documents/censoc/numident_paper/illustrations/claim_coverage.png", height = 11, width = 8.5)
+ggsave(plot = claim_coverage, filename = "/Users/casey/Documents/censoc/bunmd_paper/illustrations/claim_coverage.png", height = 11, width = 8.5)
 ```
 
 
@@ -136,7 +136,6 @@ ggplot() +
   theme(legend.position = "bottom")
   ylim(0, 100)
 
-
-ggsave(plot = bunmd_coverage, filename = "/Users/casey/Documents/censoc/numident_paper/illustrations/bunmd_coverage.png", height = 11, width = 8.5)
+ggsave(plot = bunmd_coverage, filename = "/Users/casey/Documents/censoc/bunmd_paper/illustrations/bunmd_coverage_completeness.png", height = 11, width = 8.5)
 ```
 
