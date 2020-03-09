@@ -465,7 +465,7 @@ In Figure \ref{fig:gompertz}, we compare estimates of life expectancy at age 65 
 \end{figure}
 
 ### Conclusion 
-The NARA Numident release has created a new administrative data resource for researchers studying mortality. We introduce the BUNMD, a cleaned and harmonized version of the NARA Numident records with over 49-million deaths. We provide an overview of statistical methods for estimating mortality using this deaths-only data set. The high spatial resolution and demographic covariates open up new avenues for high-resolution mortality research, and the open-access nature of the data ensures that research is reproducible and extendable. 
+The National Archives release of Numident records has created a new administrative data resource for researchers studying mortality. We have created a single-file, cleaned and harmonized ersion of this data, the BUNMD, covering more than 49 million deaths. In this paper we have described the original data and the steps we took to create BUNMD. We have also provided an overview of statistical methods for estimating mortality using this deaths-only data set and provided a series of examples showing how to use the BUNMD. Our hope is that these public administrative recoreds, with their extraordinary spatial resolution and size will open up new avenues for high-resolution mortality research. Furthemore, we hope that the open-access nature of the data will help foster research that is reproducible and extendable. 
 
 ## Public distribution, acknowledgement, conditions
 The authors benefited from helpful discussions with Lynn Goodsell, guy from SSA, Berkeley HMD, etc. TODO.  
