@@ -1,9 +1,16 @@
+########################################################
+# Create BUNMD Lexis Plot
+########################################################
+
 ## Library Packages
 library(gridExtra)
 library(ggpubr)
 library(data.table)
 library(tidyverse)
 library(HMDHFDplus)
+
+## source helper functions
+source("/censoc/code/workspace/numident_paper/code/helper_functions.R")
 
 ## Read in BUNMD file
 bunmd <- fread("/censoc/data/numident/4_berkeley_unified_mortality_database/bunmd.csv")
@@ -27,8 +34,8 @@ hmd.tabulation <- hmd_deaths %>%
   mutate(source = "HMD")
 
 ## Prep data for Lexis Function
-lexis.data <- numident_master_file_tabulated_for_lexis %>% 
-  inner_join(hmd.deaths.tabulated.for.lexis, by = c("Year", "Age" )) %>%
+lexis.data <- bunmd.tabulation %>% 
+  inner_join(hmd.tabulation, by = c("Year", "Age" )) %>%
   mutate(coverage = deaths.x/deaths.y)
 
 ## Call Lexis Function

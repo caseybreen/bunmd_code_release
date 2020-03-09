@@ -1,5 +1,5 @@
 ###################################################
-# Plot BUNMD Coverage
+# Create BUNMD Coverage Plot
 ###################################################
 
 ## Library Packages
@@ -8,6 +8,10 @@ library(tidyverse)
 library(HMDHFDplus)
 library(gridExtra)
 library(ggpubr)
+
+## Source helper functions
+source("/censoc/code/workspace/numident_paper/code/helper_functions.R")
+
 
 ## Install bbplot package from github
 # install.packages('devtools')
@@ -18,7 +22,8 @@ library(bbplot)
 bunmd <- fread("/censoc/data/numident/4_berkeley_unified_mortality_database/bunmd.csv")
 
 ## Get HMD deaths from website
-hmd_deaths <-  readHMDweb(CNTRY = "USA", item = "Deaths_1x1", username ="caseybreen@berkeley.edu", password = "censoc") %>% mutate(linking_key = paste(Year, Age, sep = "_" ))
+hmd_deaths <-  readHMDweb(CNTRY = "USA", item = "Deaths_1x1", username ="caseybreen@berkeley.edu", password = "censoc") %>%
+  mutate(linking_key = paste(Year, Age, sep = "_" ))
 
 ## Tabulate deaths in BUNMD for 65+
 bunmd.deaths.tabulated <- bunmd %>% 
@@ -37,7 +42,7 @@ hmd.deaths.tabulated <- hmd_deaths %>%
   mutate(source = "Human Mortality Database")
 
 ## Combine into one data frame 
-data.for.plot <- numident_deaths_age %>% 
+data.for.plot <- bunmd.deaths.tabulated %>% 
   bind_rows(hmd.deaths.tabulated) %>% 
   filter(Year > 1970 & Year < 2006)
 

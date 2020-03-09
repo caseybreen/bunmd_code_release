@@ -1,7 +1,6 @@
-########################################################
-#Helper Functions for reconstructing the figures in BUNMD. 
-########################################################
-
+#########################################################
+# Helper Functions for reconstructing the figures in BUNMD. 
+#########################################################
 
 ## Gompertz Hazard Functions 
 hgomp <- function(x, b, a)
@@ -282,4 +281,42 @@ lexis <- function(data, fill_column, year_begin, age_begin,
     labs(X = "Year", Y = "Age")
   
   return(lexis_plot)
+}
+
+
+pgomp.M <- function(x, b, M = NULL)
+{
+  if (!is.null(M)) {
+    a <- bM2a(M = M, b = b)
+  }
+  Hx <- (a/b) * (exp(b*x) - 1)
+  lx <- exp(-Hx)
+  Px <-  1 - lx
+  return(Px)
+}
+
+sgomp.M <- function(x, b, M)
+{
+  1 - pgomp.M(x, b, M)
+}
+
+get.ex.gomp.M <- function(x, b, M = NULL)
+{
+  lx <- sgomp.M(x, b = b, M = M)
+  Tx <- integrate(f = sgomp.M, b = b, M = M, lower = x, upper = Inf)$value
+  ex <- Tx/lx
+  return(ex)
+}
+
+get.M.from.ex <- function(e65.target, b)
+{
+  f <- function(M, b, e65.target) {
+    out <- e65.target - get.ex.gomp.M(x = 65,
+                                      b = b,
+                                      M)
+    return(out)
+  }
+  M.target <- uniroot(f, b = b, e65.target = e65.target,
+                      c(60, 100))$root
+  return(M.target)
 }
