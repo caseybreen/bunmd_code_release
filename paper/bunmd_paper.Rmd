@@ -485,7 +485,7 @@ In Figure \ref{fig:gompertz}, we compare estimates of life expectancy at age 65 
   \label{fig:gompertz}
 \end{figure}
 
-We chose Alabama and Texas as they had a large enough subpopulations, after disaggregation by birth cohort, for the Gompertz MLE approach to produce reasonable estimates. When the population subgroups are very small, the Gompertz MLE approach does not produce plausible estimates. Developing diagnostics to assess the fit of the Gompertz MLE approach and estimate uncertainty is an area for future research. 
+We chose Alabama and Texas as they had a large enough subpopulations, after disaggregation by birth cohort, for the Gompertz MLE approach to produce reasonable estimates. The Gompertz MLE approach does not produce plausible estimates for small population subgroups. Developing diagnostics to assess the fit of the Gompertz MLE approach and estimate uncertainty is an area for future research. 
 
 ## 5. Conclusion 
 The National Archives release of Numident records has created a new administrative data resource for researchers studying mortality. We have created a single-file, cleaned and harmonized version of this data, the BUNMD, covering more than 49 million deaths. In this paper we have described the original data and the steps we took to create BUNMD. We have also provided an overview of statistical methods for estimating mortality using this deaths-only data set and provided a series of examples showing how to use the BUNMD. Our hope is that these public administrative records, with their extraordinary spatial resolution and size, will open up new avenues for high-resolution mortality research. Furthermore, we hope that the open-access nature of the data will help foster research that is reproducible and extendable. 
