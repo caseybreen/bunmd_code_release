@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 MAR 2020 14:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 MAR 2020 14:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -988,7 +988,7 @@ Overfull \hbox (36.12074pt too wide) in paragraph at lines 726--727
 File: ../illustrations/numident_flowchart.png Graphic file (type png)
 <use ../illustrations/numident_flowchart.png>
 Package pdftex.def Info: ../illustrations/numident_flowchart.png  used on input
- line 999.
+ line 998.
 (pdftex.def)             Requested size: 397.49036pt x 306.83466pt.
 [27] [28] [29]
 <../illustrations/bunmd_coverage_completeness.png, id=327, 2559.5625pt x 3312.3
@@ -996,67 +996,67 @@ Package pdftex.def Info: ../illustrations/numident_flowchart.png  used on input
 File: ../illustrations/bunmd_coverage_completeness.png Graphic file (type png)
 <use ../illustrations/bunmd_coverage_completeness.png>
 Package pdftex.def Info: ../illustrations/bunmd_coverage_completeness.png  used
- on input line 1081.
+ on input line 1080.
 (pdftex.def)             Requested size: 498.66354pt x 645.3293pt.
 
-Overfull \hbox (28.90852pt too wide) in paragraph at lines 1081--1082
+Overfull \hbox (28.90852pt too wide) in paragraph at lines 1080--1081
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 19.39928pt on input line 1083.
+LaTeX Warning: Float too large for page by 19.39928pt on input line 1082.
 
 <../illustrations/death_coverage.png, id=328, 2559.5625pt x 3312.375pt>
 File: ../illustrations/death_coverage.png Graphic file (type png)
 <use ../illustrations/death_coverage.png>
 Package pdftex.def Info: ../illustrations/death_coverage.png  used on input lin
-e 1087.
+e 1086.
 (pdftex.def)             Requested size: 498.66354pt x 645.3293pt.
 
-Overfull \hbox (28.90852pt too wide) in paragraph at lines 1087--1088
+Overfull \hbox (28.90852pt too wide) in paragraph at lines 1086--1087
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 19.39928pt on input line 1089.
+LaTeX Warning: Float too large for page by 19.39928pt on input line 1088.
 
 <../illustrations/application_coverage.png, id=329, 2559.5625pt x 3312.375pt>
 File: ../illustrations/application_coverage.png Graphic file (type png)
 <use ../illustrations/application_coverage.png>
 Package pdftex.def Info: ../illustrations/application_coverage.png  used on inp
-ut line 1093.
+ut line 1092.
 (pdftex.def)             Requested size: 498.66354pt x 645.3293pt.
 
-Overfull \hbox (28.90852pt too wide) in paragraph at lines 1093--1094
+Overfull \hbox (28.90852pt too wide) in paragraph at lines 1092--1093
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 19.39928pt on input line 1095.
+LaTeX Warning: Float too large for page by 19.39928pt on input line 1094.
 
 <../illustrations/claim_coverage.png, id=330, 2559.5625pt x 3312.375pt>
 File: ../illustrations/claim_coverage.png Graphic file (type png)
 <use ../illustrations/claim_coverage.png>
 Package pdftex.def Info: ../illustrations/claim_coverage.png  used on input lin
-e 1099.
+e 1098.
 (pdftex.def)             Requested size: 498.66354pt x 645.3293pt.
 
-Overfull \hbox (28.90852pt too wide) in paragraph at lines 1099--1100
+Overfull \hbox (28.90852pt too wide) in paragraph at lines 1098--1099
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 19.39928pt on input line 1101.
+LaTeX Warning: Float too large for page by 19.39928pt on input line 1100.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1105.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1104.
 [30 <../illustrations/bunmd_coverage_completeness.png>] [31 <../illustrations/d
 eath_coverage.png>] [32 <../illustrations/application_coverage.png>] [33 <../il
 lustrations/claim_coverage.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1105.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1104.
 (./bunmd_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1105.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1105.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1105.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1104.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1104.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1104.
  ) 
 Here is how much of TeX's memory you used:
  16624 strings out of 492649
@@ -1085,7 +1085,7 @@ dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2018/texmf-dist/fonts
 /type1/public/lm/lmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/pub
 lic/lm/lmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmtt
 12.pfb>
-Output written on bunmd_paper.pdf (33 pages, 2045917 bytes).
+Output written on bunmd_paper.pdf (33 pages, 2045806 bytes).
 PDF statistics:
  505 PDF objects out of 1000 (max. 8388607)
  418 compressed objects within 5 object streams
