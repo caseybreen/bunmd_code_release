@@ -576,7 +576,7 @@ We created two BUNMD samples with high death coverage. Sample 1 includes deaths 
 
 **\large Decision Rules used for BUNMD**
 
-| Variable     | Numident Source | Decision Rule | 
+| Variable     | Numident Source | Selection Rule | 
 |:-------------|:---------------------------------------------|:------------------|
 |ssn           |Death Entry                                   |  -                |
 |fname         |Death Entry                                   |  -                |
@@ -589,9 +589,10 @@ We created two BUNMD samples with high death coverage. Sample 1 includes deaths 
 |dmonth        |Death Entry                                   |  -                |
 |dday          |Death Entry                                   |  -                |
 |zip_residence |Death Entry                                   |  -                |
-|sex           |Death, Application, or Claim Entry            |Most Recent        |
-|race          |Application Entry                             |Most Recent        |
-|bpl           |Application or Claim Entry                    |Most Recent        |
+|sex           |Death, Application, or Claim Entry            |Last Recorded Sex  |
+|race_first    |Application Entry                             |First Recorded Race|
+|race_last     |Application Entry                             |Last Recorded Race |
+|bpl           |Application or Claim Entry                    |Last Recorded BPL  |
 |father_fname  |Application or Claim Entry                    |Maximum Characters |
 |father_mname  |Application or Claim Entry                    |Maximum Characters |
 |father_lname  |Application or Claim Entry                    |Maximum Characters |
@@ -607,8 +608,7 @@ We created two BUNMD samples with high death coverage. Sample 1 includes deaths 
 |weight        |Constructed                                   |  -                |
 |cweight       |Constructed                                   |  -                |
 
-Table 1: The decision rules used to construct the BUNMD. For a given variable, we selected values from the death record if available. If it wasn't available in the death record, we used a decision rule to select it from the application record. If it wasn't available in either the death or application entry, we selected it from the claim record. 
-
+Table 1: The selection rules used to construct the BUNMD. For a given variable, we selected values from the death record, if available. If a value wasn't available in the death record, we used chose a value from the application record using a selection rules. If it wasn't available in either the death or application entry, we selected it from the claim record. 
 
 \newpage 
 
