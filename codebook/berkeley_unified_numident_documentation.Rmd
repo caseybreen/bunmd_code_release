@@ -3,43 +3,46 @@ title: "Berkeley Unified Numident Mortality Database Codebook"
 output:
   pdf_document: default
   html_notebook: default
+header-includes:
+- \usepackage{hyperref}
 ---
 
-| Page| Variable     | Label                                        |
-|----:|:-------------|:---------------------------------------------|
-|  2  |ssn           |Social Security Number                        |
-|  3  |fname         |First Name                                    |
-|  4  |mname         |Middle Name                                   | 
-|  5  |lname         |Last Name                                     |
-|  6  |sex           |Sex                                           |
-|  7  |race_first        |Race on First Application                 |
-|  8  |race_first_cyear  |First Race: Application Year              |
-|  9  |race_first_cmonth |First Race: Application Month             |
-|  10 |race_last         |Race on Last Application                  |
-|  11 |race_last_cyear   |Last Race: Application Year               |
-|  12 |race_last_cmonth  |Last Race: Application Month              |
-|  13 |race_change   |Change in Race Response Flag                  |
-|  14 |bpl           |Place of Birth                                |
-|  14 |byear         |Year of Birth                                 |
-|  15 |bmonth        |Month of Birth                                |
-|  16 |bday          |Day of Birth                                  |
-|  17 |dyear         |Year of Death                                 |
-|  18 |dmonth        |Month of Death                                |
-|  19 |dday          |Day of Death                                  |
-|  20 |death_age     |Age at Death (Years)                          |
-|  21 |zip_residence |ZIP Code of Residence at Time of Death        |
-|  22 |socstate      |State where Social Security Number Issued     |
-|  23 |father_fname  |Father's First Name                           |
-|  24 |father_mname  |Father's Middle Name                          |
-|  25 |father_lname  |Father's Last Name                            |
-|  26 |mother_fname  |Mother's First Name                           |
-|  27 |mother_mname  |Mother's Middle Name                          |
-|  28 |mother_lname  |Mother's Last Name                            |
-|  29 |age_first_app |Age at First Social Security Application      |
-|  30 |number_apps   |Number of Applications                        |
-|  31 |number_claims |Number of Claims                              |
-|  32 |weight        |High-Coverage Sub-Sample Weight               |
-|  33 |cweight       |High-Coverage "Complete" Sub-Sample Weight    |
+| Page| Variable            | Label                                        |
+|----:|:--------------------|:---------------------------------------------|
+|  \hyperlink{page.2}{2}    | \hyperlink{page.2}{ssn}                |Social Security Number                        |
+|  \hyperlink{page.3}{3}    | \hyperlink{page.3}{fname}              |First Name                                    |
+|  \hyperlink{page.4}{4}    | \hyperlink{page.4}{mname}              |Middle Name                                   | 
+|  \hyperlink{page.5}{5}    | \hyperlink{page.5}{lname}              |Last Name                                     |
+|  \hyperlink{page.6}{6}    | \hyperlink{page.6}{sex}                |Sex                                           |
+|  \hyperlink{page.7}{7}    | \hyperlink{page.7}{race\_first}         |Race on First Application                 |
+|  \hyperlink{page.8}{8}    | \hyperlink{page.8}{race\_first\_cyear}   |First Race: Application Year              |
+|  \hyperlink{page.9}{9}    | \hyperlink{page.9}{race\_first\_cmonth}  |First Race: Application Month             |
+|  \hyperlink{page.10}{10}  | \hyperlink{page.10}{race\_last}         |Race on Last Application                  |
+|  \hyperlink{page.11}{11}  | \hyperlink{page.11}{race\_last\_cyear}   |Last Race: Application Year               |
+|  \hyperlink{page.12}{12}  | \hyperlink{page.12}{race\_last\_cmonth}  |Last Race: Application Month              |
+|  \hyperlink{page.13}{13}  | \hyperlink{page.13}{race\_change}       |Change in Race Response Flag                  |
+|  \hyperlink{page.14}{14}  | \hyperlink{page.14}{bpl}               |Place of Birth                                |
+|  \hyperlink{page.15}{15}  | \hyperlink{page.15}{byear}             |Year of Birth                                 |
+|  \hyperlink{page.16}{16}  | \hyperlink{page.16}{bmonth}            |Month of Birth                                |
+|  \hyperlink{page.17}{17}  | \hyperlink{page.17}{bday}              |Day of Birth                                  |
+|  \hyperlink{page.18}{18}  | \hyperlink{page.18}{dyear}             |Year of Death                                 |
+|  \hyperlink{page.19}{19}  | \hyperlink{page.19}{dmonth}            |Month of Death                                |
+|  \hyperlink{page.20}{20}  | \hyperlink{page.20}{dday}              |Day of Death                                  |
+|  \hyperlink{page.21}{21}  | \hyperlink{page.21}{death\_age}         |Age at Death (Years)                          |
+|  \hyperlink{page.22}{22}  | \hyperlink{page.22}{zip\_residence}     |ZIP Code of Residence at Time of Death        |
+|  \hyperlink{page.23}{23}  | \hyperlink{page.23}{socstate}          |State where Social Security Number Issued     |
+|  \hyperlink{page.24}{24}  | \hyperlink{page.24}{father\_fname}      |Father's First Name                           |
+|  \hyperlink{page.25}{25}  | \hyperlink{page.25}{father\_mname}      |Father's Middle Name                          |
+|  \hyperlink{page.26}{26}  | \hyperlink{page.26}{father\_lname}      |Father's Last Name                            |
+|  \hyperlink{page.27}{27}  | \hyperlink{page.27}{mother\_fname}      |Mother's First Name                           |
+|  \hyperlink{page.28}{28}  | \hyperlink{page.28}{mother\_mname}      |Mother's Middle Name                          |
+|  \hyperlink{page.29}{29}  | \hyperlink{page.29}{mother\_lname}      |Mother's Last Name                            |
+|  \hyperlink{page.30}{30}  | \hyperlink{page.30}{age\_first\_application} |Age at First Social Security Application      |
+|  \hyperlink{page.31}{31}  | \hyperlink{page.31}{number\_apps}       |Number of Applications                        |
+|  \hyperlink{page.32}{32}  | \hyperlink{page.32}{number\_claims}     |Number of Claims                              |
+|  \hyperlink{page.33}{33}  | \hyperlink{page.33}{weight}            |High-Coverage Sub-Sample Weight               |
+|  \hyperlink{page.34}{34}  | \hyperlink{page.34}{ccweight}          |High-Coverage "Complete Case" Sub-Sample Weight|
+
 
 
 \newpage 
@@ -60,7 +63,7 @@ output:
 
 **Label**: First Name
 
-**Description**: fname reports the first 16 letters of the person's first name, as recorded in the Numident death records
+**Description**: fname reports the first 16 letters of the person's first name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -81,7 +84,7 @@ output:
 
 **Label:** Last Name 
 
-**Description**: lname reports the first 21 letters of the person's last name, as recorded in the Numident death records 
+**Description**: lname reports the first 21 letters of the person's last name, as recorded in the Numident death records.
 
 \newpage 
 
@@ -99,67 +102,15 @@ knitr::kable(bunmd %>%
     group_by(sex) %>%
      tally() %>%
      mutate(freq = signif(n*100 / sum(n), 3)) %>%
-     mutate(label = c("Women", "Men", "Missing")) %>%
-     select(sex, label, n, freq))
+     mutate(label = c("Men", "Women", "Missing")) %>%
+     select(sex, label, n, `freq %` = freq))
 ```
 
-| sex|label   |        n|  freq %|
-|---:|:-------|--------:|-----:|
-|   1|Women   | 25829292| 52.20|
-|   2|Men     | 22692883| 45.90|
-|  NA|Missing |   937118|  1.89|
-
-\newpage 
-
-
-**\huge race\_last **
-\normalsize
-\vspace{12pt}
-
-**Label**: race last
-
-**Description**: race_last reports a person's race, as recorded on their most recent application entry.
-
-**Note**: Before 1980, the race schema in the Social Security application form contained three categories: White, Black, and Other. In 1980, the SSA added three categories: (1) Asian, Asian American, or Pacific Islander, (2) Hispanic, and (3) North American Indian or Alaskan Native. They also removed the Other category.
-
-```{r, eval = F, echo = F}
-knitr::kable(bunmd %>%
-    group_by(race_last) %>%
-    tally() %>%
-    mutate(freq = signif(n*100 / sum(n), 3)) %>%
-    mutate(label = c("White", "Black", "Other", "Asian", "Hispanic", "North American Native", "Missing")) %>%
-    select(race, label, n, freq))
-```
-
-| race_last|label                 |        n|   freq %|
-|---------:|:---------------------|--------:|------:|
-|         1|White                 | 28419085| 57.500|
-|         2|Black                 |  4040911|  8.170|
-|         3|Other                 |   469721|  0.950|
-|         4|Asian                 |   305983|  0.619|
-|         5|Hispanic              |   794837|  1.610|
-|         6|North American Native |    89629|  0.181|
-|        NA|Missing               | 15339127| 31.000|
-
-\newpage
-
-**\huge race_last_cyear **
-\normalsize
-\vspace{12pt}
-
-**Label:** First Race: Application Year
-
-**Description**: race_last_cyear reports the year of the application on which a person reported their last race. 
-
-\newpage 
-
-**\Huge race_last_cmonth **
-\normalsize
-\vspace{12pt}
-
-**Label:** Last Race: Application Month
-
-**Description**: race_last_cmonth is a numeric variable reporting the month of the application on which a person reported their last race. This variable is only available for persons who submitted 2 or more applications.
+| sex|label   |        n| freq %|
+|---:|:-------|--------:|------:|
+|   1|Men     | 25769568|  52.20|
+|   2|Women   | 22686047|  46.00|
+|  NA|Missing |   882212|   1.79|
 
 \newpage 
 
@@ -175,22 +126,22 @@ knitr::kable(bunmd %>%
 
 ```{r, eval = F, echo = F}
 knitr::kable(bunmd %>%
-    group_by(race_last) %>%
+    group_by(race_first) %>%
     tally() %>%
-    mutate(freq = signif(n*100 / sum(n), 3)) %>%
-    mutate(label = c("White", "Black", "Other", "Asian", "Hispanic", "North American Native", "Missing")) %>%
-    select(race, label, n, freq))
+    mutate(freq = round(n*100 / sum(n), 3)) %>%
+    mutate(label = c("White", "Black", "Other", "Asian, Asian American, or Pacific Islander", "Hispanic", "North American Indian or Alaskan Native", "Missing")) %>%
+    select(race_first, label, n, `freq %` = freq))
 ```
 
-| race_first|label                 |        n|    freq%|
-|----------:|:---------------------|--------:|-------:|
-|          1|White                 | 12485938| 25.200|
-|          2|Black                 |  2369762|  4.790|
-|          3|Other                 |   332058|  0.671|
-|          4|Asian                 |    60605|  0.123|
-|          5|Hispanic              |   106111|  0.215|
-|          6|North American Native |     6833|  0.014|
-|         NA|Missing               | 34097986| 68.900|
+| race_first|label                                      |        n| freq %|
+|----------:|:------------------------------------------|--------:|------:|
+|          1|White                                      | 28850917| 58.476|
+|          2|Black                                      |  4066081|  8.241|
+|          3|Other                                      |   689360|  1.397|
+|          4|Asian, Asian American, or Pacific Islander |   207656|  0.421|
+|          5|Hispanic                                   |   286517|  0.581|
+|          6|North American Indian or Alaskan Native    |    17485|  0.035|
+|         NA|Missing                                    | 15219811| 30.848|
 
 \newpage
 
@@ -214,6 +165,59 @@ knitr::kable(bunmd %>%
 
 **Description**: race_first_cmonth is a numeric variable reporting the month of the application on which a person reported their first race. 
 
+\newpage 
+
+
+**\huge race\_last **
+\normalsize
+\vspace{12pt}
+
+**Label**: race last
+
+**Description**: race_last reports a person's race, as recorded on their most recent application entry.
+
+**Note**: Before 1980, the race schema in the Social Security application form contained three categories: White, Black, and Other. In 1980, the SSA added three categories: (1) Asian, Asian American, or Pacific Islander, (2) Hispanic, and (3) North American Indian or Alaskan Native. They also removed the Other category.
+
+```{r, eval = F, echo = F}
+knitr::kable(bunmd %>%
+    group_by(race_last) %>%
+    tally() %>%
+    mutate(freq = round(n*100 / sum(n), 3)) %>%
+    mutate(label = c("White", "Black", "Other", "Asian, Asian American, or Pacific Islander", "Hispanic", "North American Indian or Alaskan Native", "Missing")) %>%
+    select(race_last, label, n, `freq %` = freq))
+```
+
+| race_last|label                                      |        n| freq %|
+|---------:|:------------------------------------------|--------:|------:|
+|         1|White                                      | 28417859| 57.599|
+|         2|Black                                      |  4040665|  8.190|
+|         3|Other                                      |   469636|  0.952|
+|         4|Asian, Asian American, or Pacific Islander |   305470|  0.619|
+|         5|Hispanic                                   |   794762|  1.611|
+|         6|North American Indian or Alaskan Native    |    89624|  0.182|
+|        NA|Missing                                    | 15219811| 30.848|
+
+\newpage
+
+**\huge race_last_cyear **
+\normalsize
+\vspace{12pt}
+
+**Label:** First Race: Application Year
+
+**Description**: race_last_cyear reports the year of the application on which a person reported their last race. 
+
+\newpage 
+
+**\Huge race_last_cmonth **
+\normalsize
+\vspace{12pt}
+
+**Label:** Last Race: Application Month
+
+**Description**: race_last_cmonth is a numeric variable reporting the month of the application on which a person reported their last race. This variable is only available for persons who submitted 2 or more applications.
+
+\newpage 
 
 \newpage 
 
@@ -223,7 +227,7 @@ knitr::kable(bunmd %>%
 
 **Label**: Change in Race Response Flag
 
-**Description**: race_change is a numeric dichotomous variable reporting whether an individual changed their race response across their Social Security Applications.
+**Description**: race_change is a numeric dichotomous variable reporting whether an individual changed their race response across their Social Security applications.
  
 ```{r, eval = F, echo = F}
 knitr::kable(bunmd %>%
@@ -231,14 +235,14 @@ knitr::kable(bunmd %>%
                tally() %>%
                mutate(freq = signif(n*100 / sum(n), 3)) %>%
                mutate(label = c("No Change", "Change", "No Race Information")) %>%
-               select(race_change, label, n, freq))
+               select(race_change, label, n, `freq %` = freq))
 ```
 
-| race_change|label               |        n|  freq|
-|-----------:|:-------------------|--------:|-----:|
-|           0|No Race Change      | 33266185| 67.30|
-|           1|Race Change         |   855066|  1.73|
-|          NA|No Race Information | 15338042| 31.00|
+| race_change|label               |        n| freq %|
+|-----------:|:-------------------|--------:|------:|
+|           0|No Change           | 33263321|  67.40|
+|           1|Change              |   855047|   1.73|
+|          NA|No Race Information | 15219459|  30.80|
 
 \newpage 
 
@@ -253,15 +257,6 @@ knitr::kable(bunmd %>%
 
 For a complete list of IPUMS Birthplace codes, please see: https://usa.ipums.org/usa-action/variables/BPL
 
-```{r, echo = F, eval = F}
-
-## Needs to be updated
-bpl_cdes <- inner_join(birthplaces, ipums_labels, by = c("bpl" = "Value"))
-t1 <- bpl_cdes %>% filter(row_number() < 38)
-t2 <- bpl_cdes %>% filter(row_number() >= 38)
-
-knitr::kable(list(t1, t2))
-```
 
 \newpage 
 
@@ -274,22 +269,24 @@ knitr::kable(list(t1, t2))
 **Description**: byear is a numeric variable reporting the person's year of birth, as recorded in the Numident death records.
 
 ```{r, echo = F, eval = F}
-censoc.dmf %>%
+bunmd %>%
     group_by(byear) %>%
     summarise(n = n()) %>%
     ggplot(aes(x = byear, y = n)) + 
     geom_line() + 
-    bbc_style() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
+    geom_point() +
+    theme_minimal() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
   ggtitle("Year of Birth") + 
   theme(legend.position="bottom") +
   xlab("title") + 
-  theme(axis.title = element_text(size = 17), 
+  theme(plot.title = element_text(size=25),
+        axis.title = element_text(size = 17), 
     axis.text.y = element_text(size=17),
     axis.text.x = element_text(size=17)) +
   labs(x = "Year", 
        y = "Count") + 
-  scale_y_continuous(labels = comma) + 
-  scale_x_continuous(breaks=pretty_breaks(n=5)) 
+  scale_y_continuous(labels = scales::comma) + 
+  scale_x_continuous(breaks = scales::pretty_breaks(n=5)) 
 ```
 
 \vspace{75pt}
@@ -309,26 +306,26 @@ Description: bmonth is a numeric variable reporting the person's month of birth,
 knitr::kable(bunmd %>%
     group_by(bmonth) %>%
     tally() %>%
-    mutate(freq % = signif(n*100 / sum(n), 2)) %>%
-    mutate(label = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Missing" )) %>%
-    select(bmonth, label, n, freq))
+    mutate(freq = round(n*100 / sum(n), 2)) %>%
+    mutate(label = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Missing")) %>%
+    select(bmonth, label, n, `freq %` = freq))
 ```
 
 | bmonth|label     |       n| freq %|
-|------:|:---------|-------:|----:|
-|      1|January   | 4182362| 8.50|
-|      2|February  | 3934481| 8.00|
-|      3|March     | 4298094| 8.70|
-|      4|April     | 3977247| 8.00|
-|      5|May       | 4052332| 8.20|
-|      6|June      | 3938073| 8.00|
-|      7|July      | 4222150| 8.50|
-|      8|August    | 4363897| 8.80|
-|      9|September | 4280311| 8.70|
-|     10|October   | 4174817| 8.40|
-|     11|November  | 3885413| 7.90|
-|     12|December  | 4040209| 8.20|
-|     NA|Missing   |  109907| 0.22|
+|------:|:---------|-------:|------:|
+|      1|January   | 4181375|   8.47|
+|      2|February  | 3933555|   7.97|
+|      3|March     | 4296940|   8.71|
+|      4|April     | 3976307|   8.06|
+|      5|May       | 4051432|   8.21|
+|      6|June      | 3937147|   7.98|
+|      7|July      | 4221224|   8.56|
+|      8|August    | 4362872|   8.84|
+|      9|September | 4279353|   8.67|
+|     10|October   | 4173868|   8.46|
+|     11|November  | 3884566|   7.87|
+|     12|December  | 4039185|   8.19|
+|     NA|Missing   |       3|   0.00|
 
 \newpage 
 
@@ -348,42 +345,44 @@ knitr::kable(bunmd %>%
     group_by(bday) %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 2)) %>%
-    select(bday, n, freq))
+    select(bday, n, `freq %` = freq))
 ```
+
+
 | bday|       n| freq %|
-|----:|-------:|----:|
-|    1| 1753037| 3.50|
-|    2| 1658636| 3.40|
-|    3| 1609604| 3.30|
-|    4| 1638344| 3.30|
-|    5| 1622429| 3.30|
-|    6| 1627081| 3.30|
-|    7| 1605454| 3.20|
-|    8| 1631946| 3.30|
-|    9| 1590718| 3.20|
-|   10| 1710732| 3.50|
-|   11| 1586416| 3.20|
-|   12| 1671226| 3.40|
-|   13| 1569174| 3.20|
-|   14| 1621411| 3.30|
-|   15| 1782797| 3.60|
-|   16| 1613405| 3.30|
-|   17| 1605213| 3.20|
-|   18| 1617172| 3.30|
-|   19| 1576992| 3.20|
-|   20| 1643737| 3.30|
-|   21| 1547095| 3.10|
-|   22| 1632108| 3.30|
-|   23| 1592781| 3.20|
-|   24| 1591696| 3.20|
-|   25| 1657974| 3.40|
-|   26| 1568795| 3.20|
-|   27| 1577768| 3.20|
-|   28| 1625137| 3.30|
-|   29| 1472251| 3.00|
-|   30| 1414617| 2.90|
-|   31|  901488| 1.80|
-|   NA|  142059| 0.29|
+|----:|-------:|------:|
+|    1| 1752583|  3.600|
+|    2| 1658244|  3.400|
+|    3| 1609261|  3.300|
+|    4| 1637955|  3.300|
+|    5| 1622040|  3.300|
+|    6| 1626699|  3.300|
+|    7| 1605110|  3.300|
+|    8| 1631598|  3.300|
+|    9| 1590390|  3.200|
+|   10| 1710297|  3.500|
+|   11| 1586088|  3.200|
+|   12| 1670822|  3.400|
+|   13| 1568796|  3.200|
+|   14| 1621064|  3.300|
+|   15| 1782188|  3.600|
+|   16| 1613051|  3.300|
+|   17| 1604846|  3.300|
+|   18| 1616778|  3.300|
+|   19| 1576661|  3.200|
+|   20| 1643349|  3.300|
+|   21| 1546797|  3.100|
+|   22| 1631722|  3.300|
+|   23| 1592459|  3.200|
+|   24| 1591364|  3.200|
+|   25| 1657548|  3.400|
+|   26| 1568447|  3.200|
+|   27| 1577419|  3.200|
+|   28| 1624799|  3.300|
+|   29| 1471946|  3.000|
+|   30| 1414317|  2.900|
+|   31|  901308|  1.800|
+|   NA|   31881|  0.065|
 
 \newpage 
 
@@ -402,54 +401,58 @@ knitr::kable(bunmd %>%
 
 
 ```{r, echo = F, eval = F}
-hmd_deaths <-  readHMDweb(CNTRY = "USA", item = "Deaths_1x1", username ="caseybreen@berkeley.edu", password = "censoc") %>% mutate(linking_key = paste(Year, Age, sep = "_" ))
+## Get HMD deaths from website
+hmd_deaths <- fread("/data/josh/CenSoc/hmd/hmd_statistics/deaths/Deaths_1x1/USA.Deaths_1x1.txt")
 
-bunmd_deaths_age <- bunmd %>% 
-  filter(death_age >= 65) %>% 
-  group_by(Year = dyear) %>% 
-  filter(Year > 1960) %>% 
-  summarize(deaths = n()) %>% 
-  mutate(source = "bunmd")
+## Tabulate deaths in BUNMD for 65+
+bunmd.deaths.tabulated <- bunmd %>%
+  filter(death_age >= 65) %>%
+  group_by(Year = dyear) %>%
+  filter(Year > 1960) %>%
+  summarize(deaths = n()) %>%
+  mutate(source = "BUNMD")
 
-bunmd_deaths_age_sample1 <- bunmd %>% 
-  filter(death_age >= 65 & !is.na(weight)) %>% 
-  group_by(Year = dyear) %>% 
-  filter(Year > 1960) %>% 
-  summarize(deaths = n()) %>% 
-  mutate(source = "BUNMD Sample 1")
+## Tabulate deaths in BUNMD for 65+
+## Restrict to complete cases with sex, birthplace, race
+bunmd.deaths.complete.tabulated <- bunmd %>%
+  filter(dyear %in% c(1988:2005)) %>% 
+  filter(death_age >= 65) %>%
+  group_by(Year = dyear) %>%
+  filter(Year > 1960) %>%
+  filter(!is.na(ccweight)) %>%
+  summarize(deaths = n()) %>%
+  mutate(source = "BUNMD Complete Cases")
 
-bunmd_deaths_age_sample2 <- bunmd %>% 
-  filter(death_age >= 65) %>% 
-  filter(!is.na(cweight)) %>% 
-  group_by(Year = dyear) %>% 
-  filter(Year > 1960) %>% 
-  summarize(deaths = n()) %>% 
-  mutate(source = "BUNMD Sample 2")
-
-
-hmd_deaths_age <- hmd_deaths %>%
-  filter(Age >= 65) %>% 
-  group_by(Year) %>% 
-  filter(Year > 1960) %>% 
-  summarize(deaths = sum(Total)) %>% 
+## Tabulate deaths in HMD for 65+
+hmd.deaths.tabulated <- hmd_deaths %>%
+  filter(Age >= 65) %>%
+  group_by(Year) %>%
+  filter(Year > 1960) %>%
+  summarize(deaths = sum(Total)) %>%
   mutate(source = "Human Mortality Database")
 
-numident_deaths_age %>% 
-  bind_rows(hmd_deaths_age, numident_deaths_age_sample1, numident_deaths_age_sample2) %>% 
-  filter(Year > 1970 & Year < 2006) %>% 
-ggplot() + 
-  geom_line((aes(x = Year, y = deaths, linetype=source))) + 
-  bbc_style() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
-  ggtitle("Year of Death (65+)") + 
-  theme(legend.position="bottom") +
-  xlab("title") + 
-  theme(axis.title = element_text(size = 17), 
-    axis.text.y = element_text(size=17),
-    axis.text.x = element_text(size=17)) +
-  labs(x = "Year", 
-       y = "Count") + 
-  scale_y_continuous(labels = comma) + 
-  scale_x_continuous(breaks=pretty_breaks(n=5)) 
+## Combine into one data frame
+data.for.plot <- hmd.deaths.tabulated %>%
+  bind_rows(bunmd.deaths.tabulated) %>%
+  bind_rows(bunmd.deaths.complete.tabulated) %>%
+  filter(Year > 1970 & Year < 2009)
+
+## Create death coverage plot
+ggplot(data.for.plot) +
+  geom_line((aes(x = Year, y = deaths, linetype=source)), size = .9) +
+  scale_linetype_manual(values=c( "dashed", "dotted", "solid")) +
+  theme_minimal() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  theme(plot.title = element_text(size = 25),
+        axis.title = element_text(size = 17),
+        axis.text.y = element_text(size=17),
+        axis.text.x = element_text(size=17), 
+        legend.text=element_text(size=15)) +
+  labs(title = "Year of Death 65+",
+       x = "Year",
+       y = "Count") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n=5))
 ```
 
 \newpage 
@@ -468,24 +471,24 @@ knitr::kable(bunmd %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 3)) %>%
     mutate(label = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")) %>%
-    select(dmonth, label, n, freq))
+    select(dmonth, label, n, `freq %` = freq))
 ```
 
 
 | dmonth|label     |       n| freq %|
-|------:|:---------|-------:|----:|
-|      1|January   | 4621213| 9.34|
-|      2|February  | 4129166| 8.35|
-|      3|March     | 4364385| 8.82|
-|      4|April     | 4046639| 8.18|
-|      5|May       | 4033845| 8.16|
-|      6|June      | 3838325| 7.76|
-|      7|July      | 3934370| 7.95|
-|      8|August    | 3896991| 7.88|
-|      9|September | 3844745| 7.77|
-|     10|October   | 4136177| 8.36|
-|     11|November  | 4112452| 8.31|
-|     12|December  | 4500985| 9.10|
+|------:|:---------|-------:|------:|
+|      1|January   | 4610022|   9.34|
+|      2|February  | 4119282|   8.35|
+|      3|March     | 4353899|   8.82|
+|      4|April     | 4036794|   8.18|
+|      5|May       | 4023999|   8.16|
+|      6|June      | 3828836|   7.76|
+|      7|July      | 3924851|   7.96|
+|      8|August    | 3887262|   7.88|
+|      9|September | 3835198|   7.77|
+|     10|October   | 4125914|   8.36|
+|     11|November  | 4102011|   8.31|
+|     12|December  | 4489759|   9.10|
 
 \newpage 
 
@@ -505,43 +508,43 @@ knitr::kable(bunmd %>%
     group_by(dday) %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 2)) %>%
-    select(dday, n, freq))
+    select(dday, n, `freq %` = freq))
 ```
 
 | dday|       n| freq %|
-|----:|-------:|----:|
-|    1| 1432117|  2.9|
-|    2| 1240844|  2.5|
-|    3| 1258508|  2.5|
-|    4| 1281971|  2.6|
-|    5| 1241858|  2.5|
-|    6| 1238126|  2.5|
-|    7| 1234530|  2.5|
-|    8| 1237355|  2.5|
-|    9| 1234153|  2.5|
-|   10| 1236855|  2.5|
-|   11| 1234082|  2.5|
-|   12| 1234552|  2.5|
-|   13| 1230166|  2.5|
-|   14| 1231018|  2.5|
-|   15| 3392923|  6.9|
-|   16| 1227380|  2.5|
-|   17| 1228029|  2.5|
-|   18| 1223497|  2.5|
-|   19| 1223840|  2.5|
-|   20| 1230608|  2.5|
-|   21| 1218730|  2.5|
-|   22| 1217331|  2.5|
-|   23| 1219357|  2.5|
-|   24| 1216437|  2.5|
-|   25| 1214086|  2.5|
-|   26| 1216349|  2.5|
-|   27| 1215884|  2.5|
-|   28| 1217907|  2.5|
-|   29| 1130914|  2.3|
-|   30| 1104859|  2.2|
-|   31|  713928|  1.4|
-|   NA| 9681099| 20.0|
+|----:|-------:|------:|
+|    1| 1432114|    2.9|
+|    2| 1240840|    2.5|
+|    3| 1258505|    2.6|
+|    4| 1281969|    2.6|
+|    5| 1241857|    2.5|
+|    6| 1238121|    2.5|
+|    7| 1234527|    2.5|
+|    8| 1237353|    2.5|
+|    9| 1234152|    2.5|
+|   10| 1236852|    2.5|
+|   11| 1234080|    2.5|
+|   12| 1234552|    2.5|
+|   13| 1230163|    2.5|
+|   14| 1231013|    2.5|
+|   15| 3392922|    6.9|
+|   16| 1227374|    2.5|
+|   17| 1228022|    2.5|
+|   18| 1223495|    2.5|
+|   19| 1223837|    2.5|
+|   20| 1230608|    2.5|
+|   21| 1218728|    2.5|
+|   22| 1217328|    2.5|
+|   23| 1219353|    2.5|
+|   24| 1216433|    2.5|
+|   25| 1214084|    2.5|
+|   26| 1216347|    2.5|
+|   27| 1215884|    2.5|
+|   28| 1217904|    2.5|
+|   29| 1130910|    2.3|
+|   30| 1104857|    2.2|
+|   31|  713927|    1.4|
+|   NA| 9559716|   19.0|
 
 \newpage 
 
@@ -553,7 +556,7 @@ knitr::kable(bunmd %>%
 
 **Description**: death_age is a numeric variable reporting the person's age at death in years, calculated using birth and death information recorded in the Numident death records.   
 
-\vspace{50pt}
+\vspace{75pt}
 
 ![](codebook_illustrations/death_age.png)
 
@@ -563,18 +566,20 @@ bunmd %>%
     group_by(death_age) %>%
     summarise(n = n()) %>%
     ggplot(aes(x = death_age, y = n)) + 
+    geom_point() + 
     geom_line() + 
-    bbc_style() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
+    theme_minimal() +
   ggtitle("Age of Death") + 
   theme(legend.position="bottom") +
   xlab("title") + 
-  theme(axis.title = element_text(size = 17), 
+  theme(plot.title = element_text(size = 25),
+        axis.title = element_text(size = 17), 
     axis.text.y = element_text(size=17),
     axis.text.x = element_text(size=17)) +
   labs(x = "Age at Death", 
        y = "Count") + 
-  scale_y_continuous(labels = comma) + 
-  scale_x_continuous(breaks=pretty_breaks(n=5)) 
+  scale_y_continuous(labels = scales::comma) + 
+  scale_x_continuous(breaks = scales::pretty_breaks(n=5)) 
 ```
 
 \newpage 
@@ -601,46 +606,51 @@ bunmd %>%
 **Description**: The state in which the person's social security card was issued. Determined by first three (3) digits of Social Security number, as recorded in Numident death records. The numeric codes match the detailed IPUMS-USA Birthplace codes. 
 
 ```{r, eval = F, echo = F}
-state_fip_codes <- fread("/nobackup/90days/andreamg/state_fips_ipums.csv")
+state_fip_codes <- fread("/nobackup/90days/andreamg/state_fips_ipums.csv") %>% 
+  mutate(ipums_state = ipums_state * 100)
 
 knitr::kable(bunmd %>%
     group_by(socstate) %>%
     tally() %>%
-    mutate(freq = signif(n*100 / sum(n), 3)) %>%
+    mutate(freq = signif(n*100 / sum(n), 2)) %>%
     left_join(state_fip_codes, by = c("socstate" = "ipums_state" )) %>%
-    select(socstate, label = state_label, n, freq))
-
+    select(socstate, label = state_label, n, freq) %>% 
+    arrange(desc(n)) %>% 
+  top_n(25))
+  
 ```
+\vspace{12pt}
 
 
-| socstate|label                |       n|    freq %| socstate|label                |       n|    freq %|
-|--------:|:--------------------|-------:|-------:|--------:|:--------------------|-------:|-------:|
-|        100|Alabama              | 1013114|  2.0500|       3000|Montana              |  163772|  0.331|
-|        200|Alaska               |   35314|  0.0714|       3100|Nebraska             |  391529|  0.792|
-|        400|Arizona              |  259482|  0.5250|       3200|Nevada               |   59603|  0.121|
-|        500|Arkansas             |  622464|  1.2600|       3300|New Hampshire        |  154722|  0.313|
-|        600|California           | 3261932|  6.6000|       3400|New Jersey           | 1515988|  3.070|
-|        800|Colorado             |  436618|  0.8830|       3500|New Mexico           |  152197|  0.308|
-|        900|Connecticut          |  645960|  1.3100|       3600|New York             | 5000225| 10.100|
-|       1000|Delaware             |  104140|  0.2110|       3800|North Dakota         |  181787|  0.368|
-|       1100|District of Columbia |  298806|  0.6040|       3900|Ohio                 | 2465058|  4.980|
-|       1200|Florida              | 1045741|  2.1100|       4000|Oklahoma             |  781455|  1.580|
-|       1300|Georgia              | 1174645|  2.3700|       4100|Oregon               |  424431|  0.858|
-|       1500|Hawaii               |  165481|  0.3350|       4200|Pennsylvania         | 3275278|  6.620|
-|       1600|Idaho                |  179614|  0.3630|       4400|Rhode Island         |  253020|  0.512|
-|       1700|Illinois             | 2860175|  5.7800|       4500|South Carolina       |  640174|  1.290|
-|       1800|Indiana              | 1250160|  2.5300|       4600|South Dakota         |  174948|  0.354|
-|       1900|Iowa                 |  766774|  1.5500|       4700|Tennessee            | 1117541|  2.260|
-|       2000|Kansas               |  581153|  1.1800|       4800|Texas                | 2568121|  5.190|
-|       2100|Kentucky             |  919569|  1.8600|       4900|Utah                 |  208837|  0.422|
-|       2200|Louisiana            |  901320|  1.8200|       5000|Vermont              |  111228|  0.225|
-|       2300|Maine                |  283787|  0.5740|       5100|Virginia             | 1016994|  2.060|
-|       2400|Maryland             |  730409|  1.4800|       5300|Washington           |  676778|  1.370|
-|       2500|Massachusetts        | 1468915|  2.9700|       5400|West Virginia        |  526125|  1.060|
-|       2600|Michigan             | 2037662|  4.1200|       5500|Wisconsin            | 1023189|  2.070|
-|       2700|Minnesota            |  820184|  1.6600|       5600|Wyoming              |   86937|  0.176|
-|       2800|Mississippi          |  607037|  1.2300|       NA  |NA                   | 2716291|  5.490|
-|       2900|Missouri             | 1302609|  2.6300|           |                     |        |        |
+\begin{center} Top 25 States by count: \end{center}
+| socstate|label         |       n| freq|
+|--------:|:-------------|-------:|----:|
+|     3600|New York      | 4980871| 10.0|
+|     4200|Pennsylvania  | 3266642|  6.6|
+|      600|California    | 3255785|  6.6|
+|     1700|Illinois      | 2855031|  5.8|
+|       NA|NA            | 2707652|  5.5|
+|     4800|Texas         | 2562712|  5.2|
+|     3900|Ohio          | 2460960|  5.0|
+|     2600|Michigan      | 2034399|  4.1|
+|     3400|New Jersey    | 1510334|  3.1|
+|     2500|Massachusetts | 1465566|  3.0|
+|     2900|Missouri      | 1299368|  2.6|
+|     1800|Indiana       | 1248048|  2.5|
+|     1300|Georgia       | 1171471|  2.4|
+|     4700|Tennessee     | 1115600|  2.3|
+|     1200|Florida       | 1043773|  2.1|
+|     5500|Wisconsin     | 1021002|  2.1|
+|     5100|Virginia      | 1014527|  2.1|
+|      100|Alabama       | 1010756|  2.0|
+|     2100|Kentucky      |  917858|  1.9|
+|     2200|Louisiana     |  899017|  1.8|
+|     2700|Minnesota     |  817858|  1.7|
+|     4000|Oklahoma      |  779894|  1.6|
+|     1900|Iowa          |  764643|  1.5|
+|     2400|Maryland      |  728497|  1.5|
+|     5300|Washington    |  675565|  1.4|
+
 
 
 
@@ -710,7 +720,7 @@ knitr::kable(bunmd %>%
 
 \newpage 
 
-**\huge age\_first\_app **
+**\huge age\_first\_application **
 
 \normalsize
 
@@ -718,31 +728,31 @@ knitr::kable(bunmd %>%
 
 **Label**: Age at First Social Security Application 
 
-**Description**: age_first_app reports the age at which the person submitted their first Social Security Application. 
+**Description**: age_first_application reports the age at which the person submitted their first Social Security Application. 
 
 ```{r, echo = F, eval = F}
-numident %>%
+bunmd %>%
     group_by(age_first_application) %>%
     filter(age_first_application %in% c(0:110)) %>% 
     summarise(n = n()) %>%
     ggplot(aes(x = age_first_application, y = n)) + 
     geom_line() + 
-    bbc_style() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
+    geom_point() +
+    theme_minimal() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
   ggtitle("Age of First Application") + 
   theme(legend.position="bottom") +
   xlab("title") + 
-  theme(axis.title = element_text(size = 17), 
+  theme(plot.title = element_text(size = 25),
+        axis.title = element_text(size = 17), 
     axis.text.y = element_text(size=17),
     axis.text.x = element_text(size=17)) +
   labs(x = "Age of First Application", 
        y = "Count") + 
-  scale_y_continuous(labels = comma) + 
-  scale_x_continuous(breaks=pretty_breaks(n=5)) 
-
-
+  scale_y_continuous(labels = scales::comma) + 
+  scale_x_continuous(breaks = scales::pretty_breaks(n=5)) 
 ```
 
-\vspace{50pt}
+\vspace{75pt}
 
 ![](codebook_illustrations/age_app.png)
 
@@ -763,27 +773,28 @@ numident %>%
 topcode <- function(a, top) { 
     return(ifelse(a > top, top, a))
 }
-
+## manually switch 10 to 10+ 
 knitr::kable(bunmd %>%
     mutate(number_apps = topcode(number_apps, 10)) %>%         
     group_by(number_apps) %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 2)) %>%
-    select(number_apps, n, freq))
+    select(number_apps, n, `freq %` = freq))
 ```
-| number_apps|        n|   freq|
+
+| number_apps|        n| freq %|
 |-----------:|--------:|------:|
-|           0| 14284609| 29.000|
-|           1| 17649245| 36.000|
-|           2| 10108410| 20.000|
-|           3|  4310000|  8.700|
-|           4|  1710599|  3.500|
-|           5|   719303|  1.500|
+|           0| 14166703| 29.000|
+|           1| 17646617| 36.000|
+|           2| 10107569| 20.000|
+|           3|  4309930|  8.700|
+|           4|  1710582|  3.500|
+|           5|   719300|  1.500|
 |           6|   323112|  0.650|
-|           7|   155221|  0.310|
+|           7|   155220|  0.310|
 |           8|    80363|  0.160|
-|           9|    43690|  0.088|
-|          10+|    74741|  0.150|
+|           9|    43690|  0.089|
+|          10|    74741|  0.150|
 
 
 \newpage 
@@ -803,21 +814,21 @@ knitr::kable(bunmd %>%
 topcode <- function(a, top) { 
     return(ifelse(a > top, top, a))
 }
-
+## manually switch 3 to 3+ 
 knitr::kable(bunmd %>%
     mutate(number_claims = topcode(number_claims, 3)) %>%         
     group_by(number_claims) %>%
     tally() %>%
-    mutate(freq = signif(n*100 / sum(n), 2)) %>%
+    mutate(freq = round(n*100 / sum(n), 2)) %>%
     select(number_claims, n, freq))
 ```
 
-| number_claims|        n|   freq|
-|-------------:|--------:|------:|
-|             0| 32933624| 66.587|
-|             1| 16478755| 33.318|
-|             2|    45788|  0.093|
-|             3+|     1126|  0.002|
+| number_claims|        n|  freq|
+|-------------:|--------:|-----:|
+|             0| 32931311| 66.75|
+|             1| 16360228| 33.16|
+|             2|    45187|  0.09|
+|             3+|     1101|  0.00|
 
 \newpage 
 
@@ -829,58 +840,92 @@ knitr::kable(bunmd %>%
 
 **Label**: High Coverage Sample Weight
 
-**Description**: A post-stratification person-weight to Human Mortality Database (HMD) totals for persons (1) born between 1900-1940 (2) dying between 1988-2005 and (3) a recorded sex. Please see appendix for more details on weighting procedure. 
+**Description**: A post-stratification person-weight to Human Mortality Database (HMD) totals for persons (1) born between 1895-1940 (2) dying between 1988-2005 and (3) dying between ages 65-100 (4) with a non-missing value for sex. Please see the CenSoc methods protocol for more details on weighting procedure. 
 
 ```{r, eval = F, echo = F}
+bunmd %>% 
+  summarize(min(weight, na.rm = T), max(weight, na.rm = T))
+
 bunmd %>%
     ggplot() + 
     geom_histogram(aes(x = weight)) + 
-    bbc_style() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
+    theme_minimal() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
   ggtitle("Distribution of weights") + 
   theme(legend.position="bottom") +
-  theme(axis.title = element_text(size = 17), 
+  theme(plot.title = element_text(size = 25),
+        axis.title = element_text(size = 17), 
     axis.text.y = element_text(size=17),
     axis.text.x = element_text(size=17)) +
   labs(x = "Weight", 
        y = "Count") + 
-  scale_y_continuous(labels = comma) + 
-  scale_x_continuous(breaks=pretty_breaks(n=5)) 
+  scale_y_continuous(labels = scales::comma) + 
+  scale_x_continuous(breaks = scales::pretty_breaks(n=5)) 
 ```
 
-
 \vspace{50pt}
+
+|Value           | Label          |                
+|---------------:|---------------:|
+|    NA          | No weight assigned|
+|    Min Weight  | 0.961       | 
+|    Max Weight  | 2.383          |
+
+\vspace{75pt}
 
 ![](codebook_illustrations/weights.png)
 
 \newpage 
 
-
-**\huge cweight**
+**\huge ccweight**
 
 \vspace{12pt}
 
-**Label**: High Coverage "Complete" Sample Weight
+**Label**: High Coverage "Complete Case" Sample Weight
 
-**Description**: A post-stratification person-weight to Human Mortality Database (HMD) totals for persons (1) born between 1900-1940 (2) dying between 1988-2005 (3) a recorded sex (4) recorded birth place and (5) recorded race. Please see appendix for more details on weighting procedure.
+**Description**: A post-stratification person-weight to Human Mortality Database (HMD) totals for persons (1) born between 1895-1940 (2) dying between 1988-2005 (3) dying between ages 65-100 (4) with a non-missing value for sex (5) with a non-missing value for birth place and (6) with a non-missing value for race. Please see the CenSoc methods protocol for more details on weighting procedure.
 
 ```{r, eval = F, echo = F}
+bunmd %>% 
+  summarize(min(ccweight, na.rm= T), max(ccweight, na.rm = T))
+
 bunmd %>%
-  mutate(cweight_log = log(cweight, base = 10)) %>% 
-    ggplot() + 
-    geom_histogram(aes(x = cweight_log)) + 
-    bbc_style() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
-  ggtitle("Distribution of cweights") + 
+  mutate(ccweight_log = log(ccweight, base = 10)) %>% 
+  ggplot() + 
+  geom_histogram(aes(x = ccweight_log)) + 
+  theme_minimal() + #replace with a different theme (theme_bw()) if the bbplot package isn't downloaded 
+  ggtitle("Distribution of ccweights") + 
   theme(legend.position="bottom") +
-  theme(axis.title = element_text(size = 17), 
-    axis.text.y = element_text(size=17),
-    axis.text.x = element_text(size=17)) +
-  labs(x = "log cweight", 
+  theme(plot.title = element_text(size = 25),
+        axis.title = element_text(size = 17), 
+        axis.text.y = element_text(size=17),
+        axis.text.x = element_text(size=17)) +
+  labs(x = "log ccweight", 
        y = "Count") + 
-  scale_y_continuous(labels = comma) + 
-  scale_x_continuous(breaks=pretty_breaks(n=5)) + 
-  scale_y_log10()
+  scale_y_continuous(labels = scales::comma) + 
+  scale_x_continuous(breaks = scales::pretty_breaks(n=5))
 ```
 
 \vspace{50pt}
 
-![](codebook_illustrations/cweights.png)
+|Value           | Label          |                
+|---------------:|---------------:|
+|    NA          | Incomplete case (No weight assigned)|
+|    Min Weight  | 1.018           | 
+|    Max Weight  | 18.71          |
+
+\vspace{50pt}
+
+![](codebook_illustrations/ccweights.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
