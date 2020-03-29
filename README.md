@@ -2,8 +2,6 @@
 
 We will publicly release the Berkeley Unified Numident Mortality Database (BUNMD) on April 1st. 
 
-Codebook with list of variables: 
-
 [BUNMD Codebook](https://github.com/caseybreen/numident_paper/raw/master/codebook/berkeley_unified_numident_documentation.pdf
 )
 
