@@ -44,7 +44,7 @@ cuyahoga.df.filter[, Zip5 := relevel(Zip5, ref = "44101")]
 ## linear model predicting age at death from ZIP and byear 
 cuyahoga.model <- lm(death_age ~ Zip5 +  Byear,
                      data = cuyahoga.df.filter,
-                     weight = cweight)
+                     weight = ccweight)
 
 ## tidy lm 
 cuyahoga.model.df <- tidy(cuyahoga.model)
