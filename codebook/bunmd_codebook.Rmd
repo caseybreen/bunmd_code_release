@@ -500,7 +500,7 @@ knitr::kable(bunmd %>%
 
 **Description**: dday is a numeric variable reporting the person's day of death, as recorded in the Numident death records.  
 
-**Note:** It appears from the surplus of counts on the 1st and the 15th of the month that SSA might have done some imputation of missing values to these dates.
+**Note:** It appears from the surplus of counts on the 1st, 4th, and the 15th of the month that SSA might have done some imputation of missing values to these dates. Also, different periods have differ allocation patterns. 
 
 
 ```{r, echo = F, eval = F}
@@ -614,7 +614,7 @@ knitr::kable(bunmd %>%
     tally() %>%
     mutate(freq = signif(n*100 / sum(n), 2)) %>%
     left_join(state_fip_codes, by = c("socstate" = "ipums_state" )) %>%
-    select(socstate, label = state_label, n, freq) %>% 
+    select(socstate, label = state_label, n, `freq %` = freq) %>% 
     arrange(desc(n)) %>% 
   top_n(25))
   
@@ -623,7 +623,7 @@ knitr::kable(bunmd %>%
 
 
 \begin{center} Top 25 States by count: \end{center}
-| socstate|label         |       n| freq|
+| socstate|label         |       n| freq %|
 |--------:|:-------------|-------:|----:|
 |     3600|New York      | 4980871| 10.0|
 |     4200|Pennsylvania  | 3266642|  6.6|
@@ -820,10 +820,10 @@ knitr::kable(bunmd %>%
     group_by(number_claims) %>%
     tally() %>%
     mutate(freq = round(n*100 / sum(n), 2)) %>%
-    select(number_claims, n, freq))
+    select(number_claims, n, `freq %` = freq))
 ```
 
-| number_claims|        n|  freq|
+| number_claims|        n|  freq %|
 |-------------:|--------:|-----:|
 |             0| 32931311| 66.75|
 |             1| 16360228| 33.16|
@@ -909,7 +909,7 @@ bunmd %>%
 
 |Value           | Label          |                
 |---------------:|---------------:|
-|    NA          | Incomplete case (No weight assigned)|
+|    NA          | Incomplete case |
 |    Min Weight  | 1.018           | 
 |    Max Weight  | 18.71          |
 
