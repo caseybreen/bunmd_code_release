@@ -107,14 +107,14 @@ We create two BUNMD samples with high death coverage. Sample 1 includes deaths t
 \begin{figure}[H]
   \centering
   \includegraphics[width=6.5in]{../illustrations/bunmd_coverage.png}
-  \caption{BUNMD Death Coverage for persons 65+. Coverage is most complete in the BUNMD for the window of 1988 to 2005. Complete cases — records with a information on sex, birthplace, and race — }
+  \caption{BUNMD Death Coverage for persons 65+. Coverage is most complete in the BUNMD for the window of 1988 to 2005.}
   \label{fig:bunmd_coverage}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=7in]{../illustrations/lexis_combine_plot.png}
-  \caption{Lexis diagrams of BUNMD death coverage. The left panel shows the BUNMD death coverage for 1940 to 2010. The right panel zooms in on age-period area where coverage is highest. }
+  \caption{Lexis diagrams of BUNMD death coverage. The left panel shows the BUNMD death coverage for 1940 to 2010. The right panel zooms in on age-period area where coverage is highest.}
   \label{fig:bunmd_lexis}
 \end{figure}
 
@@ -333,7 +333,7 @@ can be estimated in the section on Ordinary Least Squares Regression.
 \begin{figure}[H]
   \centering
   \includegraphics[width=6in]{../illustrations/immigrant_advantage_plot.png}
-  \caption{Difference in mean age of death between natives and foreign-born. Grey line represents }
+  \caption{Difference in mean age of death between natives and foreign-born.}
   \label{fig:immigrant_advantage}
 \end{figure}
 
@@ -468,7 +468,7 @@ Figure \ref{fig:cleveland_life_expectancy} shows life expectancy at age 65 for t
 \begin{figure}[H]
   \centering
   \includegraphics[width=7in]{../illustrations/micro_geography_cleveland.png}
-  \caption{Difference in life expectancy at age 65 (e65) in Cuyahoga County for the birth cohort of 1900.}
+  \caption{Difference in life expectancy at age 65 (e65) in Cuyahoga County for the birth cohorts of 1910-1919}
   \label{fig:cleveland_life_expectancy}
 \end{figure}
 
