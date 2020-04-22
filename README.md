@@ -1,6 +1,8 @@
 ### Data
 
-The Berkeley Unified Numident Mortality Database (BUNMD) is available for download at https://censoc.berkeley.edu/ 
+The Berkeley Unified Numident Mortality Database (BUNMD) is available for download:
+
+https://censoc.berkeley.edu/ 
 
 [BUNMD Codebook](https://github.com/caseybreen/numident_paper/raw/master/codebook/berkeley_unified_numident_documentation.pdf
 )
@@ -12,5 +14,5 @@ The Numerical Identification System (Numident) forms the backbone of the U.S. So
 
 ### Replication 
 
-Code to replicate figures is available under the /code/ folder. 
+Code to replicate figures is available under /code 
 
