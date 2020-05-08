@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  12 APR 2020 12:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  8 MAY 2020 09:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -842,7 +842,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 \openout3 = `bunmd_paper.toc'.
 
 [2] [3] [4]
-<../illustrations/bunmd_chart.pdf, id=75, 794.97pt x 614.295pt>
+<../illustrations/bunmd_chart.pdf, id=77, 794.97pt x 614.295pt>
 File: ../illustrations/bunmd_chart.pdf Graphic file (type pdf)
 <use ../illustrations/bunmd_chart.pdf>
 Package pdftex.def Info: ../illustrations/bunmd_chart.pdf  used on input line 1
@@ -853,7 +853,7 @@ File: ../illustrations/bunmd_chart.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../illustrations/bunmd_chart.pdf  used on input line 1
 92.
 (pdftex.def)             Requested size: 607.9196pt x 469.75604pt.
-<../illustrations/bunmd_chart.pdf, id=78, page=1, 794.97pt x 614.295pt>
+<../illustrations/bunmd_chart.pdf, id=80, page=1, 794.97pt x 614.295pt>
 File: ../illustrations/bunmd_chart.pdf Graphic file (type pdf)
 <use ../illustrations/bunmd_chart.pdf, page 1>
 Package pdftex.def Info: ../illustrations/bunmd_chart.pdf , page1 used on input
@@ -882,7 +882,7 @@ Package pdftex.def Info: ../illustrations/bunmd_chart.pdf , page1 used on input
 [5
 
  <../illustrations/bunmd_chart.pdf>]
-<../illustrations/entries_per_ssn.png, id=112, 1011.78pt x 447.92343pt>
+<../illustrations/entries_per_ssn.png, id=114, 1011.78pt x 447.92343pt>
 File: ../illustrations/entries_per_ssn.png Graphic file (type png)
 <use ../illustrations/entries_per_ssn.png>
 Package pdftex.def Info: ../illustrations/entries_per_ssn.png  used on input li
@@ -896,20 +896,20 @@ Overfull \hbox (36.13374pt too wide) in paragraph at lines 217--218
 [6
 
  <../illustrations/entries_per_ssn.png>]
-<../illustrations/numident_flowchart.png, id=120, 514.92375pt x 397.485pt>
+<../illustrations/numident_flowchart.png, id=122, 514.92375pt x 397.485pt>
 File: ../illustrations/numident_flowchart.png Graphic file (type png)
 <use ../illustrations/numident_flowchart.png>
 Package pdftex.def Info: ../illustrations/numident_flowchart.png  used on input
  line 247.
 (pdftex.def)             Requested size: 361.35559pt x 278.94115pt.
 [7 <../illustrations/numident_flowchart.png>]
-<../illustrations/bunmd_coverage.png, id=131, 898.10532pt x 618.05907pt>
+<../illustrations/bunmd_coverage.png, id=133, 898.10532pt x 618.05907pt>
 File: ../illustrations/bunmd_coverage.png Graphic file (type png)
 <use ../illustrations/bunmd_coverage.png>
 Package pdftex.def Info: ../illustrations/bunmd_coverage.png  used on input lin
 e 283.
 (pdftex.def)             Requested size: 469.75826pt x 323.27872pt.
-<../illustrations/lexis_combine_plot.png, id=132, 1058.45438pt x 581.17125pt>
+<../illustrations/lexis_combine_plot.png, id=134, 1058.45438pt x 581.17125pt>
 File: ../illustrations/lexis_combine_plot.png Graphic file (type png)
 <use ../illustrations/lexis_combine_plot.png>
 Package pdftex.def Info: ../illustrations/lexis_combine_plot.png  used on input
@@ -922,7 +922,7 @@ Overfull \hbox (36.13312pt too wide) in paragraph at lines 290--291
 
 [8 <../illustrations/bunmd_coverage.png>] [9 <../illustrations/lexis_combine_pl
 ot.png>] [10]
-<../illustrations/regression_coefficient_adjustment.png, id=165, 356.83313pt x 
+<../illustrations/regression_coefficient_adjustment.png, id=167, 356.83313pt x 
 291.33844pt>
 File: ../illustrations/regression_coefficient_adjustment.png Graphic file (type
  png)
@@ -931,7 +931,7 @@ Package pdftex.def Info: ../illustrations/regression_coefficient_adjustment.png
   used on input line 391.
 (pdftex.def)             Requested size: 356.85947pt x 291.35994pt.
 [11 <../illustrations/regression_coefficient_adjustment.png>] [12]
-<../illustrations/distribution_age_of_death.png, id=178, 567.62062pt x 367.3725
+<../illustrations/distribution_age_of_death.png, id=180, 567.62062pt x 367.3725
 pt>
 File: ../illustrations/distribution_age_of_death.png Graphic file (type png)
 <use ../illustrations/distribution_age_of_death.png>
@@ -948,7 +948,7 @@ LaTeX Font Info:    Try loading font information for T1+lmtt on input line 486.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [14]
-<../illustrations/immigrant_advantage_plot.png, id=196, 494.59781pt x 562.35094
+<../illustrations/immigrant_advantage_plot.png, id=198, 494.59781pt x 562.35094
 pt>
 File: ../illustrations/immigrant_advantage_plot.png Graphic file (type png)
 <use ../illustrations/immigrant_advantage_plot.png>
@@ -960,7 +960,7 @@ Package pdftex.def Info: ../illustrations/immigrant_advantage_plot.png  used on
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 625.
 
-<../illustrations/micro_geography_cleveland.png, id=212, 793.46437pt x 588.6993
+<../illustrations/micro_geography_cleveland.png, id=214, 793.46437pt x 588.6993
 7pt>
 File: ../illustrations/micro_geography_cleveland.png Graphic file (type png)
 <use ../illustrations/micro_geography_cleveland.png>
@@ -973,7 +973,7 @@ Overfull \hbox (36.14749pt too wide) in paragraph at lines 698--699
  []
 
 [18] [19] [20 <../illustrations/micro_geography_cleveland.png (PNG copy)>]
-<../illustrations/gompertz_plot.png, id=234, 1047.16219pt x 536.0025pt>
+<../illustrations/gompertz_plot.png, id=236, 1047.16219pt x 536.0025pt>
 File: ../illustrations/gompertz_plot.png Graphic file (type png)
 <use ../illustrations/gompertz_plot.png>
 Package pdftex.def Info: ../illustrations/gompertz_plot.png  used on input line
@@ -984,85 +984,97 @@ Overfull \hbox (36.12074pt too wide) in paragraph at lines 726--727
  [][] 
  []
 
-[21 <../illustrations/gompertz_plot.png (PNG copy)>] [22] [23] [24] [25] [26]
+<../illustrations/death_seasonality.pdf, id=238, 1084.05pt x 505.89pt>
+File: ../illustrations/death_seasonality.pdf Graphic file (type pdf)
+<use ../illustrations/death_seasonality.pdf>
+Package pdftex.def Info: ../illustrations/death_seasonality.pdf  used on input 
+line 747.
+(pdftex.def)             Requested size: 505.88104pt x 236.0778pt.
+
+Overfull \hbox (36.12602pt too wide) in paragraph at lines 747--748
+ [][] 
+ []
+
+[21 <../illustrations/gompertz_plot.png (PNG copy)>] [22 <../illustrations/deat
+h_seasonality.pdf>] [23] [24] [25] [26]
 File: ../illustrations/numident_flowchart.png Graphic file (type png)
 <use ../illustrations/numident_flowchart.png>
 Package pdftex.def Info: ../illustrations/numident_flowchart.png  used on input
- line 998.
+ line 1013.
 (pdftex.def)             Requested size: 397.49036pt x 306.83466pt.
 [27] [28] [29]
-<../illustrations/bunmd_coverage_completeness.png, id=327, 2559.5625pt x 3312.3
+<../illustrations/bunmd_coverage_completeness.png, id=338, 2559.5625pt x 3312.3
 75pt>
 File: ../illustrations/bunmd_coverage_completeness.png Graphic file (type png)
 <use ../illustrations/bunmd_coverage_completeness.png>
 Package pdftex.def Info: ../illustrations/bunmd_coverage_completeness.png  used
- on input line 1083.
+ on input line 1098.
 (pdftex.def)             Requested size: 498.66354pt x 645.3293pt.
 
-Overfull \hbox (28.90852pt too wide) in paragraph at lines 1083--1084
+Overfull \hbox (28.90852pt too wide) in paragraph at lines 1098--1099
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 19.39928pt on input line 1085.
+LaTeX Warning: Float too large for page by 19.39928pt on input line 1100.
 
-<../illustrations/death_coverage.png, id=328, 2559.5625pt x 3312.375pt>
+<../illustrations/death_coverage.png, id=339, 2559.5625pt x 3312.375pt>
 File: ../illustrations/death_coverage.png Graphic file (type png)
 <use ../illustrations/death_coverage.png>
 Package pdftex.def Info: ../illustrations/death_coverage.png  used on input lin
-e 1089.
+e 1104.
 (pdftex.def)             Requested size: 498.66354pt x 645.3293pt.
 
-Overfull \hbox (28.90852pt too wide) in paragraph at lines 1089--1090
+Overfull \hbox (28.90852pt too wide) in paragraph at lines 1104--1105
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 19.39928pt on input line 1091.
+LaTeX Warning: Float too large for page by 19.39928pt on input line 1106.
 
-<../illustrations/application_coverage.png, id=329, 2559.5625pt x 3312.375pt>
+<../illustrations/application_coverage.png, id=340, 2559.5625pt x 3312.375pt>
 File: ../illustrations/application_coverage.png Graphic file (type png)
 <use ../illustrations/application_coverage.png>
 Package pdftex.def Info: ../illustrations/application_coverage.png  used on inp
-ut line 1095.
+ut line 1110.
 (pdftex.def)             Requested size: 498.66354pt x 645.3293pt.
 
-Overfull \hbox (28.90852pt too wide) in paragraph at lines 1095--1096
+Overfull \hbox (28.90852pt too wide) in paragraph at lines 1110--1111
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 19.39928pt on input line 1097.
+LaTeX Warning: Float too large for page by 19.39928pt on input line 1112.
 
-<../illustrations/claim_coverage.png, id=330, 2559.5625pt x 3312.375pt>
+<../illustrations/claim_coverage.png, id=341, 2559.5625pt x 3312.375pt>
 File: ../illustrations/claim_coverage.png Graphic file (type png)
 <use ../illustrations/claim_coverage.png>
 Package pdftex.def Info: ../illustrations/claim_coverage.png  used on input lin
-e 1101.
+e 1116.
 (pdftex.def)             Requested size: 498.66354pt x 645.3293pt.
 
-Overfull \hbox (28.90852pt too wide) in paragraph at lines 1101--1102
+Overfull \hbox (28.90852pt too wide) in paragraph at lines 1116--1117
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 19.39928pt on input line 1103.
+LaTeX Warning: Float too large for page by 19.39928pt on input line 1118.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1107.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1122.
 [30 <../illustrations/bunmd_coverage_completeness.png>] [31 <../illustrations/d
 eath_coverage.png>] [32 <../illustrations/application_coverage.png>] [33 <../il
 lustrations/claim_coverage.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1107.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1122.
 (./bunmd_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1107.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1107.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1107.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1122.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1122.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1122.
  ) 
 Here is how much of TeX's memory you used:
- 16624 strings out of 492649
- 251406 string characters out of 6129622
- 366761 words of memory out of 5000000
- 19957 multiletter control sequences out of 15000+600000
+ 16634 strings out of 492649
+ 251672 string characters out of 6129622
+ 366864 words of memory out of 5000000
+ 19964 multiletter control sequences out of 15000+600000
  84948 words of font info for 140 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,20n,87p,905b,593s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1085,10 +1097,10 @@ dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2018/texmf-dist/fonts
 /type1/public/lm/lmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/pub
 lic/lm/lmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/lm/lmtt
 12.pfb>
-Output written on bunmd_paper.pdf (33 pages, 2075448 bytes).
+Output written on bunmd_paper.pdf (33 pages, 2135106 bytes).
 PDF statistics:
- 505 PDF objects out of 1000 (max. 8388607)
- 418 compressed objects within 5 object streams
- 126 named destinations out of 1000 (max. 500000)
- 16638 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 520 PDF objects out of 1000 (max. 8388607)
+ 431 compressed objects within 5 object streams
+ 129 named destinations out of 1000 (max. 500000)
+ 16651 words of extra memory for PDF output out of 17280 (max. 10000000)
 
