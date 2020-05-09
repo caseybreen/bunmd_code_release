@@ -236,6 +236,7 @@ window considered.
 For example, in the Figure \ref{fig:distribution_age_of_death} below, we show two distributions of age at death in which population A has an $(e65)$ — life expectancy at age 65 — of 18 years and population B has an $e65$ of 19 years. 
 
 
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=6in]{../illustrations/distribution_age_of_death.png}
@@ -375,16 +376,16 @@ further explore whether immigrants from this racially diverse country
 differ in their longevity in the United States, keeping in mind that
 racial identity is self-identified on the Social Security
 SS-5 application. We restrict ourselves to pre-1980 responses to the
-race question, when the only options were "White" (N = 35,000),
-"Black" (N = 1,000)  and "Other" (N = 800).
+race question, when the only options were White (N = 35,000),
+Black (N = 1,000), and Other (N = 800).
 
 We report the results of a regression of age of death on race, sex,
 and birth year in Table 3 below. We can see that Black Cuban
-immigrants died earlier than "White" Cuban immigrants. The effect of
+immigrants died earlier than White Cuban immigrants. The effect of
 -0.7 years in the regression corresponds to a life expectancy
 difference at age 65 of about 3 years. There is not a statistically significant difference
-between Cuban immigrants that identified as "Other" and those who
-identified as "White." The disadvantage of Black Cuban immigrants is
+between Cuban immigrants that identified as Other and those who
+identified as White. The disadvantage of Black Cuban immigrants is
 consistent with racial inequality in Cuba and with the reception of
 Cubans in the United States [@newby_black_2007].
 
@@ -393,9 +394,9 @@ of Black and White Cuban immigrants in the United States. There are
 also other immigrant origins, such as the Dominican Republic and
 Brazil that are racially diverse. A deeper dive into the original
 SS-5 application files may also reveal interesting patterns about who
-chooses a "Hispanic" identity and when. For example, one could link the Numident
+chooses a Hispanic identity and when. For example, one could link the Numident
 records linked to the 1940 Census, finding that those who
-change their identity from "Hispanic" to "White" tend to have
+change their identity from Hispanic to White tend to have
 higher earnings and educational attainment.
 
 \begin{table}[] \centering 
@@ -447,7 +448,7 @@ F Statistic & 574.450$^{***}$ (df = 27; 39824) \\
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.05; $^{**}$p$<$0.01; $^{***}$p$<$0.001} \\ 
 \end{tabular} 
 \caption*{Table 3: Regression results for mean age at death of Cuban immigrants by
-race, birth year, and sex. Reference group for this regression is white men born in 1910.}
+race, birth year, and sex. Reference group for this regression is White men born in 1910.}
 \end{table} 
 
 
