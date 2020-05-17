@@ -472,7 +472,7 @@ Figure \ref{fig:cleveland_life_expectancy} shows $e65$ for the birth cohorts of 
 
 ### 4.5 Gompertz Maximum Likelihood Estimation: Race Differentials  
 
-Gompertz maximum likelihood estimation (MLE) can also be used to look at race differentials in mortality by state in the BUNMD. This method combines the observed distribution of deaths over a certain window of deaths with external knowledge of human mortality age-patterns, allowing us to estimate mortality rates, given a truncated window of deaths. We are assuming that the Gompertz model is appropriate and that the deaths we observe reflect the true population cohort distribution. Undercoverage will not bias estimates as long as the undercoverage is happening at random.  
+Gompertz maximum likelihood estimation (MLE) can also be used to look at race differentials in mortality by state in the BUNMD. This method combines the observed distribution of deaths over a certain window of deaths with external knowledge of human mortality age-patterns, allowing us to estimate mortality rates, given a truncated window of deaths [@alexander_deaths_2018]. We are assuming that the Gompertz model is appropriate and that the deaths we observe reflect the true population cohort distribution. Undercoverage will not bias estimates as long as the undercoverage is happening at random.  
 
 In Figure \ref{fig:gompertz}, we compare estimates of $e65$ for Whites and Blacks over time for the cohorts of 1900 to 1920 in the state of Alabama using a Gompertz model. The size of the BUNMD allows researchers to identify heterogeneity and identify patterns of mortality obscured by composite population patterns [@vaupel_heterogeneitys_1985].  
 
