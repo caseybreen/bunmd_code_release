@@ -320,3 +320,68 @@ get.M.from.ex <- function(e65.target, b)
                       c(60, 100))$root
   return(M.target)
 }
+
+get.bunmd.adjust.factor <- function(byear.vec = 1988:2005,
+                                    a, b = 1/10, M = 84,
+                                    e65.diff = 1,
+                                    N = 1 * 10^6)
+{
+  
+  ## usage: input the birth years you ran your regression on
+  ## and obtain an adjustment factor to multiply your regression coefficients by.
+  
+  ## hard code year.vec
+  year.vec <- 1988:2005
+  
+  ## get M2
+  M1 = ifelse(is.null(M), ab2M(a,b), M)
+  e65.M1 <- get.ex.gomp.M(65, b = b, M = M1)
+  M2 = get.M.from.ex(e65.target = e65.M1 + e65.diff, b = b)
+
+  l.vec <- 78:69
+  r.vec <- 86:95
+  
+  ## construct l.vec and r.vec from year.vec
+  l.vec <- min(year.vec) - byear.vec
+  l.vec[l.vec < 65] <- 65
+  r.vec <- max(year.vec) - byear.vec
+  r.vec[r.vec > 100] <- 100
+  
+  ## simulating
+  print("simulating: please be patient")
+  x1 <- rgompertz.M(N = N,
+                    b = b,
+                    M = M1)
+  x2 <- rgompertz.M(N = N,
+                    b = b,
+                    M = M2)
+  ##
+  x1.list <- vector("list", length(l.vec))
+  x2.list <- vector("list", length(l.vec))
+  names(x1.list) <- names(x2.list) <- byear.vec
+  for (i in 1:length(l.vec))
+  {
+    x1.list[[i]] <- data.table(x = x1[x1 > l.vec[i] & x1 < r.vec[i]],
+                               type = 1)
+    x2.list[[i]] <- data.table(x = x2[x2 > l.vec[i] & x2 < r.vec[i]],
+                               type = 2)
+  }
+  ##
+  dt.1 <- rbindlist(x1.list, idcol = TRUE)
+  dt.2 <- rbindlist(x2.list, idcol = TRUE)
+  dt <- rbindlist(list(dt.1, dt.2))
+  
+  ## run regression
+  print("regressing: please continue to be patient")
+  ##     m <- dt[, lm(x ~ as.factor(.id) + as.factor(type), subset = .id %in% 1910:1919)]
+  ##    regression.beta <- coef(m)["as.factor(type)2"]
+  ## faster
+  dt[.id %in% byear.vec, year_mean := mean(x), by = .id]
+  dt[, x_demean := x - year_mean]
+  foo <- dt[, .(effect = mean(x_demean)), by = type]
+  regression.beta.2 <- diff(foo$effect)
+  adjust.factor.2 = e65.diff/regression.beta.2
+  ##    print(adjust.factor.2)
+  ##     adjust.factor = e65.diff/regression.beta
+  return(round(adjust.factor.2, 2))
+}

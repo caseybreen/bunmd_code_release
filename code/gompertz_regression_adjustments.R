@@ -8,13 +8,13 @@ library(memisc)
 library(tidyverse)
 
 ## Source Functions
-source("/censoc/code/workspace/numident_paper/code/helper_functions.R")
+source("Documents/papers/bunmd_paper/code/00_helper_functions.R")
 
 b = 1/10
 a = 10^-4
 
 ## Function to get bunmd adjustment factors
-get.bunmd.adjust.factor <- function(byear.vec,
+get.bunmd.adjust.factor <- function(byear.vec = 1988:2005,
                                     a, b = 1/10, M = 84,
                                     e65.diff = 1,
                                     N = 1 * 10^6)
@@ -25,11 +25,10 @@ get.bunmd.adjust.factor <- function(byear.vec,
   
   ## optional: modify b and M based on some external knowledge
   
-  ## Notes: the defaults for e65.diff and N seem to work fine
-  
   ## hard code year.vec
   year.vec <- 1988:2005
-  e65.diff = 1
+  
+  ## Notes: the defaults for e65.diff and N seem to work fine
   
   ## get M2
   M1 = ifelse(is.null(M), ab2M(a,b), M)
@@ -54,7 +53,7 @@ get.bunmd.adjust.factor <- function(byear.vec,
   ## 1918  70     87
   ## 1919  69     86
   l.vec <- 78:69
-  r.vec <- 95:86
+  r.vec <- 86:95
   
   ## construct l.vec and r.vec from year.vec
   l.vec <- min(year.vec) - byear.vec
@@ -85,8 +84,9 @@ get.bunmd.adjust.factor <- function(byear.vec,
   dt.1 <- rbindlist(x1.list, idcol = TRUE)
   dt.2 <- rbindlist(x2.list, idcol = TRUE)
   dt <- rbindlist(list(dt.1, dt.2))
+  
   ## run regression
-  print("regressing: please continue to e patient")
+  print("regressing: please continue to be patient")
   ##     m <- dt[, lm(x ~ as.factor(.id) + as.factor(type), subset = .id %in% 1910:1919)]
   ##    regression.beta <- coef(m)["as.factor(type)2"]
   ## faster
