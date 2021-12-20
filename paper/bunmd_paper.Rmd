@@ -1,6 +1,6 @@
 ---
 title: |
-  | Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research
+  | Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research[^thanks]
 
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 
@@ -20,20 +20,22 @@ author: |
 name: Joshua Goldstein[^jg], Casey Breen[^cb]
 affiliation: UC Berkeley
 
-abstract: With the release of Social Security application (SS-5), claim, and death records, the National Archives and Records Administration (NARA) has created a new administrative data resource for researchers studying mortality. While much progress has been made in understanding the demographic determinants of mortality in the United States using survey data, the lack of population-level register data is a barrier to further advances in mortality research. This publicly available micro-level dataset provides researchers access to over 49 million mortality records with demographic covariates and fine geographic detail, allowing for high-resolution mortality research. In this paper, we document the contents of this dataset, provide access to a cleaned and harmonized version of the data, and discuss statistical methods for estimating mortality differentials based on this deaths-only dataset. \newpage
+abstract: With the release of Social Security application (SS-5), claim, and death records, the National Archives and Records Administration (NARA) has created a new administrative data resource for researchers studying mortality. While much progress has been made in understanding the demographic determinants of mortality in the United States using survey data, the lack of population-level register data is a barrier to further advances in mortality research. This publicly available dataset provides researchers access to over 49 million individual-level mortality records with demographic covariates and fine geographic detail, allowing for high-resolution mortality research. In this paper, we document the contents of this dataset, provide access to a cleaned and harmonized version of the data, and discuss statistical methods for estimating mortality differentials based on this deaths-only dataset. \newpage
 
 
 #linestretch: 1.5
-linestretch: 1.2
+linestretch: 1.5
 
 #output: rticles::asa_article
-bibliography: ../bib/numident.bib
-output: pdf_document
+bibliography: numident.bib
+output: 
+  pdf_document: 
+    keep_tex: yes
 toc: true
 toc_float: true
 theme: united
 fig_caption: yes
-fontsize: 12pt
+fontsize: 11pt
 header-includes:
   \usepackage{subfig}
   \usepackage{adjustbox}
@@ -50,6 +52,7 @@ nocite: '@*'
 
 [^jg]: josh.goldstein@berkeley.edu; Department of Demography, UC Berkeley
 [^cb]: caseybreen@berkeley.edu; Department of Demography, UC Berkeley
+[^thanks]: The authors benefited from helpful discussions with Lynn Goodsell, Berkeley Human Mortality Database, Ugur Yildirim, Leora Lawton, and members of the CenSoc Workig Group.  The original NARA Numident Records are available upon request. 
 
 \newpage 
 
@@ -500,11 +503,7 @@ The BUNMD's individual death counts by day allows researchers to study who was h
 ## 5. Conclusion 
 The National Archives release of Numident records has created a new administrative data resource for researchers studying mortality. We have created a single-file, cleaned and harmonized version of this data, the BUNMD, covering more than 49 million deaths. In this paper we have described the original data and the steps we took to create BUNMD. We have also provided an overview of statistical methods for estimating mortality using this deaths-only data set and provided a series of examples showing how to use the BUNMD. Our hope is that these public administrative records, with their extraordinary spatial resolution and size, will open up new avenues for high-resolution mortality research. Furthermore, we hope that the open-access nature of the data will help foster research that is reproducible and extendable. 
 
-\textbf{Public distribution, acknowledgement, conditions}
 
-The authors benefited from helpful discussions with Lynn Goodsell, Berkeley Human Mortality Database, and Ugur Yildirim. 
-
-The original NARA Numident Records are available upon request. 
 \newpage 
 
 ### References {-}
