@@ -1,0 +1,194 @@
+---
+title: "R Notebook"
+---
+
+Summary: Code to replicate figures and tables in "Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research" for mortality estimation section. 
+
+To replicate, move a copy of the BUNMD V2 file into the top-level "data" directory. 
+
+## Setup 
+
+Library packages and source functions 
+
+```{r}
+## Library packages 
+library(tidyverse)
+library(data.table)
+library(memisc)
+library(here)
+library(HMDHFDplus)
+library(gridExtra)
+library(ggpubr)
+library(cowplot)
+library(gt)
+library(fixest)
+library(stargazer)
+library(choroplethrZip)
+library(choroplethr)
+library(sf)
+library(broom)
+library(lubridate)
+
+## source functions 
+source(here("code/00_helper_functions.R"))
+
+## Read in BUNMD file
+bunmd <- fread(here("data/bunmd_v2.csv"))
+hmd <- fread(here("data/hmd_deaths_1x1_usa.csv"))
+```
+
+
+
+## Distribution of Age of Death Plot 
+
+Plot highlighting effect of truncation 
+
+```{r}
+trunc_diff <-  tibble(
+  e65_18  = dgompertz.M(x = 65:110, b = 0.09, M = 80.8),
+  e65_19  = dgompertz.M(x = 65:110, b = 0.09, M = 85),
+  age = 65:110)
+
+trunc_diff_means <- trunc_diff %>% 
+  summarize(e65_18_mean = sum(e65_18*age)/sum(e65_18),
+            e65_19_mean = sum(e65_19*age)/sum(e65_19))
+
+# truncated_means <- trunc_diff %>% 
+#   ggplot() + 
+#   geom_line(aes(x = age, y = e65_18)) + 
+#   geom_line(aes(x = age, y = e65_19), linetype = "dashed") + 
+#   theme_cowplot() + 
+#   labs(x = "Age",
+#        y = "Death Age Distribution") + 
+#   geom_vline(xintercept = trunc_diff_means$e65_18_mean, color = "grey") + 
+#   geom_vline(xintercept = trunc_diff_means$e65_19_mean, color = "grey") + 
+#   xlim(60, 110)
+
+## untruncated 
+truncated_means_plot1 <- trunc_diff %>% 
+  ggplot() + 
+  geom_line(aes(x = age, y = e65_18*100000), color = "red") + 
+  geom_line(aes(x = age, y = e65_19*100000), color = "blue") + 
+  theme_cowplot() + 
+  labs(x = "Age",
+       y = "Deaths") + 
+  geom_vline(xintercept = trunc_diff_means$e65_18_mean, color = "red", linetype = "dashed") + 
+  geom_vline(xintercept = trunc_diff_means$e65_19_mean, color = "blue", linetype = "dashed") + 
+  xlim(65, 110) + 
+  ylim(0, 0.04*100000) + 
+  annotate("text", x=trunc_diff_means$e65_18_mean-1.2, y = 130, 
+           label = round(trunc_diff_means$e65_18_mean, 1), color = "red") + 
+  annotate("text", x=trunc_diff_means$e65_19_mean+1.2, y = 130, 
+           label = round(trunc_diff_means$e65_19_mean, 1), color = "blue") + 
+  annotate("text", x = 100, y = 3500, label = paste0("e65 Difference = ", round(trunc_diff_means$e65_19_mean - trunc_diff_means$e65_18_mean, 1)))
+
+## truncated 
+trunc_diff_truncated <-  tibble(
+  e65_18  = dgompertz.M(x = 78:95, b = 0.09, M = 80.8),
+  e65_19  = dgompertz.M(x = 78:95, b = 0.09, M = 85),
+  age = 78:95)
+
+trunc_diff_means_truncated <- trunc_diff_truncated %>% 
+  summarize(e65_18_mean = sum(e65_18*age)/sum(e65_18),
+            e65_19_mean = sum(e65_19*age)/sum(e65_19))
+
+## untruncated 
+truncated_means_plot2 <- trunc_diff_truncated %>% 
+  ggplot() + 
+  geom_line(aes(x = age, y = e65_18*100000), color = "red") + 
+  geom_line(aes(x = age, y = e65_19*100000), color = "blue") + 
+  theme_cowplot() + 
+  labs(x = "Age",
+       y = "Deaths") + 
+  geom_vline(xintercept = trunc_diff_means_truncated$e65_18_mean, color = "red", linetype = "dashed") + 
+  geom_vline(xintercept = trunc_diff_means_truncated$e65_19_mean, color = "blue", linetype = "dashed") + 
+  geom_vline(xintercept = 78, color = "grey") + 
+  geom_vline(xintercept = 95, color = "grey") + 
+  xlim(65, 110) +
+  ylim(0, 0.04*100000) + 
+  annotate("text", x = trunc_diff_means_truncated$e65_18_mean-2, y = 0.013*100000, 
+           label = round(trunc_diff_means_truncated$e65_18_mean, 1), color = "red") + 
+  annotate("text", x = trunc_diff_means_truncated$e65_19_mean+2, y = 0.013*100000, 
+           label = round(trunc_diff_means_truncated$e65_19_mean, 1), color = "blue") + 
+  annotate("text", x = 100.8, y = 3500, 
+           label = paste0("e65 Difference = ", round(trunc_diff_means_truncated$e65_19_mean - trunc_diff_means_truncated$e65_18_mean, 1)))
+  
+truncated_means <- cowplot::plot_grid(truncated_means_plot1, truncated_means_plot2, nrow = 2, labels = "auto")
+
+ggsave(plot = truncated_means, filename = here("figs/truncated_means.pdf"), width = 9, height = 8)
+```
+
+## Adjustment Factors 
+
+Calculate adjustment factors for Gompertztrunc 
+```{r}
+## plot adjustment factors by birth year
+byear.vec <- 1895:1920
+adjust.factor.vec <- rep(NA, length(byear.vec))
+for (i in 1:length(byear.vec))
+{
+  print(byear.vec[i])
+  adjust.factor.vec[i] <- get.bunmd.adjust.factor(byear.vec[i], b = 0.1, M = 80, N = 10^7)
+}
+
+## put into tible 
+adjustment_factors <- tibble(
+  byear.vec, 
+  adjust.factor.vec
+)
+
+## create adjustment factors plot  
+adjustment_factors_plot <- adjustment_factors %>% 
+  ggplot(aes(x = byear.vec, y = adjust.factor.vec)) + 
+  geom_point(shape = 1, size = 2) + 
+  theme_cowplot() + 
+  scale_y_continuous(breaks = scales::pretty_breaks(n=5), limits = c(0, max(adjust.factor.vec))) + 
+  labs(x = "Birth Cohort",
+       y = "Adjustment Factor")
+
+ggsave(plot = adjustment_factors_plot, filename = here("figs/adjustment_factors.pdf"), width = 7, height = 4)
+```
+
+## Adjustment Factors Matrix Table
+
+Calculate adjustment factors for Gompertztrunc for combinations of b and M 
+
+```{r}
+
+## now do varying M and varying beta -- table in paper
+beta.vec <- seq(.08, .12, .01)
+M.vec <- 77:87
+adjust.factor.mat <- matrix(NA, length(M.vec), length(beta.vec))
+dimnames(adjust.factor.mat) <- list(M.vec, beta.vec)
+e65.diff.vec <- c(.1, .5, 1, 2, 4)
+adjust.factor.vec <- rep(NA, length(e65.diff.vec))
+for (i in 1:length(M.vec))
+  for (j in 1:length(beta.vec))
+  {
+    adjust.factor.mat[i,j] <-
+      get.bunmd.adjust.factor(1905:1915, b = beta.vec[j],
+                              M = M.vec[i])
+  }
+
+adjust.factor.mat 
+
+tab_latex <- adjust.factor.mat %>% 
+  as.data.frame(col.names = "") %>% 
+  tibble::rownames_to_column("m") %>% 
+  gt(rowname_col = "m") %>% 
+  tab_spanner(
+      label = "b",
+    columns = c("0.08", "0.09", "0.1", "0.11", "0.12")) %>% 
+  tab_row_group(
+    group = "numbered",
+    rows = everything()) %>% 
+  as_latex()
+
+tab_latex %>%
+  as.character() %>%
+  cat()
+```
+
+
+
+
