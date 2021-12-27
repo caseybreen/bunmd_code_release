@@ -192,3 +192,4 @@ gtsave(tab_latex, filename = here("tables/matrix_adjustment.tex"))
 
 
 
+
