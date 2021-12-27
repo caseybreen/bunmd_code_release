@@ -30,7 +30,7 @@ library(broom)
 library(lubridate)
 
 ## source functions 
-source(here("code/00_helper_functions.R"))
+source(here("code/helper_functions.R"))
 
 ## Read in BUNMD file
 bunmd <- fread(here("data/bunmd_v2.csv"))
@@ -60,7 +60,7 @@ bunmd.deaths.tabulated_complete <- bunmd %>%
   mutate(source = "BUNMD Complete Case")
 
 ## Tabulate deaths in HMD for 65+ 
-hmd.deaths.tabulated <- hmd_deaths %>%
+hmd.deaths.tabulated <- hmd %>%
   filter(Age >= 65) %>% 
   group_by(Year) %>% 
   summarize(deaths = sum(Total)) %>% 
@@ -123,7 +123,7 @@ lexis_coverage <- lexis(data = lexis.data, year_begin = 1940, age_begin = 0, fil
     y = "Average Rating (0-10)",
     title = "Coverage",
     subtitle = ""
-  )
+  ) + theme(legend.position="none")
 
 ## Prep data for Lexis Function
 lexis.data.filter <- lexis.data %>% 
@@ -142,14 +142,20 @@ lexis_coverage_all <- lexis(data = lexis.data.filter, year_begin = 1985, age_beg
     y = "Average Rating (0-10)",
     title = "High Coverage Subsample",
     subtitle = ""
-  )
+  ) + theme(legend.position="none")
+
+legend_b <- get_legend(
+    lexis_coverage + 
+        guides(color = guide_legend(nrow = 1)) +
+        theme(legend.position = "bottom")
+)
 
 ## combine lexis plots 
-bunmd_lexis <- ggarrange(lexis_coverage, lexis_coverage_all, common.legend = T, legend="bottom")
+bunmd_lexis <- cowplot::plot_grid(lexis_coverage, lexis_coverage_all, labels = "auto")
 
-bunmd_lexis <- annotate_figure(bunmd.lexis,
-                               top = text_grob("BUNMD Death Record Coverage \n",
-                                               face = "bold", size = 30))
+# add the legend underneath the row we made earlier. Give it 10%
+# of the height of one plot (via rel_heights).
+bunmd_lexis <- plot_grid(bunmd_lexis, legend_b, ncol = 1, rel_heights = c(1, .1))
 
 ggsave(plot = bunmd_lexis, filename = here("figs/bunmd_lexis_coverage.pdf"), width = 12, height = 7)
 ```

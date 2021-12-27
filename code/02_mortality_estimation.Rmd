@@ -30,7 +30,7 @@ library(broom)
 library(lubridate)
 
 ## source functions 
-source(here("code/00_helper_functions.R"))
+source(here("code/helper_functions.R"))
 
 ## Read in BUNMD file
 bunmd <- fread(here("data/bunmd_v2.csv"))
@@ -154,7 +154,6 @@ ggsave(plot = adjustment_factors_plot, filename = here("figs/adjustment_factors.
 Calculate adjustment factors for Gompertztrunc for combinations of b and M 
 
 ```{r}
-
 ## now do varying M and varying beta -- table in paper
 beta.vec <- seq(.08, .12, .01)
 M.vec <- 77:87
@@ -181,13 +180,14 @@ tab_latex <- adjust.factor.mat %>%
     columns = c("0.08", "0.09", "0.1", "0.11", "0.12")) %>% 
   tab_row_group(
     group = "numbered",
-    rows = everything()) %>% 
-  as_latex()
+    rows = everything()) 
 
-tab_latex %>%
-  as.character() %>%
-  cat()
+
+gtsave(tab_latex, filename = here("tables/matrix_adjustment.tex"))
 ```
+
+
+
 
 
 
