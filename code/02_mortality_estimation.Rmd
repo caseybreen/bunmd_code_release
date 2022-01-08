@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Mortality Estimation: Replicate Figures"
 ---
 
 Summary: Code to replicate figures and tables in "Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research" for mortality estimation section. 
@@ -31,10 +31,6 @@ library(lubridate)
 
 ## source functions 
 source(here("code/helper_functions.R"))
-
-## Read in BUNMD file
-bunmd <- fread(here("data/bunmd_v2.csv"))
-hmd <- fread(here("data/hmd_deaths_1x1_usa.csv"))
 ```
 
 
@@ -80,7 +76,7 @@ truncated_means_plot1 <- trunc_diff %>%
            label = round(trunc_diff_means$e65_18_mean, 1), color = "red") + 
   annotate("text", x=trunc_diff_means$e65_19_mean+1.2, y = 130, 
            label = round(trunc_diff_means$e65_19_mean, 1), color = "blue") + 
-  annotate("text", x = 100, y = 3500, label = paste0("e65 Difference = ", round(trunc_diff_means$e65_19_mean - trunc_diff_means$e65_18_mean, 1)))
+  annotate("text", x = 102.8, y = 3500, label = paste0("e65 Difference = ", round(trunc_diff_means$e65_19_mean - trunc_diff_means$e65_18_mean, 1), " years"))
 
 ## truncated 
 trunc_diff_truncated <-  tibble(
@@ -110,12 +106,12 @@ truncated_means_plot2 <- trunc_diff_truncated %>%
            label = round(trunc_diff_means_truncated$e65_18_mean, 1), color = "red") + 
   annotate("text", x = trunc_diff_means_truncated$e65_19_mean+2, y = 0.013*100000, 
            label = round(trunc_diff_means_truncated$e65_19_mean, 1), color = "blue") + 
-  annotate("text", x = 100.8, y = 3500, 
-           label = paste0("e65 Difference = ", round(trunc_diff_means_truncated$e65_19_mean - trunc_diff_means_truncated$e65_18_mean, 1)))
+  annotate("text", x = 102.8, y = 3500, 
+           label = paste0("e65 Difference = ", round(trunc_diff_means_truncated$e65_19_mean - trunc_diff_means_truncated$e65_18_mean, 1), " years"))
   
 truncated_means <- cowplot::plot_grid(truncated_means_plot1, truncated_means_plot2, nrow = 2, labels = "auto")
 
-ggsave(plot = truncated_means, filename = here("figs/truncated_means.pdf"), width = 9, height = 8)
+ggsave(plot = truncated_means, filename = here("figs/truncated_means.pdf"), width = 7, height = 6.1)
 ```
 
 ## Adjustment Factors 
@@ -128,7 +124,7 @@ adjust.factor.vec <- rep(NA, length(byear.vec))
 for (i in 1:length(byear.vec))
 {
   print(byear.vec[i])
-  adjust.factor.vec[i] <- get.bunmd.adjust.factor(byear.vec[i], b = 0.1, M = 80, N = 10^7)
+  adjust.factor.vec[i] <- get.bunmd.adjust.factor(byear.vec[i], b = 0.1, M = 84, N = 10^7)
 }
 
 ## put into tible 
@@ -140,7 +136,7 @@ adjustment_factors <- tibble(
 ## create adjustment factors plot  
 adjustment_factors_plot <- adjustment_factors %>% 
   ggplot(aes(x = byear.vec, y = adjust.factor.vec)) + 
-  geom_point(shape = 1, size = 2) + 
+  geom_point(shape = 1, size = 2.5) + 
   theme_cowplot() + 
   scale_y_continuous(breaks = scales::pretty_breaks(n=5), limits = c(0, max(adjust.factor.vec))) + 
   labs(x = "Birth Cohort",

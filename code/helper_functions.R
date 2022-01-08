@@ -273,9 +273,9 @@ lexis <- function(data, fill_column, year_begin, age_begin,
     theme(
       axis.text = element_text(colour = "black"),
       axis.text.y = element_text(size=15),
-      axis.text.x = element_text(size = 16, angle = 45, hjust = 1), 
+      axis.text.x = element_text(size = 16, angle = 45, hjust = .7), 
       plot.title = element_text(size=20, vjust = 2),
-      legend.text = element_text(size = 15), 
+      legend.text = element_text(size = 12), 
       axis.title=element_text(size=14,face="bold")
     ) + 
     labs(X = "Year", Y = "Age")

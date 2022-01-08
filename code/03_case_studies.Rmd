@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Case Studies: Replicate Tables and Figures"
 ---
 
 Summary: Code to replicate figures and tables in "Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research" section 
@@ -31,10 +31,6 @@ library(lubridate)
 
 ## source functions 
 source(here("code/helper_functions.R"))
-
-## Read in BUNMD file
-bunmd <- fread(here("data/bunmd_v2.csv"))
-hmd <- fread(here("data/hmd_deaths_1x1_usa.csv"))
 ```
 
 ```{r}
@@ -257,7 +253,7 @@ death_count_plot <- death_counts_daily %>%
   labs(x = "Date",
        y = "Deaths per Day")
 
-ggsave(death_count_plot, filename = here("figs/daily_death_count.pdf"), width = 12, height = 4)
+ggsave(death_count_plot, filename = here("figs/daily_death_count.pdf"), width = 10, height = 2.6)
 ```
 
 
