@@ -37,6 +37,51 @@ bunmd <- fread(here("data/bunmd_v2.csv"))
 hmd <- fread(here("data/hmd_deaths_1x1_usa.csv"))
 ```
 
+
+```{r}
+## number of apps per person
+number_apps <- bunmd %>% 
+  mutate(number_apps = case_when(
+    number_apps >= 3 ~ "3+",
+    TRUE ~ as.character(number_apps))) %>% 
+    count(number_apps) 
+
+## number of claims per person
+number_claims <- bunmd %>% 
+  mutate(number_claims = case_when(
+    number_claims >= 3 ~ "3+",
+    TRUE ~ as.character(number_claims))) %>% 
+    count(number_claims) 
+
+## plot claims 
+claims_plot <- ggplot(data = number_claims) + 
+  geom_col(aes(x = number_claims, y = n), colour="black", fill="grey") + 
+  theme(legend.position="bottom") +
+  theme_cowplot() + 
+  labs(title = "Claims",
+       x = "Number of Claim Entries", 
+       y = "Count") + 
+    scale_y_continuous(labels = scales::comma, limits = c(0, 35000000))
+  
+## plot apps 
+apps_plot <- ggplot(data = number_apps) + 
+  geom_col(aes(x = number_apps, y = n), colour="black", fill="grey") + 
+  theme(legend.position="bottom") +
+  theme_cowplot() + 
+  labs(title = "Applications",
+       x = "Number of Application Entries", 
+       y = "Count") + 
+  scale_y_continuous(labels = scales::comma, limits = c(0, 35000000))
+
+
+## combine plots 
+apps_claims_per_person <- cowplot::plot_grid(apps_plot, claims_plot, labels = "auto")
+
+## save plots 
+ggsave(plot = apps_claims_per_person, filename = here("figs/apps_claims_per_person.pdf"), width = 10, height = 4)
+```
+
+
 ## Compare BUNMD and HMD Death Coverage 
 
 ```{r}
