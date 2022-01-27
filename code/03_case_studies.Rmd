@@ -31,6 +31,8 @@ library(lubridate)
 
 ## source functions 
 source(here("code/helper_functions.R"))
+
+
 ```
 
 ```{r}
@@ -228,6 +230,9 @@ cleveland_plot <- choro$render() +
 
 ggsave(plot = cleveland_plot, filename = here("figs/cleveland_plot.pdf"), width = 12, height = 8)
 ```
+
+
+
 
 ## Flu Seasons 
 
