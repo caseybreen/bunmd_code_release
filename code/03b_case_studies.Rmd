@@ -306,9 +306,9 @@ cleveland_plot_zipben <- choro$render() +
    viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Avg. SS Benefits") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
   geom_sf(data = st_union(shapefile),
        inherit.aes = FALSE, fill = NA, size = 1, color = "Red3") +
-  annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
+  annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8) 
 
-cleveland_plot_combined <- cowplot::plot_grid(cleveland_plot, cleveland_plot_zipben, nrow = 2, labels = "auto")
+cleveland_plot_combined <- cowplot::plot_grid(cleveland_plot, cleveland_plot_zipben, nrow = 2, labels = "auto", label_size = 26)
 
 ggsave(plot = cleveland_plot_combined, filename = here("figs/cleveland_plot_combined.pdf"), width = 14, height = 18)
 ```
