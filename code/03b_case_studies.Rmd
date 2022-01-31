@@ -189,7 +189,7 @@ gompertz_results_women_e65 %>%
 
 ```{r}
 ## combine plots 
-gompertz_immigrant_plot <- cowplot::plot_grid(gompertz_results_women_plot, gompertz_results_men_plot, nrow = 2) 
+gompertz_immigrant_plot <- cowplot::plot_grid(gompertz_results_women_plot, gompertz_results_men_plot, nrow = 2, labels = "auto") 
 
 ## save plots 
 ggsave(plot = gompertz_immigrant_plot, filename = here("figs/immigrant_plot.pdf"), 
@@ -265,7 +265,7 @@ ggsave(plot = cleveland_plot, filename = here("figs/cleveland_plot.pdf"), width 
 
 ## Cuyahoga county ZIP benefits 
 
-average SS retirement benefits per retiree. 
+Average SS retirement benefits per retiree. 
 
 ```{r}
 ## read in social security benefit level
@@ -303,14 +303,14 @@ choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, 
 ## Plot Cleveland
 cleveland_plot_zipben <- choro$render() +
   theme(text=element_text(size=25)) + 
-   viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Zip Retirement Benefits") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
+   viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Avg. SS Benefits") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
   geom_sf(data = st_union(shapefile),
        inherit.aes = FALSE, fill = NA, size = 1, color = "Red3") +
   annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
 
-cleveland_plot_combined <- cowplot::plot_grid(cleveland_plot, cleveland_plot_zipben, nrow = 2)
+cleveland_plot_combined <- cowplot::plot_grid(cleveland_plot, cleveland_plot_zipben, nrow = 2, labels = "auto")
 
-ggsave(plot = cleveland_plot_combined, filename = here("figs/cleveland_plot_combined.pdf"), labels = "auto", width = 14, height = 18)
+ggsave(plot = cleveland_plot_combined, filename = here("figs/cleveland_plot_combined.pdf"), width = 14, height = 18)
 ```
 
 
