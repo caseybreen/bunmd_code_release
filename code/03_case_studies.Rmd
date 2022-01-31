@@ -163,7 +163,7 @@ stargazer(m.cuba.mf.pre_1980, type = "text", out = here("tables/cuba.tex"))
 ## Cayuga County 
 
 ```{r}
-## create 5-digit ZIP codes
+## Create 5-digit ZIP codes
 bunmd[,"zip5" := as.numeric(substr(zip_residence, 1, 5))]
 
 ## Find cuyahoga county ZIP Codes
@@ -173,34 +173,34 @@ data("zip.regions")
 cuyahoga.zip <- zip.regions %>%
   filter(county.name == "cuyahoga")
 
-## filter to only include cuyahoga ZIP Codes
+## Filter to only include cuyahoga ZIP Codes
 cuyahoga.df <- bunmd %>% 
   filter(zip5 %in% cuyahoga.zip$region) %>% 
   as.data.table()
 
-## restrict to high coverage years
+## Restrict to high coverage years
 cuyahoga.df.filter <- cuyahoga.df[byear %in% 1910:1919 &
                                     dyear %in% 1988:2005 &
                                     age_first_application < 65]
 
-## prepare variables for regression
+## Prepare variables for regression
 cuyahoga.df.filter[, Byear := as.factor(byear)]
 cuyahoga.df.filter[, Byear := relevel(Byear, ref = "1910")]
 
-## prepare variables for regression
+## Prepare variables for regression
 cuyahoga.df.filter[, Zip5 := as.factor(zip5)]
 cuyahoga.df.filter[, Zip5 := relevel(Zip5, ref = "44101")]
 
 
-## linear model predicting age at death from ZIP and byear 
+## Linear model predicting age at death from ZIP and byear 
 cuyahoga.model <- lm(death_age ~ Zip5 +  Byear,
                      data = cuyahoga.df.filter,
                      weight = ccweight)
 
-## tidy lm 
+## Tidy linear model  
 cuyahoga.model.df <- tidy(cuyahoga.model)
 
-## select coefficients and ZIP Codes
+## Select coefficients and ZIP Codes
 cuyahoga.model.df <- cuyahoga.model.df %>%
   dplyr::select(term, estimate) %>% 
   filter(str_detect(term, "Zip")) %>% 
@@ -209,7 +209,6 @@ cuyahoga.model.df <- cuyahoga.model.df %>%
   mutate(value = round(value, 1))
 
 ## Create choro plot
-
 ohio_fips <-  39035
 choro = ZipChoropleth$new(rev(cuyahoga.model.df))
 choro$title = ""
@@ -228,6 +227,7 @@ cleveland_plot <- choro$render() +
        inherit.aes = FALSE, fill = NA, size = 1, color = "Red3") +
   annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
 
+## Cleveland plot 
 ggsave(plot = cleveland_plot, filename = here("figs/cleveland_plot.pdf"), width = 12, height = 8)
 ```
 
