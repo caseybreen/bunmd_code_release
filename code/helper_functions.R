@@ -261,7 +261,7 @@ lexis <- function(data, fill_column, year_begin, age_begin,
                 alpha = 0.2, lty = "dotted") +
     
     scale_fill_brewer(name = NULL) +
-    scale_x_continuous("Year", expand = c(0.02, 0),
+    scale_x_continuous("Calendar Time (Period)", expand = c(0.02, 0),
                        breaks = seq(year_begin, 2010, 10)) +
     scale_y_continuous("Age", expand = c(0, 0),
                        breaks = seq(age_begin, 110, 10)) +
@@ -278,7 +278,8 @@ lexis <- function(data, fill_column, year_begin, age_begin,
       legend.text = element_text(size = 12), 
       axis.title=element_text(size=14,face="bold")
     ) + 
-    labs(X = "Year", Y = "Age")
+    labs(x = "Calendar Time (Period)",
+         y = "Age")
   
   return(lexis_plot)
 }

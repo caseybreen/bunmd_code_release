@@ -42,73 +42,72 @@ bunmd <- fread(here("data/bunmd_v2.csv"))
 ## An example comparing foreign born and native longevity Using BUNMD
 ##################################################################### 
 
-## filter to complete cases
-bunmd <- bunmd %>% 
+## 1) read in "complete" sample
+## 2) create analysis variables
+## 3) example 1: 1 cohort only
+## 4) example 2: a bunch of cohorts
+## 5) example 3: cubans by race
+## 6) note on regression coefficients
+
+dt <- bunmd %>% 
     filter(!is.na(ccweight)) %>% 
     as.data.table()
 
 ## set countries 
 countries <- c("Canada", "Mexico", "Cuba", "Jamaica", "England", "Ireland", "Greece", "Italy", "Portugal", "Austria", "Philippines", "Japan", "Syria", "Czechoslovakia", "Germany", "Poland", "Yugoslavia", "Russia", "China", "USA")
 
-## restrict to top countries 
-bunmd <- bunmd %>% 
+
+dt <- dt %>% 
   mutate(bpl_string = case_when(
     bpl < 1300  ~ "USA",
     bpl %in% 45300:45362 ~ "Germany",
     TRUE ~ bpl_string
   )) %>% 
   filter(bpl_string %in% countries)
+
+countries <- dt %>%
+  count(bpl_string) %>% 
+  arrange(desc(n)) %>% 
+  top_n(11) %>% 
+  pull(bpl_string) 
 ```
 
 
 ```{r}
-## Filter to birth cohorts and years of analysis 
-bunmd_analysis <- bunmd %>% 
-  filter(byear %in% 1910:1919 &
-          dyear %in% 1988:2005 &
-          age_first_application < 65) 
-
-## Set reference groups for model
-bunmd_analysis <- bunmd_analysis %>% 
+## Set reference groups for regression
+dt <- dt %>% 
   mutate(byear = relevel(as.factor(byear), ref = "1910"),
          country = relevel(as.factor(bpl_string), ref = "USA"))
 
-## Restrict to men 
-bunmd_analysis_men <- bunmd_analysis %>% 
+## filter to cohorts of interest and high death coverage window 
+my.dt.2 <- dt[byear %in% 1910:1919 &
+            dyear %in% 1988:2005 &
+            age_first_application < 65]
+
+my.dt.2_men <- my.dt.2 %>% 
   filter(sex == 1)
 
-## Run Gompertz model 
-gompertz_results <- gompertz_mle(death_age ~ country, data = bunmd_analysis_men,
+gompertz_results <- gompertz_mle(death_age ~ country, data = my.dt.2_men,
                                  left_trunc = 1988, right_trunc = 2005, 
-                                 weights = ccweight)
+                                 weights = my.dt.2_men$ccweight)
 
-## Convert hazards to life expectancy 
-gompertz_results_men <- convert_hazards_to_ex(gompertz_results$results, use_model_estimates = T)
+gompertz_results_men <- convert_hazards_to_e65(gompertz_results$results)
 
-## Plot gompertz results for men 
 gompertz_results_men_plot <- gompertz_results_men %>% 
   mutate(parameter = socviz::prefix_strip(parameter, prefixes = "country")) %>% 
   ggplot(aes(y = reorder(parameter, e65), x = e65, xmin = e65_lower, xmax = e65_upper)) + 
   geom_pointrange() + 
   theme_cowplot() + 
-    geom_vline(xintercept  = 0, linetype = "dashed") + 
   labs(x = "e65 difference",
-       y = "", 
-      title =" Foreign−born men, cohorts 1910−19") + 
-  annotate("text", x = 0.1, y = 16, label = "Natives", color = "black", angle = 270) + 
-  xlim(-1, 3) 
+       y = "") 
 
-
-## Compare to linear regression 
 gompertz_estimates <- gompertz_results_men %>% 
   mutate(parameter = socviz::prefix_strip(parameter, prefixes = "country")) %>% 
     mutate(estimate = "Gompertz")
 
-## Linear models 
-lm_results_men <- lm(death_age ~ country + as.factor(byear), weights = ccweight, data = bunmd_analysis_men)
+m.immig.male.2 <- lm(death_age ~ country + as.factor(byear), data = my.dt.2_men)
 
-## linear models for men 
-lm_results_men <- lm_results_men %>% 
+lm_estimates <- m.immig.male.2 %>% 
   tidy() %>% 
   filter(term != "(Intercept)") %>% 
   mutate(parameter = socviz::prefix_strip(term, prefixes = "country"),
@@ -121,9 +120,9 @@ lm_results_men <- lm_results_men %>%
 
 gompertz_estimates %>% 
   bind_rows(lm_estimates) %>% 
- ggplot(aes(y = parameter, x = e65, xmin = e65_lower,
+ ggplot(aes(y = reorder(parameter, e65), x = e65, xmin = e65_lower,
             xmax = e65_upper, color = estimate)) + 
-  geom_pointrange(position = position_dodge(width = 0.3)) + 
+  geom_pointrange() + 
   theme_cowplot() + 
   theme(legend.position = "bottom") +
   ggsci::scale_color_lancet() 
@@ -131,71 +130,26 @@ gompertz_estimates %>%
 
 
 ```{r}
-## Restrict to men 
-bunmd_analysis_women <- bunmd_analysis %>% 
+## filter to women 
+my.dt.2_women <- my.dt.2 %>% 
   filter(sex == 2)
 
-## Run with ccweight 
-gompertz_results_women <- gompertz_mle(death_age ~ country, data = bunmd_analysis_women,
+## run with ccweight 
+gompertz_results_women <- gompertz_mle(death_age ~ country, data = my.dt.2_women,
                                  left_trunc = 1988, right_trunc = 2005, 
-                                 weights = bunmd_analysis_women$ccweight)
-## Convert hazards to e65 
-gompertz_results_women_e65 <- convert_hazards_to_ex(gompertz_results_women$results, use_model_estimates = T) %>% 
-    mutate(estimate = "Gompertz")
+                                 weights = my.dt.2_women$ccweight)
+## convert hazards to e65 
+gompertz_results_women <- convert_hazards_to_e65(gompertz_results_women$results)
 
-## Plot gompertz results for men 
-gompertz_results_women_plot <- gompertz_results_women_e65 %>% 
+## plots 
+gompertz_results_women_plot <- gompertz_results_women %>% 
   mutate(parameter = socviz::prefix_strip(parameter, prefixes = "country")) %>% 
   ggplot(aes(y = reorder(parameter, e65), x = e65, xmin = e65_lower, xmax = e65_upper)) + 
   geom_pointrange() + 
   theme_cowplot() + 
-  geom_vline(xintercept  = 0, linetype = "dashed") + 
-  labs(x = "e65 difference",
-       y = "",
-       title =" Foreign−born women, cohorts 1910−19") + 
-  annotate("text", x = 0.1, y = 16, label = "Natives", color = "black", angle = 270) + 
-  xlim(-1, 3) 
-
-## Female immigrants   
-bunmd_analysis_women_lm <- lm(death_age ~ country + as.factor(byear), data = bunmd_analysis_women)
-
-## Linear model estimates women (30 min) 
-lm_estimates_women <- bunmd_analysis_women_lm %>% 
-  tidy() %>% 
-  filter(term != "(Intercept)") %>% 
-  mutate(parameter = socviz::prefix_strip(term, prefixes = "country"),
-         e65 = estimate,
-         e65_lower = estimate - 2*std.error,
-         e65_upper = estimate + 2*std.error) %>% 
-  mutate(estimate = "Regression on Age of Death") %>% 
-  filter(!str_detect(parameter, "year")) %>% 
-  filter(parameter %in% gompertz_estimates$parameter)
-
-## Plots  
-gompertz_results_women_e65 %>% 
-  bind_rows(lm_estimates_women) %>% 
-  mutate(parameter = socviz::prefix_strip(parameter, prefixes = "country")) %>% 
- ggplot(aes(y = parameter, x = e65, xmin = e65_lower,
-            xmax = e65_upper, color = estimate)) + 
-  geom_pointrange(position = position_dodge(width = 0.3)) + 
-  theme_cowplot() + 
-  theme(legend.position = "bottom") +
-  labs(x = "estimate",
-       y = "")  + 
-  xlim(-2, 4) + 
-  ggsci::scale_color_lancet() 
+  labs(x = "e65 difference")
 ```
 
-
-```{r}
-## combine plots 
-gompertz_immigrant_plot <- cowplot::plot_grid(gompertz_results_women_plot, gompertz_results_men_plot, nrow = 2, labels = "auto") 
-
-## save plots 
-ggsave(plot = gompertz_immigrant_plot, filename = here("figs/immigrant_plot.pdf"), 
-       width = 10, height = 10,
-       device = cairo_pdf)
-```
 
 
 ## Cuyahoga County Example 
@@ -219,22 +173,22 @@ cuyahoga.df <- bunmd %>%
 ## restrict to high coverage years
 cuyahoga.df.filter <- cuyahoga.df[byear %in% 1910:1919 &
                                     dyear %in% 1988:2005 &
-                                    age_first_application < 65 ]
+                                    age_first_application < 65]
 
 ## prepare variables for regression
-cuyahoga.df.filter[, Byear := as.factor(byear)]
-cuyahoga.df.filter[, Byear := relevel(Byear, ref = "1910")]
+cuyahoga.df.filter[, byear := as.factor(byear)]
+cuyahoga.df.filter[, byear := relevel(byear, ref = "1910")]
 
 ## prepare variables for regression
-cuyahoga.df.filter[, Zip5 := as.factor(zip5)]
-cuyahoga.df.filter[, Zip5 := relevel(Zip5, ref = "44101")]
+cuyahoga.df.filter[, zip5 := as.factor(zip5)]
+cuyahoga.df.filter[, zip5 := relevel(zip5, ref = "44101")]
 
 ## gompertz model 
-cuyahoga.model_gompertz <- gompertztrunc::gompertz_mle(death_age ~ Zip5 + as.factor(sex), right_trunc = 2005, left_trunc = 1988,
+cuyahoga.model_gompertz <- gompertztrunc::gompertz_mle(death_age ~ Zip5 , right_trunc = 2005, left_trunc = 1988,
                      data = cuyahoga.df.filter,
                      weights = ccweight)
 
-gompertz_cuyahoga <- gompertztrunc::convert_hazards_to_ex(cuyahoga.model_gompertz$results)
+gompertz_cuyahoga <- gompertztrunc::convert_hazards_to_e65(cuyahoga.model_gompertz$results)
 
 gompertz_cuyahoga <- gompertz_cuyahoga %>% 
   mutate(region = substr(parameter, 5, 9)) %>% 
@@ -265,7 +219,7 @@ ggsave(plot = cleveland_plot, filename = here("figs/cleveland_plot.pdf"), width 
 
 ## Cuyahoga county ZIP benefits 
 
-Average SS retirement benefits per retiree. 
+average SS retirement benefits per retiree. 
 
 ```{r}
 ## read in social security benefit level
@@ -290,7 +244,7 @@ cuyahoga.df <- bunmd %>%
 ## 
 zipben_cuyahoga <- cuyahoga.df %>% 
   group_by(zip5) %>% 
-  summarize(zip_ben = round(1000*mean(zip_ben))) %>% 
+  summarize(zip_ben = mean(zip_ben)) %>% 
   dplyr::select(region = zip5, value = zip_ben) %>% 
   distinct() %>% 
   mutate(region = as.character(region))
@@ -303,12 +257,12 @@ choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, 
 ## Plot Cleveland
 cleveland_plot_zipben <- choro$render() +
   theme(text=element_text(size=25)) + 
-   viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Avg. SS Benefits") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
+   viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Zip Retirement Benefits") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
   geom_sf(data = st_union(shapefile),
        inherit.aes = FALSE, fill = NA, size = 1, color = "Red3") +
-  annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8) 
+  annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
 
-cleveland_plot_combined <- cowplot::plot_grid(cleveland_plot, cleveland_plot_zipben, nrow = 2, labels = "auto", label_size = 26)
+cleveland_plot_combined <- cowplot::plot_grid(cleveland_plot, cleveland_plot_zipben, nrow = 2)
 
 ggsave(plot = cleveland_plot_combined, filename = here("figs/cleveland_plot_combined.pdf"), width = 14, height = 18)
 ```
