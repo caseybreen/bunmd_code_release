@@ -150,8 +150,6 @@ gompertz_results_women_plot <- gompertz_results_women %>%
   labs(x = "e65 difference")
 ```
 
-
-
 ## Cuyahoga County Example 
 
 ```{r}
@@ -184,11 +182,11 @@ cuyahoga.df.filter[, zip5 := as.factor(zip5)]
 cuyahoga.df.filter[, zip5 := relevel(zip5, ref = "44101")]
 
 ## gompertz model 
-cuyahoga.model_gompertz <- gompertztrunc::gompertz_mle(death_age ~ Zip5 , right_trunc = 2005, left_trunc = 1988,
+cuyahoga.model_gompertz <- gompertztrunc::gompertz_mle(death_age ~ zip5 + as.factor(sex), right_trunc = 2005, left_trunc = 1988,
                      data = cuyahoga.df.filter,
                      weights = ccweight)
 
-gompertz_cuyahoga <- gompertztrunc::convert_hazards_to_e65(cuyahoga.model_gompertz$results)
+gompertz_cuyahoga <- gompertztrunc::convert_hazards_to_ex(cuyahoga.model_gompertz$results)
 
 gompertz_cuyahoga <- gompertz_cuyahoga %>% 
   mutate(region = substr(parameter, 5, 9)) %>% 
@@ -206,12 +204,23 @@ choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, 
 ## Shapefile must be downloaded from 
 shapefile <- st_read("/90days/caseybreen/City_of_Cleveland_Neighborhoods_2012_no_lake/City_of_Cleveland_Neighborhoods_2012_no_lake.shp") 
 
+coolwarm_hcl <- colorspace::diverging_hcl(11,
+  h = c(250, 10), c = 100, l = c(37, 88), power = c(0.7, 1.7))
+
+
+scale_colour_manual(values = c("d73027", "fc8d59", "fee090", "ffffbf", "e0f3f8", "91bfdb", "4575b4"))
+
 ## Plot Cleveland
 cleveland_plot <- choro$render() +
   theme(text=element_text(size=25)) + 
-   viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Difference in e65") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
+  # viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Difference in e65") +    
+  # scale_fill_discrete(name="E65", palette = RColorBrewer::brewer.pal(11, "BrBG"), direction = 1, na.value="grey", drop=FALSE) +
+  scale_colour_manual(
+    values = c("#d73027", "#fc8d59", "#fee090", "#ffffbf", "#e0f3f8", "#91bfdb", "#4575b4"),
+    aesthetics = c("colour", "fill")
+  ) + 
   geom_sf(data = st_union(shapefile),
-       inherit.aes = FALSE, fill = NA, size = 1, color = "Red3") +
+       inherit.aes = FALSE, fill = NA, size = 1, color = "Black") +
   annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
 
 ggsave(plot = cleveland_plot, filename = here("figs/cleveland_plot.pdf"), width = 12, height = 8)
@@ -257,7 +266,11 @@ choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, 
 ## Plot Cleveland
 cleveland_plot_zipben <- choro$render() +
   theme(text=element_text(size=25)) + 
-   viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Zip Retirement Benefits") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
+  #  viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Zip Retirement Benefits") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
+  scale_colour_manual(
+    values = c("#d73027", "#fc8d59", "#fee090", "#ffffbf", "#e0f3f8", "#91bfdb", "#4575b4"),
+    aesthetics = c("colour", "fill")
+  ) + 
   geom_sf(data = st_union(shapefile),
        inherit.aes = FALSE, fill = NA, size = 1, color = "Red3") +
   annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
