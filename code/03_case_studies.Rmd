@@ -28,144 +28,134 @@ library(choroplethr)
 library(sf)
 library(broom)
 library(lubridate)
+library(gompertztrunc)
 
 ## source functions 
 source(here("code/helper_functions.R"))
 
-
+## Read in BUNMD file
+bunmd <- fread(here("data/bunmd_v2.csv"))
 ```
 
+## Merge on zip benefits 
+
 ```{r}
-#####################################################################
-## An example comparing foreign born and native longevity Using BUNMD
-##################################################################### 
+## read in SSA benefits data by ZIP Code
+oasdi <- fread(here("data/oasdi_zip05_combined_new.csv")) %>% 
+  dplyr::select(zip, zip_ben)
 
-## 1) read in "complete" sample
-## 2) create analysis variables
-## 3) example 1: 1 cohort only
-## 4) example 2: a bunch of cohorts
-## 5) example 3: cubans by race
-## 6) note on regression coefficients
+## merge on zipcode data 
+bunmd[, zip5 := as.numeric(substr(zip_residence, 1, 5))]
+bunmd <- merge(bunmd, oasdi[!is.na(zip)], by.x = "zip5", by.y = "zip", all.x = T)
+```
 
-dt <- bunmd %>% 
+## Compare foreign and native born longevity using BUNMD 
+
+```{r}
+## filter to complete cases
+bunmd_cc <- bunmd %>% 
     filter(!is.na(ccweight)) %>% 
     as.data.table()
 
 ## set countries 
 countries <- c("Canada", "Mexico", "Cuba", "Jamaica", "England", "Ireland", "Greece", "Italy", "Portugal", "Austria", "Philippines", "Japan", "Syria", "Czechoslovakia", "Germany", "Poland", "Yugoslavia", "Russia", "China", "USA")
 
-dt <- dt %>% 
+## restrict to top sending countries  
+bunmd_cc <- bunmd_cc %>% 
   mutate(bpl_string = case_when(
     bpl < 1300  ~ "USA",
     bpl %in% 45300:45362 ~ "Germany",
     TRUE ~ bpl_string
   )) %>% 
   filter(bpl_string %in% countries)
+```
 
-## Set reference groups for regression
-dt <- dt %>% 
+
+## Analysis of birth cohorts and years of analysis  
+
+```{r}
+## Filter to birth cohorts and years of analysis 
+bunmd_analysis <- bunmd_cc %>% 
+  filter(byear %in% 1910:1919 &
+          dyear %in% 1988:2005 &
+          age_first_application < 65) 
+
+## Set reference groups for model
+bunmd_analysis <- bunmd_analysis %>% 
   mutate(byear = relevel(as.factor(byear), ref = "1910"),
          country = relevel(as.factor(bpl_string), ref = "USA"))
 
-## filter to cohorts of interest and high death coverage window 
-my.dt.2 <- dt[byear %in% 1910:1919 &
-            dyear %in% 1988:2005 &
-            age_first_application < 65]
+## Restrict to men 
+bunmd_analysis_men <- bunmd_analysis %>% 
+  filter(sex == 1)
 
-## Run model for men 
-m.immig.male.2 <- lm(death_age ~ country +  byear,
-                   data = my.dt.2,
-                   # weight = ccweight,
-                   subset = sex  == 1)
+## Run Gompertz model 
+gompertz_results <- gompertz_mle(death_age ~ country, data = bunmd_analysis_men,
+                                 left_trunc = 1988, right_trunc = 2005, 
+                                 weights = ccweight)
 
-## Run model for women 
-m.immig.female.2 <- update(m.immig.male.2,
-                         subset = sex == 2)
+## Convert hazards to life expectancy 
+gompertz_results_men <- convert_hazards_to_ex(gompertz_results$results, use_model_estimates = T)
 
-## Create figure (Josh code)
-pdf(here("figs/immigrant_advantage_plot.pdf")) 
-
-par(mfrow = c(2,1),
-    mar = c(5, 4, 4, 2) +.1)
-color_coef_plot.fun(m.immig.female.2, "country", labeled_color.vec,
-                    xlim = c(-1, 2))
-text(0, 16.5, "Natives", pos = 2, col = "darkgrey", cex = .6)
-title("Foreign-born female ages of death, cohorts 1910-19")
-color_coef_plot.fun(m.immig.male.2, "country", labeled_color.vec,
-                    xlim = c(-1, 2))
-title("Foreign-born male ages of death, cohorts 1910-19")
-text(0, 16.5, "Natives", pos = 2, col = "darkgrey", cex = .6)
-dev.off()
+## Plot gompertz results for men 
+gompertz_results_men_plot <- gompertz_results_men %>% 
+  mutate(parameter = socviz::prefix_strip(parameter, prefixes = "country")) %>% 
+  ggplot(aes(y = reorder(parameter, e65), x = e65, xmin = e65_lower, xmax = e65_upper)) + 
+  geom_pointrange() + 
+  theme_cowplot() + 
+    geom_vline(xintercept  = 0, linetype = "dashed") + 
+  labs(x = "e65 difference",
+       y = "", 
+      title =" Foreign−born men, cohorts 1910−19") + 
+  annotate("text", x = 0.1, y = 16, label = "Natives", color = "black", angle = 270) + 
+  xlim(-1, 3) 
 ```
 
-## Cuba Example 
 
 ```{r}
-## restrict to rows with complete birthplace and race
-dt_cuba <- dt %>% 
-  filter(bpl_string == "Cuba") 
+## Restrict to women  
+bunmd_analysis_women <- bunmd_analysis %>% 
+  filter(sex == 2)
 
-## recode race
-dt_cuba <- dt_cuba %>% 
-  mutate(Race = case_when(
-    race_first == 1 ~ "White",
-    race_first == 2 ~ "Black",
-    race_first == 3 ~ "Other", 
-    race_first == 4 ~ "Asian", 
-    race_first == 5 ~ "Hispanic",
-    race_first == 6 ~ "American Indian"
-  )) %>% 
-  mutate(Race = relevel(as.factor(Race), ref = "White"))
+## Run Gompertz MLE model 
+gompertz_results_women <- gompertz_mle(death_age ~ country, data = bunmd_analysis_women,
+                                 left_trunc = 1988, right_trunc = 2005, 
+                                 weights = bunmd_analysis_women$ccweight)
 
-## restrict to years with high coverage 
-## restrict to Cuba
-my.dt.3 <- dt_cuba[bpl_string %in% c("Cuba") &
-              byear %in% 1900:1920 &
-              dyear %in% 1988:2005 &
-              age_first_application < 65]
+## Convert hazards to e65 
+gompertz_results_women_e65 <- convert_hazards_to_ex(gompertz_results_women$results, use_model_estimates = T) %>% 
+    mutate(estimate = "Gompertz")
 
-## For this analysis, we focus on the original answer that people gave to the race question. Most of these responses were prior to 1980, 
-## when there were only 3 categories ("White", "Black", and "Other"). (A possible extension of this initial analysis would be to consider 
-## responses to post-1980 race classification, which included "Hispanic", "Asian", and "Native American".
-## However, analysis of the post-1980 classification is complicated by the fact that most of these respondents were filling out the form for a 2nd time
-
-## you can only be White, Black, or Other before 1980
-my.dt.3[race_first == 1 & race_first_cyear < 1980, Race_pre_1980 := "White"]
-my.dt.3[race_first == 2 & race_first_cyear < 1980, Race_pre_1980 := "Black"]
-my.dt.3[race_first == 3 & race_first_cyear < 1980, Race_pre_1980 := "Other"]
-
-## Set reference groups
-my.dt.3[, Race_pre_1980 := relevel(factor(Race_pre_1980), ref = "White")]
-
-## Run regression seperately for men and women
-m.cuba.m.pre_1980 <-  lm(death_age ~ Race_pre_1980 + byear,
-                      data = my.dt.3,
-                      subset = sex == 1,
-                      weight = ccweight)
-
-m.cuba.f.pre_1980 <- update(m.cuba.m.pre_1980,
-                   subset = sex == 2)
-
-## crosstabs
-my.dt.3[, table(Race_pre_1980, sex)]
-
-## both sexes combined -- table for paper
-m.cuba.mf.pre_1980 <-  lfe::felm(death_age ~ Race_pre_1980 + as.factor(sex) | byear, data = my.dt.3, weights = my.dt.3$ccweight)
-
-
-t1 <- gtsummary::tbl_regression(m.cuba.mf.pre_1980)
-
-
-## Create table for paper
-stargazer(m.cuba.mf.pre_1980, type = "text", out = here("tables/cuba.tex"))
+## Plot Gompertz results for men 
+gompertz_results_women_plot <- gompertz_results_women_e65 %>% 
+  mutate(parameter = socviz::prefix_strip(parameter, prefixes = "country")) %>% 
+  ggplot(aes(y = reorder(parameter, e65), x = e65, xmin = e65_lower, xmax = e65_upper)) + 
+  geom_pointrange() + 
+  theme_cowplot() + 
+  geom_vline(xintercept  = 0, linetype = "dashed") + 
+  labs(x = "e65 difference",
+       y = "",
+       title =" Foreign−born women, cohorts 1910−19") + 
+  annotate("text", x = 0.1, y = 16, label = "Natives", color = "black", angle = 270) + 
+  xlim(-1, 3) 
 ```
 
-## Cayuga County 
+## Combine immigrant mortality advantage plots
 
 ```{r}
-## Create 5-digit ZIP codes
-bunmd[,"zip5" := as.numeric(substr(zip_residence, 1, 5))]
+## combine plots 
+gompertz_immigrant_plot <- cowplot::plot_grid(gompertz_results_women_plot, gompertz_results_men_plot, nrow = 2, labels = "auto") 
 
+## save plots 
+ggsave(plot = gompertz_immigrant_plot, filename = here("figs/immigrant_plot.pdf"), 
+       width = 10, height = 10,
+       device = cairo_pdf)
+```
+
+
+## Cuyahoga County Example 
+
+```{r}
 ## Find cuyahoga county ZIP Codes
 data("zip.regions")
 
@@ -179,38 +169,36 @@ cuyahoga.df <- bunmd %>%
   as.data.table()
 
 ## Restrict to high coverage years
-cuyahoga.df.filter <- cuyahoga.df[byear %in% 1910:1919 &
-                                    dyear %in% 1988:2005 &
-                                    age_first_application < 65]
+cuyahoga.df.filter <- cuyahoga.df %>% 
+  filter(byear %in% 1910:1919 &
+           dyear %in% 1988:2005 &
+           age_first_application < 65) 
 
 ## Prepare variables for regression
-cuyahoga.df.filter[, Byear := as.factor(byear)]
-cuyahoga.df.filter[, Byear := relevel(Byear, ref = "1910")]
+cuyahoga.df.filter[, byear := as.factor(byear)]
+cuyahoga.df.filter[, byear := relevel(byear, ref = "1910")]
 
 ## Prepare variables for regression
-cuyahoga.df.filter[, Zip5 := as.factor(zip5)]
-cuyahoga.df.filter[, Zip5 := relevel(Zip5, ref = "44101")]
+cuyahoga.df.filter[, zip5 := as.factor(zip5)]
+cuyahoga.df.filter[, zip5 := relevel(zip5, ref = "44101")]
 
-
-## Linear model predicting age at death from ZIP and byear 
-cuyahoga.model <- lm(death_age ~ Zip5 +  Byear,
+## Gompertz model 
+cuyahoga.model_gompertz <- gompertztrunc::gompertz_mle(death_age ~ zip5 + as.factor(sex), right_trunc = 2005, left_trunc = 1988,
                      data = cuyahoga.df.filter,
-                     weight = ccweight)
+                     weights = ccweight)
 
-## Tidy linear model  
-cuyahoga.model.df <- tidy(cuyahoga.model)
+## convert hazards to life expectancuy 
+gompertz_cuyahoga <- gompertztrunc::convert_hazards_to_ex(cuyahoga.model_gompertz$results)
 
-## Select coefficients and ZIP Codes
-cuyahoga.model.df <- cuyahoga.model.df %>%
-  dplyr::select(term, estimate) %>% 
-  filter(str_detect(term, "Zip")) %>% 
-  mutate(zip = substr(term, 5, 9)) %>% 
-  dplyr::select(region = zip, value = estimate) %>% 
+## clean model output 
+gompertz_cuyahoga <- gompertz_cuyahoga %>% 
+  mutate(region = substr(parameter, 5, 9)) %>% 
+  mutate(value = e65) %>% 
   mutate(value = round(value, 1))
 
 ## Create choro plot
 ohio_fips <-  39035
-choro = ZipChoropleth$new(rev(cuyahoga.model.df))
+choro = ZipChoropleth$new(rev(gompertz_cuyahoga))
 choro$title = ""
 choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, zip_zoom = NULL)
 
@@ -219,46 +207,64 @@ choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, 
 ## Shapefile must be downloaded from 
 shapefile <- st_read("/90days/caseybreen/City_of_Cleveland_Neighborhoods_2012_no_lake/City_of_Cleveland_Neighborhoods_2012_no_lake.shp") 
 
+## Manually set scale 
+scale_colour_manual(values = c("d73027", "fc8d59", "fee090", "ffffbf", "e0f3f8", "91bfdb", "4575b4"))
+
 ## Plot Cleveland
 cleveland_plot <- choro$render() +
   theme(text=element_text(size=25)) + 
-   viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Difference in e65") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
+  scale_colour_manual(
+    values = c("#d73027", "#fc8d59", "#fee090", "#ffffbf", "#e0f3f8", "#91bfdb", "#4575b4"),
+    aesthetics = c("colour", "fill"),
+    name = "Difference in e65"
+  ) + 
   geom_sf(data = st_union(shapefile),
-       inherit.aes = FALSE, fill = NA, size = 1, color = "Red3") +
+       inherit.aes = FALSE, fill = NA, size = 1.2, color = "Black") +
   annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
 
-## Cleveland plot 
+## Save Plot 
 ggsave(plot = cleveland_plot, filename = here("figs/cleveland_plot.pdf"), width = 12, height = 8)
 ```
 
-
-
-
-## Flu Seasons 
+## Cuyahoga county ZIP benefits 
 
 ```{r}
-death_counts_daily <- bunmd %>% 
-  filter(byear %in% 1900:1920) %>% 
-  filter(!dday %in% c(1:15)) %>% 
-  filter(!is.na(ccweight)) %>% 
-  mutate(death_date = make_date(dyear, dmonth, dday)) %>% 
-  group_by(death_date) %>% 
-  summarize(n = sum(ccweight)) %>% 
-  filter(between(death_date, as.Date("1993-01-01"), as.Date("2002-01-01")))
+## Calculate benefits per ZIP Code
+zipben_cuyahoga <- cuyahoga.df %>% 
+  group_by(zip5) %>% 
+  summarize(zip_ben = round(1000*mean(zip_ben))) %>% 
+  dplyr::select(region = zip5, value = zip_ben) %>% 
+  distinct() %>% 
+  mutate(region = as.character(region))
 
-death_counts_daily <- death_counts_daily %>% 
-  mutate(avg = zoo::rollmean(n, k = 21, fill = NA))
+## Ohio Plots 
+ohio_fips <-  39035
+choro = ZipChoropleth$new(rev(zipben_cuyahoga))
+choro$title = ""
+choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, zip_zoom = NULL)
 
-death_count_plot <- death_counts_daily %>% 
-  ggplot(aes(x = death_date, y = n)) + 
-  # geom_path(size = 0.75) + 
-  geom_point(size = 1, shape = 1, alpha = 0.4) + 
-  theme_cowplot() + 
-  geom_line(aes(x = death_date, y = avg), color = "blue", size = 0.75) + 
-  labs(x = "Date",
-       y = "Deaths per Day")
+## Plot Cleveland
+cleveland_plot_zipben <- choro$render() +
+  theme(text=element_text(size=25)) + 
+   # viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Avg. SS Benefits") + #  
+  scale_colour_manual(
+    values = c("#d73027", "#fc8d59", "#fee090", "#ffffbf", "#e0f3f8", "#91bfdb", "#4575b4"),
+    aesthetics = c("colour", "fill"),
+    name = "Avg. SS Benefits"
+  ) + 
+  geom_sf(data = st_union(shapefile),
+       inherit.aes = FALSE, fill = NA, size = 1.2, color = "Black") +
+  annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8) 
+```
 
-ggsave(death_count_plot, filename = here("figs/daily_death_count.pdf"), width = 10, height = 2.6)
+## Save plots and write out 
+
+```{r}
+## combine cleveland plots into a single plot 
+cleveland_plot_combined <- cowplot::plot_grid(cleveland_plot, cleveland_plot_zipben, nrow = 2, labels = "auto", label_size = 26)
+
+## Save plot 
+ggsave(plot = cleveland_plot_combined, filename = here("figs/cleveland_plot_combined.pdf"), width = 14, height = 18)
 ```
 
 

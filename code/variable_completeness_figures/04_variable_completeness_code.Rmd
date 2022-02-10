@@ -8,22 +8,29 @@ Summary: Construct variable "completeness" tables.
 Note: This requires copies of the original NARA Numident application, claims, and death records. 
 
 ```{r}
+## library packages 
 library(data.table)
 library(tidyverse)
 ```
 
 ```{r}
+## read in BUNMD
 bunmd <- fread(here("data/bunmd_v2.csv"))
 ```
 
+## BUNMD Completeness
+
 ```{r}
+## recode variables 
 bunmd[bunmd == ''| bunmd == ' ' | bunmd == "UNKNOWN" | bunmd == "UN"] <- NA
 
+## calculate percent missing 
 bunmd_percent_missing <- bunmd %>% 
    summarise_each(funs(100*mean(!is.na(.)))) %>% 
   mutate(numident_file = "bunmd") %>% 
   pivot_longer(-numident_file)
 
+## recode bunmd completeness
 bunmd_completeness <- ggplot(bunmd_percent_missing) + 
   geom_point(aes(x = reorder(name, value), y = value)) + 
   theme_classic() +
@@ -42,17 +49,20 @@ bunmd_completeness <- ggplot(bunmd_percent_missing) +
        y = "Percent %") +
   ylim(0, 100)
 
+## save ggplot 
 ggsave(plot = bunmd_completeness, filename = here("figs/bunmd_completeness.pdf"), width = 10, height = 8)
 ```
 
 ## Original NARA Numident Records 
 
 ```{r}
+## read in original NARA Numident records 
 claims <- fread("/censoc/data/numident/1_numident_files_with_original_varnames/claims_original.csv")
 deaths <- fread("/censoc/data/numident/1_numident_files_with_original_varnames/deaths_original.csv")
 apps <- fread("/censoc/data/numident/1_numident_files_with_original_varnames/numident_applications_complete.csv")
 ```
 
+## Claims Missing 
 
 ```{r}
 ## claims fread
@@ -65,13 +75,13 @@ claims <- claims %>%
   mutate(NUMI_SEX = na_if(NUMI_SEX, "0")) %>% 
   filter(!NUMI_SSN == "ZZZZZZZZZ")
 
+## calculate percent missing 
 claims_percent_missing <- claims %>% 
    summarise_each(funs(100*mean(!is.na(.)))) %>% 
   mutate(numident_file = "claims") %>% 
   pivot_longer(-numident_file)
-```
 
-```{r}
+## plot 
 ggplot(claims_percent_missing) + 
   geom_point(aes(x = reorder(name, value), y = value)) + 
   theme_classic() +
@@ -90,23 +100,21 @@ ggplot(claims_percent_missing) +
        y = "Percent %")
 ```
 
+## Claims Missing 
+
 
 ```{r}
-
+## deaths missing 
 deaths[deaths == ''| deaths == ' ' | deaths == "UNKNOWN" | deaths == "UN"] <- NA
 
 deaths <- deaths %>% 
   mutate(NUMI_SEX_DTH_1 = na_if(NUMI_SEX_DTH_1, "0"))
-```
 
-```{r}
 deaths_percent_missing <- deaths %>% 
    summarise_each(funs(100*mean(!is.na(.)))) %>% 
   mutate(numident_file = "deaths") %>% 
   pivot_longer(-numident_file)
-```
 
-```{r}
 ggplot(deaths_percent_missing) + 
   geom_point(aes(x = reorder(name, value), y = value)) + 
   theme_classic() +
@@ -127,52 +135,24 @@ ggplot(deaths_percent_missing) +
 
 
 ```{r}
+## apps missing 
 apps[apps == ''| apps == ' ' | apps == "UNKNOWN" | apps == "UN"] <- NA
 
+## recode missing 
 apps <- apps %>% 
   filter(!NUMI_SSN == "ZZZZZZZZZ") %>% 
   mutate(NUMI_SEX = na_if(NUMI_SEX, "0")) %>% 
   mutate(NUMI_RACE = na_if(NUMI_RACE, "0"))
-```
 
-
-```{r}
+## recode additional missings 
 apps_percent_missing <- apps %>% 
    summarise_each(funs(100*mean(!is.na(.)))) %>% 
   mutate(numident_file = "apps") %>% 
   pivot_longer(-numident_file)
-```
 
-```{r}
+## plot apps 
 ggplot(apps_percent_missing) + 
   geom_point(aes(x = reorder(name, value), y = value)) + 
-  theme_classic() +
-  geom_segment(aes(
-    x = name,
-    xend = name,
-    y = min(value),
-    yend = max(value)
-  ),
-  linetype = "dashed",
-  size = 0.1
-  ) + # Draw dashed lines
-  coord_flip() + 
-  labs(title = "Numident Complete Data",
-       x = "Variable",
-       y = "Percent %")
-```
-
-
-```{r}
-coverage_all <- bind_rows(deaths_percent_missing, claims_percent_missing, apps_percent_missing, bunmd_percent_missing)
-
-write_csv(coverage_all, "/censoc/code/workspace/coverage/numident_percent_na.csv")
-```
-
-
-```{r}
-ggplot(coverage) + 
-  geom_point(aes(x = reorder(name, value), y = value, shape = numident_file)) + 
   theme_classic() +
   geom_segment(aes(
     x = name,

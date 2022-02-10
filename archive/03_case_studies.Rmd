@@ -1,0 +1,265 @@
+---
+title: "Case Studies: Replicate Tables and Figures"
+---
+
+Summary: Code to replicate figures and tables in "Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research" section 
+
+To replicate, move a copy of the BUNMD V2 file into the top-level "data" directory. 
+
+## Setup 
+
+Library packages and source functions 
+
+```{r}
+## Library packages 
+library(tidyverse)
+library(data.table)
+library(memisc)
+library(here)
+library(HMDHFDplus)
+library(gridExtra)
+library(ggpubr)
+library(cowplot)
+library(gt)
+library(fixest)
+library(stargazer)
+library(choroplethrZip)
+library(choroplethr)
+library(sf)
+library(broom)
+library(lubridate)
+
+## source functions 
+source(here("code/helper_functions.R"))
+
+
+```
+
+```{r}
+#####################################################################
+## An example comparing foreign born and native longevity Using BUNMD
+##################################################################### 
+
+## 1) read in "complete" sample
+## 2) create analysis variables
+## 3) example 1: 1 cohort only
+## 4) example 2: a bunch of cohorts
+## 5) example 3: cubans by race
+## 6) note on regression coefficients
+
+dt <- bunmd %>% 
+    filter(!is.na(ccweight)) %>% 
+    as.data.table()
+
+## set countries 
+countries <- c("Canada", "Mexico", "Cuba", "Jamaica", "England", "Ireland", "Greece", "Italy", "Portugal", "Austria", "Philippines", "Japan", "Syria", "Czechoslovakia", "Germany", "Poland", "Yugoslavia", "Russia", "China", "USA")
+
+dt <- dt %>% 
+  mutate(bpl_string = case_when(
+    bpl < 1300  ~ "USA",
+    bpl %in% 45300:45362 ~ "Germany",
+    TRUE ~ bpl_string
+  )) %>% 
+  filter(bpl_string %in% countries)
+
+## Set reference groups for regression
+dt <- dt %>% 
+  mutate(byear = relevel(as.factor(byear), ref = "1910"),
+         country = relevel(as.factor(bpl_string), ref = "USA"))
+
+## filter to cohorts of interest and high death coverage window 
+my.dt.2 <- dt[byear %in% 1910:1919 &
+            dyear %in% 1988:2005 &
+            age_first_application < 65]
+
+## Run model for men 
+m.immig.male.2 <- lm(death_age ~ country +  byear,
+                   data = my.dt.2,
+                   # weight = ccweight,
+                   subset = sex  == 1)
+
+## Run model for women 
+m.immig.female.2 <- update(m.immig.male.2,
+                         subset = sex == 2)
+
+## Create figure (Josh code)
+pdf(here("figs/immigrant_advantage_plot.pdf")) 
+
+par(mfrow = c(2,1),
+    mar = c(5, 4, 4, 2) +.1)
+color_coef_plot.fun(m.immig.female.2, "country", labeled_color.vec,
+                    xlim = c(-1, 2))
+text(0, 16.5, "Natives", pos = 2, col = "darkgrey", cex = .6)
+title("Foreign-born female ages of death, cohorts 1910-19")
+color_coef_plot.fun(m.immig.male.2, "country", labeled_color.vec,
+                    xlim = c(-1, 2))
+title("Foreign-born male ages of death, cohorts 1910-19")
+text(0, 16.5, "Natives", pos = 2, col = "darkgrey", cex = .6)
+dev.off()
+```
+
+## Cuba Example 
+
+```{r}
+## restrict to rows with complete birthplace and race
+dt_cuba <- dt %>% 
+  filter(bpl_string == "Cuba") 
+
+## recode race
+dt_cuba <- dt_cuba %>% 
+  mutate(Race = case_when(
+    race_first == 1 ~ "White",
+    race_first == 2 ~ "Black",
+    race_first == 3 ~ "Other", 
+    race_first == 4 ~ "Asian", 
+    race_first == 5 ~ "Hispanic",
+    race_first == 6 ~ "American Indian"
+  )) %>% 
+  mutate(Race = relevel(as.factor(Race), ref = "White"))
+
+## restrict to years with high coverage 
+## restrict to Cuba
+my.dt.3 <- dt_cuba[bpl_string %in% c("Cuba") &
+              byear %in% 1900:1920 &
+              dyear %in% 1988:2005 &
+              age_first_application < 65]
+
+## For this analysis, we focus on the original answer that people gave to the race question. Most of these responses were prior to 1980, 
+## when there were only 3 categories ("White", "Black", and "Other"). (A possible extension of this initial analysis would be to consider 
+## responses to post-1980 race classification, which included "Hispanic", "Asian", and "Native American".
+## However, analysis of the post-1980 classification is complicated by the fact that most of these respondents were filling out the form for a 2nd time
+
+## you can only be White, Black, or Other before 1980
+my.dt.3[race_first == 1 & race_first_cyear < 1980, Race_pre_1980 := "White"]
+my.dt.3[race_first == 2 & race_first_cyear < 1980, Race_pre_1980 := "Black"]
+my.dt.3[race_first == 3 & race_first_cyear < 1980, Race_pre_1980 := "Other"]
+
+## Set reference groups
+my.dt.3[, Race_pre_1980 := relevel(factor(Race_pre_1980), ref = "White")]
+
+## Run regression seperately for men and women
+m.cuba.m.pre_1980 <-  lm(death_age ~ Race_pre_1980 + byear,
+                      data = my.dt.3,
+                      subset = sex == 1,
+                      weight = ccweight)
+
+m.cuba.f.pre_1980 <- update(m.cuba.m.pre_1980,
+                   subset = sex == 2)
+
+## crosstabs
+my.dt.3[, table(Race_pre_1980, sex)]
+
+## both sexes combined -- table for paper
+m.cuba.mf.pre_1980 <-  lfe::felm(death_age ~ Race_pre_1980 + as.factor(sex) | byear, data = my.dt.3, weights = my.dt.3$ccweight)
+
+
+t1 <- gtsummary::tbl_regression(m.cuba.mf.pre_1980)
+
+
+## Create table for paper
+stargazer(m.cuba.mf.pre_1980, type = "text", out = here("tables/cuba.tex"))
+```
+
+## Cayuga County 
+
+```{r}
+## Create 5-digit ZIP codes
+bunmd[,"zip5" := as.numeric(substr(zip_residence, 1, 5))]
+
+## Find cuyahoga county ZIP Codes
+data("zip.regions")
+
+## Filter to only include ZIP Codes in Cuyahoga
+cuyahoga.zip <- zip.regions %>%
+  filter(county.name == "cuyahoga")
+
+## Filter to only include cuyahoga ZIP Codes
+cuyahoga.df <- bunmd %>% 
+  filter(zip5 %in% cuyahoga.zip$region) %>% 
+  as.data.table()
+
+## Restrict to high coverage years
+cuyahoga.df.filter <- cuyahoga.df[byear %in% 1910:1919 &
+                                    dyear %in% 1988:2005 &
+                                    age_first_application < 65]
+
+## Prepare variables for regression
+cuyahoga.df.filter[, Byear := as.factor(byear)]
+cuyahoga.df.filter[, Byear := relevel(Byear, ref = "1910")]
+
+## Prepare variables for regression
+cuyahoga.df.filter[, Zip5 := as.factor(zip5)]
+cuyahoga.df.filter[, Zip5 := relevel(Zip5, ref = "44101")]
+
+
+## Linear model predicting age at death from ZIP and byear 
+cuyahoga.model <- lm(death_age ~ Zip5 +  Byear,
+                     data = cuyahoga.df.filter,
+                     weight = ccweight)
+
+## Tidy linear model  
+cuyahoga.model.df <- tidy(cuyahoga.model)
+
+## Select coefficients and ZIP Codes
+cuyahoga.model.df <- cuyahoga.model.df %>%
+  dplyr::select(term, estimate) %>% 
+  filter(str_detect(term, "Zip")) %>% 
+  mutate(zip = substr(term, 5, 9)) %>% 
+  dplyr::select(region = zip, value = estimate) %>% 
+  mutate(value = round(value, 1))
+
+## Create choro plot
+ohio_fips <-  39035
+choro = ZipChoropleth$new(rev(cuyahoga.model.df))
+choro$title = ""
+choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, zip_zoom = NULL)
+
+## Add on a boundary for cleveland. We will pull this from the Tigris database. 
+
+## Shapefile must be downloaded from 
+shapefile <- st_read("/90days/caseybreen/City_of_Cleveland_Neighborhoods_2012_no_lake/City_of_Cleveland_Neighborhoods_2012_no_lake.shp") 
+
+## Plot Cleveland
+cleveland_plot <- choro$render() +
+  theme(text=element_text(size=25)) + 
+   viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Difference in e65") + #  scale_fill_brewer(name="E65", palette = "Greens", direction = 1, na.value="grey", drop=FALSE) +
+  geom_sf(data = st_union(shapefile),
+       inherit.aes = FALSE, fill = NA, size = 1, color = "Red3") +
+  annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
+
+## Cleveland plot 
+ggsave(plot = cleveland_plot, filename = here("figs/cleveland_plot.pdf"), width = 12, height = 8)
+```
+
+
+
+
+## Flu Seasons 
+
+```{r}
+death_counts_daily <- bunmd %>% 
+  filter(byear %in% 1900:1920) %>% 
+  filter(!dday %in% c(1:15)) %>% 
+  filter(!is.na(ccweight)) %>% 
+  mutate(death_date = make_date(dyear, dmonth, dday)) %>% 
+  group_by(death_date) %>% 
+  summarize(n = sum(ccweight)) %>% 
+  filter(between(death_date, as.Date("1993-01-01"), as.Date("2002-01-01")))
+
+death_counts_daily <- death_counts_daily %>% 
+  mutate(avg = zoo::rollmean(n, k = 21, fill = NA))
+
+death_count_plot <- death_counts_daily %>% 
+  ggplot(aes(x = death_date, y = n)) + 
+  # geom_path(size = 0.75) + 
+  geom_point(size = 1, shape = 1, alpha = 0.4) + 
+  theme_cowplot() + 
+  geom_line(aes(x = death_date, y = avg), color = "blue", size = 0.75) + 
+  labs(x = "Date",
+       y = "Deaths per Day")
+
+ggsave(death_count_plot, filename = here("figs/daily_death_count.pdf"), width = 10, height = 2.6)
+```
+
+
+
