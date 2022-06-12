@@ -53,7 +53,7 @@ truncated_means_plot1 <- trunc_diff %>%
   ggplot() + 
   geom_line(aes(x = age, y = pop1*100000), color = "red") + 
   geom_line(aes(x = age, y = pop2*100000), color = "blue") + 
-  theme_cowplot() + 
+  theme_cowplot(rel_large = 1.2) + 
   labs(x = "Age",
        y = "Deaths",
        title = "Untruncated") + 
@@ -81,7 +81,7 @@ truncated_means_plot2 <- trunc_diff_truncated %>%
   ggplot() + 
   geom_line(aes(x = age, y = pop1*100000, color = "Native-born")) + 
   geom_line(aes(x = age, y = pop2*100000,  color = "Foreign-born")) + 
-  theme_cowplot() + 
+  theme_cowplot(rel_large = 1.2) + 
   labs(x = "Age",
        y = "Deaths",
       title = "Doubly Truncated") + 
