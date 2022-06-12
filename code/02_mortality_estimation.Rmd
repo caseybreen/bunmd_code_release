@@ -55,7 +55,8 @@ truncated_means_plot1 <- trunc_diff %>%
   geom_line(aes(x = age, y = pop2*100000), color = "blue") + 
   theme_cowplot() + 
   labs(x = "Age",
-       y = "Deaths") + 
+       y = "Deaths",
+       title = "Untruncated") + 
   geom_vline(xintercept = trunc_diff_means$pop1_mean, color = "red", linetype = "dashed") + 
   geom_vline(xintercept = trunc_diff_means$pop2_mean, color = "blue", linetype = "dashed") + 
   xlim(65, 110) + 
@@ -78,11 +79,12 @@ trunc_diff_means_truncated <- trunc_diff_truncated %>%
 ## plot untruncated mortality distribution 
 truncated_means_plot2 <- trunc_diff_truncated %>% 
   ggplot() + 
-  geom_line(aes(x = age, y = pop1*100000), color = "red") + 
-  geom_line(aes(x = age, y = pop2*100000), color = "blue") + 
+  geom_line(aes(x = age, y = pop1*100000, color = "Native-born")) + 
+  geom_line(aes(x = age, y = pop2*100000,  color = "Foreign-born")) + 
   theme_cowplot() + 
   labs(x = "Age",
-       y = "Deaths") + 
+       y = "Deaths",
+      title = "Doubly Truncated") + 
   geom_vline(xintercept = trunc_diff_means_truncated$pop1_mean, color = "red", linetype = "dashed") + 
   geom_vline(xintercept = trunc_diff_means_truncated$pop2_mean, color = "blue", linetype = "dashed") + 
   geom_vline(xintercept = 78, color = "grey") + 
@@ -94,7 +96,10 @@ truncated_means_plot2 <- trunc_diff_truncated %>%
   annotate("text", x = trunc_diff_means_truncated$pop2_mean+2, y = 0.013*100000, 
            label = round(trunc_diff_means_truncated$pop2_mean, 1), color = "blue") + 
   annotate("text", x = 102.8, y = 3500, 
-           label = paste0("Difference = ", round(trunc_diff_means_truncated$pop2_mean - trunc_diff_means_truncated$pop1_mean, 1), " years"))
+           label = paste0("Difference = ", round(trunc_diff_means_truncated$pop2_mean - trunc_diff_means_truncated$pop1_mean, 1), " years")) + 
+  scale_color_manual(name = "", values = c("Native-born" = "red", "Foreign-born" = "blue")) + 
+  theme(legend.position = "bottom")
+
 
 ## truncated means 
 truncated_means <- cowplot::plot_grid(truncated_means_plot1, truncated_means_plot2, nrow = 2, labels = "auto")
