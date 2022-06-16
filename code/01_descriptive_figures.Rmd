@@ -1,0 +1,290 @@
+---
+title: "Replicate Descriptive BUNMD Figures "
+author: Casey Breen
+---
+
+Summary: Code to replicate figures and tables in "Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research" section "The Structure and Content of the NARA Numident Records" 
+
+This code constructs the following Figures: 
+
+* Figure 1
+* Figure 2 
+* Figure 3
+* Figure A-2
+* Figure A-3 
+
+## Setup 
+
+Library packages and source functions 
+
+```{r}
+## Library packages 
+library(tidyverse)
+library(data.table)
+library(memisc)
+library(here)
+library(HMDHFDplus)
+library(gridExtra)
+library(ggpubr)
+library(cowplot)
+library(gt)
+library(fixest)
+library(stargazer)
+library(choroplethrZip)
+library(choroplethr)
+library(sf)
+library(broom)
+library(lubridate)
+
+## source functions 
+source(here("code/helper_functions.R"))
+
+## Read in BUNMD file
+bunmd <- fread(here("data/bunmd_v2.csv"))
+hmd <- fread(here("data/hmd_deaths_1x1_usa.csv"))
+```
+
+# Figure 1 — Compare BUNMD and HMD Death Coverage 
+
+
+```{r}
+## Get HMD deaths from website
+hmd <- hmd %>%
+  mutate(linking_key = paste(Year, Age, sep = "_" ))
+
+## Tabulate deaths in BUNMD for 65+
+bunmd.deaths.tabulated <- bunmd %>% 
+  filter(death_age >= 65) %>% 
+  group_by(Year = dyear) %>% 
+  summarize(deaths = n()) %>% 
+  mutate(source = "BUNMD")
+
+## Tabulate deaths in BUNMD for 65+
+bunmd.deaths.tabulated_complete <- bunmd %>% 
+  filter(!is.na(ccweight)) %>% 
+  filter(death_age >= 65) %>% 
+  group_by(Year = dyear) %>% 
+  summarize(deaths = n()) %>% 
+  mutate(source = "BUNMD Complete Case")
+
+## Tabulate deaths in HMD for 65+ 
+hmd.deaths.tabulated <- hmd %>%
+  filter(Age >= 65) %>% 
+  group_by(Year) %>% 
+  summarize(deaths = sum(Total)) %>% 
+  mutate(source = "Human Mortality Database")
+
+## Combine into one data frame 
+data.for.plot <- bunmd.deaths.tabulated_complete %>% 
+  bind_rows(bunmd.deaths.tabulated) %>% 
+  bind_rows(hmd.deaths.tabulated) %>% 
+  filter(Year > 1970 & Year < 2006)
+
+## Create death coverage plot
+bunmd_coverage <- ggplot(data.for.plot) + 
+  geom_line((aes(x = Year, y = deaths, linetype = source)), size = 1) + 
+  labs(x = "Year", 
+       y = "Count") + 
+  scale_y_continuous(labels = scales::comma) + 
+  scale_x_continuous(breaks = scales::pretty_breaks(n=10)) + 
+  scale_linetype_manual(values=c(2,3,1)) + 
+  theme_cowplot() + 
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  theme(legend.key.width=unit(1.5, "cm"))
+
+## save plot 
+ggsave(plot = bunmd_coverage, filename = here("figs/01_bunmd_coverage.pdf"), width = 8, height = 5)
+```
+
+# Figure 2 — BUNMD Lexis plots 
+
+Lexis plots comparing HMD and BUNMD death coverage.  
+
+```{r}
+## Tabulate BUNMD 
+bunmd.tabulation <- bunmd %>% 
+  filter(death_age %in% 0:100) %>% 
+  group_by(Year = dyear, Age = death_age) %>% 
+  filter(Year %in% c(1940:2010)) %>% 
+  summarize(deaths = n()) 
+
+## HMD tabulation
+hmd.tabulation <- hmd %>% 
+  filter(Age %in% 0:100) %>% 
+  group_by(Year, Age) %>% 
+  filter(Year %in% c(1940:2010)) %>% 
+  summarize(deaths = sum(Total)) %>% 
+  mutate(source = "HMD")
+
+## Prep data for Lexis Function
+lexis.data <- bunmd.tabulation %>% 
+  inner_join(hmd.tabulation, by = c("Year", "Age" )) %>%
+  mutate(coverage = deaths.x/deaths.y)
+
+## Call Lexis Function
+lexis_coverage_single <- lexis(data = lexis.data, year_begin = 1940, age_begin = 0, fill_column = coverage, breaks = c(0, 0.25, .5, .75, .9, .95, 5),
+                        labels = c( "0 to 25%",
+                                    "25% to 50%",
+                                    "50% to 75%",
+                                    "75% to 90%",
+                                    "90% to 95%",
+                                    ">95% Death Coverage")) +
+  theme(legend.position = "bottom") + 
+  theme(axis.title.x = element_text(vjust=-1)) 
+
+## save plot
+ggsave(plot = lexis_coverage_single, filename = here("figs/02_bunmd_lexis_coverage.pdf"), width = 6, height = 7)
+```
+
+# Figure 3 — Distribution of Age of Death Plot 
+
+Two-panel Plot illustrating effect of truncation on mortality estimation. 
+
+```{r}
+## create mortality distribution (untruncated)
+trunc_diff <-  tibble(
+  pop1  = dgompertz.M(x = 65:110, b = 0.09, M = 80.8),
+  pop2  = dgompertz.M(x = 65:110, b = 0.09, M = 85),
+  age = 65:110)
+
+## calculate average age of death 
+trunc_diff_means <- trunc_diff %>% 
+  summarize(pop1_mean = sum(pop1*age)/sum(pop1),
+            pop2_mean = sum(pop2*age)/sum(pop2))
+
+## plot untruncated mortality distributions 
+truncated_means_plot1 <- trunc_diff %>% 
+  ggplot() + 
+  geom_line(aes(x = age, y = pop1*100000), color = "red") + 
+  geom_line(aes(x = age, y = pop2*100000), color = "blue") + 
+  theme_cowplot(rel_large = .75) + 
+  labs(x = "Age",
+       y = "Deaths",
+       title = "Untruncated") + 
+  geom_vline(xintercept = trunc_diff_means$pop1_mean, color = "red", linetype = "dashed") + 
+  geom_vline(xintercept = trunc_diff_means$pop2_mean, color = "blue", linetype = "dashed") + 
+  xlim(65, 110) + 
+  ylim(0, 0.04*100000) + 
+  annotate("text", x=trunc_diff_means$pop1_mean-1.2, y = 130, 
+           label = round(trunc_diff_means$pop1_mean, 1), color = "red") + 
+  annotate("text", x=trunc_diff_means$pop2_mean+1.2, y = 130, 
+           label = round(trunc_diff_means$pop2_mean, 1), color = "blue") + 
+  annotate("text", x = 102.8, y = 3500, label = paste0("Difference = ", round(trunc_diff_means$pop2_mean - trunc_diff_means$pop1_mean, 1), " years"))
+
+## now truncate mortality distribution 
+trunc_diff_truncated <- trunc_diff %>% 
+  filter(age %in% c(78:95))
+
+## calculate average age of death 
+trunc_diff_means_truncated <- trunc_diff_truncated %>% 
+  summarize(pop1_mean = sum(pop1*age)/sum(pop1),
+            pop2_mean = sum(pop2*age)/sum(pop2))
+
+## plot untruncated mortality distribution 
+truncated_means_plot2 <- trunc_diff_truncated %>% 
+  ggplot() + 
+  geom_line(aes(x = age, y = pop1*100000, color = "Native-born")) + 
+  geom_line(aes(x = age, y = pop2*100000,  color = "Foreign-born")) + 
+  theme_cowplot(rel_large = .75) + 
+  labs(x = "Age",
+       y = "Deaths",
+      title = "Doubly Truncated") + 
+  geom_vline(xintercept = trunc_diff_means_truncated$pop1_mean, color = "red", linetype = "dashed") + 
+  geom_vline(xintercept = trunc_diff_means_truncated$pop2_mean, color = "blue", linetype = "dashed") + 
+  geom_vline(xintercept = 78, color = "grey") + 
+  geom_vline(xintercept = 95, color = "grey") + 
+  xlim(65, 110) +
+  ylim(0, 0.04*100000) + 
+  annotate("text", x = trunc_diff_means_truncated$pop1_mean-2, y = 0.013*100000, 
+           label = round(trunc_diff_means_truncated$pop1_mean, 1), color = "red") + 
+  annotate("text", x = trunc_diff_means_truncated$pop2_mean+2, y = 0.013*100000, 
+           label = round(trunc_diff_means_truncated$pop2_mean, 1), color = "blue") + 
+  annotate("text", x = 102.8, y = 3500, 
+           label = paste0("Difference = ", round(trunc_diff_means_truncated$pop2_mean - trunc_diff_means_truncated$pop1_mean, 1), " years")) + 
+  scale_color_manual(name = "", values = c("Native-born" = "red", "Foreign-born" = "blue")) + 
+  theme(legend.position = "bottom")
+
+## truncated means 
+truncated_means <- cowplot::plot_grid(truncated_means_plot1, truncated_means_plot2, nrow = 2, labels = "auto")
+
+ggsave(plot = truncated_means, filename = here("figs/03_truncated_means.pdf"), width = 7, height = 6.1)
+```
+
+# Figure A-2 — Number apps per person 
+
+```{r}
+## number of apps per person
+number_apps <- bunmd %>% 
+  mutate(number_apps = case_when(
+    number_apps >= 3 ~ "3+",
+    TRUE ~ as.character(number_apps))) %>% 
+    count(number_apps) 
+
+## number of claims per person
+number_claims <- bunmd %>% 
+  mutate(number_claims = case_when(
+    number_claims >= 3 ~ "3+",
+    TRUE ~ as.character(number_claims))) %>% 
+    count(number_claims) 
+
+## plot claims 
+claims_plot <- ggplot(data = number_claims) + 
+  geom_col(aes(x = number_claims, y = n), colour="black", fill="grey") + 
+  theme(legend.position="bottom") +
+  theme_cowplot() + 
+  labs(title = "Claims",
+       x = "Number of Claim Entries", 
+       y = "Count") + 
+    scale_y_continuous(labels = scales::comma, limits = c(0, 35000000))
+  
+## plot apps 
+apps_plot <- ggplot(data = number_apps) + 
+  geom_col(aes(x = number_apps, y = n), colour="black", fill="grey") + 
+  theme(legend.position="bottom") +
+  theme_cowplot() + 
+  labs(title = "Applications",
+       x = "Number of Application Entries", 
+       y = "Count") + 
+  scale_y_continuous(labels = scales::comma, limits = c(0, 35000000))
+
+## combine plots 
+apps_claims_per_person <- cowplot::plot_grid(apps_plot, claims_plot, labels = "auto")
+
+## save plot 
+ggsave(plot = apps_claims_per_person, filename = here("figs/a2_apps_claims_per_person.pdf"), width = 10, height = 4)
+```
+
+# Figure A-3 — BUNMD Completeness 
+
+```{r}
+## recode variables 
+bunmd[bunmd == ''| bunmd == ' ' | bunmd == "UNKNOWN" | bunmd == "UN"] <- NA
+
+## calculate percent missing 
+bunmd_percent_missing <- bunmd %>% 
+   summarise_each(funs(100*mean(!is.na(.)))) %>% 
+  mutate(numident_file = "bunmd") %>% 
+  pivot_longer(-numident_file)
+
+## recode bunmd completeness
+bunmd_completeness <- ggplot(bunmd_percent_missing) + 
+  geom_point(aes(x = reorder(name, value), y = value)) + 
+  theme_classic() +
+  geom_segment(aes(
+    x = name,
+    xend = name,
+    y = 0,
+    yend = 100
+  ),
+  linetype = "dashed",
+  size = 0.1
+  ) + # Draw dashed lines
+  coord_flip() + 
+  labs(title = "Berkeley Unified Numident Mortality Database",
+       x = "Variable",
+       y = "Percent %") +
+  ylim(0, 100)
+
+## save ggplot 
+ggsave(plot = bunmd_completeness, filename = here("figs/a3_bunmd_completeness.pdf"), width = 10, height = 8)
+```

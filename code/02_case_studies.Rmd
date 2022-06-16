@@ -2,9 +2,9 @@
 title: "Case Studies: Replicate Tables and Figures"
 ---
 
-Summary: Code to replicate figures and tables in "Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research" section 
+Summary: Code to replicate figures and tables in "Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research."
 
-To replicate, move a copy of the BUNMD V2 file into the top-level "data" directory. 
+This code replicates Figures 3 and 4. 
 
 ## Setup 
 
@@ -49,7 +49,7 @@ bunmd[, zip5 := as.numeric(substr(zip_residence, 1, 5))]
 bunmd <- merge(bunmd, oasdi[!is.na(zip)], by.x = "zip5", by.y = "zip", all.x = T)
 ```
 
-## Compare foreign and native born longevity using BUNMD 
+# Figure 4 — Immigrant Mortality Advantage 
 
 ```{r}
 ## filter to complete cases
@@ -147,13 +147,13 @@ gompertz_results_women_plot <- gompertz_results_women_e65 %>%
 gompertz_immigrant_plot <- cowplot::plot_grid(gompertz_results_women_plot, gompertz_results_men_plot, nrow = 2, labels = "auto") 
 
 ## save plots 
-ggsave(plot = gompertz_immigrant_plot, filename = here("figs/immigrant_plot.pdf"), 
+ggsave(plot = gompertz_immigrant_plot, filename = here("figs/04_immigrant_plot.pdf"), 
        width = 10, height = 10,
        device = cairo_pdf)
 ```
 
 
-## Cuyahoga County Example 
+# Figure 5 — Cuyahoga County Example 
 
 ```{r}
 ## Find cuyahoga county ZIP Codes
@@ -221,9 +221,6 @@ cleveland_plot <- choro$render() +
   geom_sf(data = st_union(shapefile),
        inherit.aes = FALSE, fill = NA, size = 1.2, color = "Black") +
   annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
-
-## Save Plot 
-ggsave(plot = cleveland_plot, filename = here("figs/cleveland_plot.pdf"), width = 12, height = 8)
 ```
 
 ## Cuyahoga county ZIP benefits 
@@ -264,7 +261,7 @@ cleveland_plot_zipben <- choro$render() +
 cleveland_plot_combined <- cowplot::plot_grid(cleveland_plot, cleveland_plot_zipben, nrow = 2, labels = "auto", label_size = 26)
 
 ## Save plot 
-ggsave(plot = cleveland_plot_combined, filename = here("figs/cleveland_plot_combined.pdf"), width = 14, height = 18)
+ggsave(plot = cleveland_plot_combined, filename = here("figs/05_cleveland_plot_combined.pdf"), width = 14, height = 18)
 ```
 
 
