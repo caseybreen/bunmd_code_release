@@ -26,7 +26,7 @@ The this repository includes code to replicate all figures and tables in the pap
 
 1. Clone this repository
 2. Download the BUNMD file from the [CenSoc Project Download Page](https://censoc-download.demog.berkeley.edu/), unzip the data file, and move it to the top level of the 'data' subfolder. 
-3. Run the `00_run_all.Rmd` script, which will run all code (or run scripts `01` to `03` individually)
+3. Run the `00_run_all.Rmd` script, which will run all code (or run scripts `01` and `02` individually)
 
 
 #### Data 
@@ -41,9 +41,18 @@ After downloading the required data and moving into the data folder of the repli
 
 Alternatively, researchers can run the following files individually in order: 
 
-- `01_death_coverage.Rmd` - this file contains code to benchmark the BUNMD against the Human mortality database. 
-- `02_mortality_estimation.Rmd` - this file produces figures for the "mortality estimation" section 
-- `03_case_studies.Rmd` - this file runs code to replicate the three case studies. 
+- `01_descriptive_figures.Rmd` - this file contains code to replicate the following figures in the BUNMD: 
+
+    * Figure 1
+    * Figure 2 
+    * Figure 3
+    * Figure A-2
+    * Figure A-3 
+
+- `02_case_studies.Rmd` - this file runs code to replicate the two case studies and the following figures in the BUNMD: 
+
+    * Figure 4
+    * Figure 5 
 
 ### Authors
 
