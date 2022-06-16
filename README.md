@@ -41,7 +41,7 @@ After downloading the required data and moving into the data folder of the repli
 
 Alternatively, researchers can run the following files individually in order: 
 
-- `01_descriptive_figures.Rmd` - this file contains code to replicate the following figures in the BUNMD: 
+- `01_descriptive_figures.Rmd` - this file contains code to replicate the following figures in the paper: 
 
     * Figure 1
     * Figure 2 
@@ -49,7 +49,7 @@ Alternatively, researchers can run the following files individually in order:
     * Figure A-2
     * Figure A-3 
 
-- `02_case_studies.Rmd` - this file runs code to replicate the two case studies and the following figures in the BUNMD: 
+- `02_case_studies.Rmd` - this file runs code to replicate the two case studies and the following figures in the paper: 
 
     * Figure 4
     * Figure 5 
