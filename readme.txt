@@ -23,11 +23,11 @@ Additional details:
 /code directory 
 
 
-* 00_run_all.Rmd - this file runs all scripts.
+* 00_run_all.Rmd - this script runs all scripts.
 
 Alternatively, researchers can run the following files individually in order:
 
-* 01_descriptive_figures.Rmd - this file contains code to replicate the following figures in the paper:
+* 01_descriptive_figures.Rmd - this R notebook contains code to replicate the following figures in the paper:
 
 — Figure 1
 — Figure 2
@@ -35,12 +35,19 @@ Alternatively, researchers can run the following files individually in order:
 — Figure A-2
 — Figure A-3
 
-* 02_case_studies.Rmd - this file runs code to replicate the two case studies and the following figures in the paper:
+* 02_case_studies.Rmd - this R notebook runs code to replicate the two case studies and the following figures in the paper:
 
 — Figure 4
 — Figure 5
 
-Note: Figure A-1 and all tables were constructed manually. 
+Note: Figure A-1 is a manually constructed flow-chart. 
+
+* helper_functions.R - this script contains custom helper functions.  
+
+
+* weights/
+
+Contains a script to replicate the weights in the BUNMD. The R function allows users to recalculate weights for custom user-generated sub-samples.
 
 —————————————
 
@@ -50,9 +57,10 @@ Contains all Figures in the directory.
 
 —————————————
 
+
 Authors
 
+* Casey Breen (caseybreen@berkeley.edu)
 * Joshua Goldstein
-* Casey Breen
 
 
