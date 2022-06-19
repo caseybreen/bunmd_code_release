@@ -10,8 +10,6 @@ The this repository includes code to replicate all figures in the paper "Berkele
 
 Additional details: 
 
-
-
 /data directory  
 
 * cuyahoga_county_shapefile.rda — shape-file for cuyahoga county, home of Cleveland 
@@ -42,7 +40,7 @@ Alternatively, researchers can run the following files individually in order:
 — Figure 4
 — Figure 5
 
-Note: Figure A-1 and all tables 
+Note: Figure A-1 and all tables were constructed manually. 
 
 —————————————
 
