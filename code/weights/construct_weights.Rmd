@@ -21,7 +21,7 @@ bunmd <- fread(here("data/bunmd_v2.csv"))
 
 ## deaths from HMD 
 ## update this path
-hmd_deaths <-  fread("/path/to/Deaths_lexis/USA.Deaths_lexis.txt") %>%
+hmd_deaths <-  fread("/path/to/USA.Deaths_lexis.txt") %>%
     mutate(linking_key = paste(Year, Cohort, Age, sep = "_" ))
 
 #' Create weights for BUNMD
