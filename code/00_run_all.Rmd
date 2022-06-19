@@ -1,0 +1,44 @@
+---
+title: "Run all Scripts"
+---
+
+## Summary 
+
+This script runs all code to replicate figures and tables for the paper "Berkeley Unified Numident Mortality Database: Public Administrative Records for Individual-Level Mortality Research" 
+
+To replicate the figures and tables in this paper, you must: 
+
+(1) Clone this repository 
+
+(2) Download a copy of the BUNMD V2 from the CenSoc download page: https://censoc-download.demog.berkeley.edu/. 
+
+(3) Unzip the BUNMD V2 file and move it to the "data" folder in the top level of the bunmd directory. 
+
+(4) Run the "run all" script. All figures and table will be automatically generated. 
+
+The scripts are numbered in the order they should be run.
+
+```{r}
+## library packages 
+library(here)
+source(here("code", "helper_functions.R"))
+
+## list of rmd files 
+rmd_files <- list.files(path = file.path(here("code//")), pattern=".Rmd")   
+rmd_files <- rmd_files[!rmd_files %in% "00_run_all.Rmd"]
+
+## set seed for reproducibility 
+set.seed(1)
+
+
+for (cur_file in rmd_files[1:3]) {
+	cat("================================\n")
+	tictoc::tic(glue::glue("Finished with {cur_file}, time:"))
+	cat("Running ", cur_file, "\n")
+  	source_rmd(cur_file) ## source_rmd is a custom function defined in "helper_functions.R" 
+  	tictoc::toc()
+	cat("================================\n")
+}
+```
+
+
