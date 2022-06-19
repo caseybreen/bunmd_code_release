@@ -35,6 +35,9 @@ source(here("code/helper_functions.R"))
 
 ## Read in BUNMD file
 bunmd <- fread(here("data/bunmd_v2.csv"))
+
+## read in shapefile 
+load(file = here("data/cuyahoga_county_shapefile.rda"))
 ```
 
 ## Merge on zip benefits 
@@ -202,11 +205,6 @@ choro = ZipChoropleth$new(rev(gompertz_cuyahoga))
 choro$title = ""
 choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, zip_zoom = NULL)
 
-## Add on a boundary for cleveland. We will pull this from the Tigris database. 
-
-## Shapefile must be downloaded from 
-shapefile <- st_read("/90days/caseybreen/City_of_Cleveland_Neighborhoods_2012_no_lake/City_of_Cleveland_Neighborhoods_2012_no_lake.shp") 
-
 ## Manually set scale 
 scale_colour_manual(values = c("d73027", "fc8d59", "fee090", "ffffbf", "e0f3f8", "91bfdb", "4575b4"))
 
@@ -218,7 +216,7 @@ cleveland_plot <- choro$render() +
     aesthetics = c("colour", "fill"),
     name = "Difference in e65"
   ) + 
-  geom_sf(data = st_union(shapefile),
+  geom_sf(data = st_union(cuyahoga_county_shapefile),
        inherit.aes = FALSE, fill = NA, size = 1.2, color = "Black") +
   annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8)
 ```
@@ -243,13 +241,12 @@ choro$set_zoom_zip(state_zoom = NULL, county_zoom = ohio_fips, msa_zoom = NULL, 
 ## Plot Cleveland
 cleveland_plot_zipben <- choro$render() +
   theme(text=element_text(size=25)) + 
-   # viridis::scale_fill_viridis(discrete = "true", direction = 1, name = "Avg. SS Benefits") + #  
   scale_colour_manual(
     values = c("#d73027", "#fc8d59", "#fee090", "#ffffbf", "#e0f3f8", "#91bfdb", "#4575b4"),
     aesthetics = c("colour", "fill"),
     name = "Avg. SS Benefits"
   ) + 
-  geom_sf(data = st_union(shapefile),
+  geom_sf(data = st_union(cuyahoga_county_shapefile),
        inherit.aes = FALSE, fill = NA, size = 1.2, color = "Black") +
   annotate("label", x=-81.67908, y=41.48074, label="Cleveland", color = "Black", size = 8) 
 ```
