@@ -1,9 +1,10 @@
 ---
 title: "Generate BUNMD Weights"
-output: html_notebook
+author: Casey Breen
+date: 6/19/2022
 ---
 
-This notebook to generates post-stratification person-weights for the BUNMD up to the HMD totals. 
+Background: this notebook to generates post-stratification person-weights for the BUNMD for custom sub-samples. See Sections 2.1 amd 2.2 of paper for more details on weighting strategy and considerations. 
 
 By default, this function constructs weights for those dying between 1988 and 2005, born between 1895 and 1940, dying between ages of 65 and 100, with non-missing values for `race_last` and `bpl`. However, the arguments of the `create_weights_bunmd_complete` function can be changed. For instance, if a user wasn't using race in their analysis, they could adapt the code to not require `race_last` to be non-missing. 
 
