@@ -109,7 +109,7 @@ gompertz_results_men_plot <- gompertz_results_men %>%
     geom_vline(xintercept  = 0, linetype = "dashed") + 
   labs(x = "e65 difference",
        y = "", 
-      title =" Foreign−born men, cohorts 1910−19") + 
+      title =" Foreign−born men, cohorts 1910−1919") + 
   annotate("text", x = 0.1, y = 13, label = "Natives", color = "black", angle = 270) + 
   xlim(-1, 4) 
 ```
@@ -138,7 +138,7 @@ gompertz_results_women_plot <- gompertz_results_women_e65 %>%
   geom_vline(xintercept  = 0, linetype = "dashed") + 
   labs(x = "e65 difference",
        y = "",
-       title =" Foreign−born women, cohorts 1910−19") + 
+       title =" Foreign−born women, cohorts 1910−1919") + 
   annotate("text", x = 0.1, y = 16, label = "Natives", color = "black", angle = 270) + 
   xlim(-1, 4) 
 ```

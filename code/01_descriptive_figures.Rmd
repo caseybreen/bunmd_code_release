@@ -188,7 +188,7 @@ truncated_means_plot2 <- trunc_diff_truncated %>%
   theme_cowplot(rel_large = .75) + 
   labs(x = "Age",
        y = "Deaths",
-      title = "Doubly Truncated") + 
+      title = "Doubly truncated") + 
   geom_vline(xintercept = trunc_diff_means_truncated$pop1_mean, color = "red", linetype = "dashed") + 
   geom_vline(xintercept = trunc_diff_means_truncated$pop2_mean, color = "blue", linetype = "dashed") + 
   geom_vline(xintercept = 78, color = "grey") + 
@@ -233,7 +233,7 @@ claims_plot <- ggplot(data = number_claims) +
   theme(legend.position="bottom") +
   theme_cowplot() + 
   labs(title = "Claims",
-       x = "Number of Claim Entries", 
+       x = "Number of claim entries", 
        y = "Count") + 
     scale_y_continuous(labels = scales::comma, limits = c(0, 35000000))
   
@@ -243,7 +243,7 @@ apps_plot <- ggplot(data = number_apps) +
   theme(legend.position="bottom") +
   theme_cowplot() + 
   labs(title = "Applications",
-       x = "Number of Application Entries", 
+       x = "Number of application entries", 
        y = "Count") + 
   scale_y_continuous(labels = scales::comma, limits = c(0, 35000000))
 
