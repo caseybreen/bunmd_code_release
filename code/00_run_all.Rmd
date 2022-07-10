@@ -18,6 +18,19 @@ To replicate the figures and tables in this paper, you must:
 
 The scripts are numbered in the order they should be run.
 
+Code to install Gompertztrunc package: 
+
+## Install gompertztrunc 
+
+```{r}
+## install gompertztrunc package from Github by uncommenting the lines below
+
+## library(devtools)
+## devtools::install_github("https://github.com/caseybreen/gompertztrunc")
+```
+
+## Run code to replicate 
+
 ```{r}
 ## library packages 
 library(here)
