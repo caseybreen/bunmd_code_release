@@ -268,23 +268,32 @@ bunmd_percent_missing <- bunmd %>%
 
 ## recode bunmd completeness
 bunmd_completeness <- ggplot(bunmd_percent_missing) + 
-  geom_point(aes(x = reorder(name, value), y = value)) + 
+  geom_point(aes(x = value, y = reorder(name, value))) + 
   theme_classic() +
   geom_segment(aes(
-    x = name,
-    xend = name,
-    y = 0,
-    yend = 100
+    y = name,
+    yend = name,
+    x = 0,
+    xend = 100
   ),
-  linetype = "dashed",
+  linetype = "longdash",
   size = 0.1
   ) + # Draw dashed lines
-  coord_flip() + 
+   geom_segment(aes(
+    y = name,
+    yend = name,
+    x = 0,
+    xend = value
+  ),
+  size = 0.3
+  ) + 
   labs(title = "Berkeley Unified Numident Mortality Database",
-       x = "Variable",
-       y = "Percent %") +
-  ylim(0, 100)
+       y = "Variable",
+       x = "Percent %") +
+  xlim(0, 100)
 
 ## save ggplot 
-ggsave(plot = bunmd_completeness, filename = here("figs/a3_bunmd_completeness.pdf"), width = 10, height = 8)
+ggsave(plot = bunmd_completeness, filename = here("figs/a3_bunmd_completeness.pdf"), width = 8, height = 10)
 ```
+
+
