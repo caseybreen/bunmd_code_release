@@ -4,41 +4,56 @@ author: Casey Breen
 date: 6/19/2022
 ---
 
-Background: this notebook to generates post-stratification person-weights for the BUNMD for custom sub-samples. See Sections 2.1 amd 2.2 of paper for more details on weighting strategy and considerations. 
+## Summary
 
-By default, this function constructs weights for those dying between 1988 and 2005, born between 1895 and 1940, dying between ages of 65 and 100, with non-missing values for `race_last` and `bpl`. However, the arguments of the `create_weights_bunmd_complete` function can be changed. For instance, if a user wasn't using race in their analysis, they could adapt the code to not require `race_last` to be non-missing. 
+This notebook contains code to generate a set of person-level weights for the BUNMD for different custom sub-samples. The set of person-level weights will make the weighted count of deaths in the BUNMD match aggregate population totals from the Human Mortality Database (HMD). To construct the weights, we spit the BUNMD into cells cross-classified by year of birth, year of death, age at death, and sex. We assigned every person in a given cell a weight equal to the ratio of count of deaths in the HMD to count of deaths in the BUNMD sample: 
 
-To run this script, will need to download a copy of the `USA.Deaths_lexis.txt` file from the Human Mortality Database (https://www.mortality.org/Country/Country?cntr=USA). 
+\begin{equation}
+  W_{j}  = \frac{\text{HMD deaths in cell j}}{\text{BUNMD deaths in cell j}}.
+\end{equation}
+
+Note: This weighting strategy does not take geography into account and assumes uniform coverage for other covariates, such as race, socioeconomic status, and household size. 
+
+## Functions to create weights for custom sub-samples
+
+By default, this function constructs weights for those dying between 1988 and 2005, born between 1895 and 1940, dying between ages of 65 and 100, with non-missing values for race (`race_last`), sex (`sex`), and birthplace (`bpl`). However, the arguments of the `create_weights_bunmd_complete()` function can be changed. For instance, if a user was only using birthplace in their analysis, they could only require the birthplace (`bpl`) variable to be non-missing.  
+
+To run this script, will need to download a copy of the `USA.Deaths_lexis.txt` file from HMD (https://www.mortality.org/Country/Country?cntr=USA). 
+
+## Set-up 
 
 ```{r}
 ## library packages 
-library(tidyverse)
-library(data.table)
-library(here)
+library(tidyverse)       ## data manipulation and visualization 
+library(data.table)      ## data.table 
+library(here)            ## creates paths relative to the top-level directory
 
+## Read in bunmd and set blank values ("") to NA 
+## Update path 
+bunmd <- fread(here("data/bunmd_v2.csv"), na.strings = c(NA_character_, ""))
 
-## read in bunmd
-bunmd <- fread(here("data/bunmd_v2.csv"))
-
-## deaths from HMD 
-## update this path
-hmd_deaths <-  fread("/path/to/USA.Deaths_lexis.txt") %>%
+## Lexis Triangles (Deaths) from BUNMD
+## Update path
+hmd_deaths <- fread(here("code/weights/Deaths_lexis.txt")) %>%
     mutate(linking_key = paste(Year, Cohort, Age, sep = "_" ))
+```
 
+## Weighting Function 
+
+```{r}
 #' Create weights for BUNMD
-#' This function will weight the numident file up to HMD lexis triangles
-#' Restrict data to deaths from 1988 - 2005 with age_at_death between 65 and 100.
-create_weights_bunmd_complete <- function(bunmd.file, dyears = c(1988:2005), cohorts = c(1895:1940), death_ages = c(65:100), complete_cases_vars = c("race_last", "bpl"), hmd_deaths = hmd_deaths) {
+#' This function will weight the BUNMD file up to HMD lexis triangles
+create_weights_bunmd_complete <- function(bunmd.file, dyears = c(1988:2005), cohorts = c(1895:1940), death_ages = c(65:100), complete_cases_vars = c("race_last", "bpl", "sex"), hmd_deaths = hmd_deaths) {
 
-  ## filter to complete case
-  high_coverage_complete_sample <- bunmd %>%
+  ## filter to analytic sample of interest 
+  high_coverage_complete_sample <- bunmd.file %>%
     filter(dyear %in% dyears) %>%
     filter(byear %in% cohorts) %>%
     filter(death_age %in% death_ages) %>%
     filter(!is.na(sex)) %>%
     drop_na(complete_cases_vars)
 
-  ## tabulate complete cases
+  ## tabulate number of deaths in cells cross-classified by age of death, year of death, year of birth, and sex (lexis triangles)
   numdeath_aggregate_counts <- high_coverage_complete_sample %>%
     group_by(death_age, dyear, byear, sex) %>%
     tally() %>%
@@ -67,7 +82,7 @@ create_weights_bunmd_complete <- function(bunmd.file, dyears = c(1988:2005), coh
     mutate(linking_key = paste(dyear, byear, death_age, sex, sep = "_")) %>%
     select(-byear)
 
-  ## link death weights to ssn
+  ## link weights by ssn
   weights.df <- high_coverage_complete_sample %>%
     left_join(death_weights_for_link, by = "linking_key") %>%
     select(ssn, weight_alt)
@@ -78,10 +93,16 @@ create_weights_bunmd_complete <- function(bunmd.file, dyears = c(1988:2005), coh
 
   return(bunmd.file)
 }
+```
 
-## example construct weights require bpl variable to be non-missing 
+## Apply weighting function 
+
+The function below will create a new weight variable `weight_alt.` The default options below will construct new variable `weight_alt` identical to the complete case weight (`ccweight`), but the arguments of the function can be changed to create custom weights. 
+
+```{r}
+## example construct weights require bpl, race_last, and sex variables to be non-missing 
 ## new weight variable = weight_alt
-bunmd_weights <-  create_weights_bunmd_complete(bunmd.file = bunmd, dyears = c(1988:2005), cohorts = c(1895:1940), death_ages = c(65:100), complete_cases_vars = c("bpl"), hmd_deaths = hmd_deaths)
+bunmd <-  create_weights_bunmd_complete(bunmd.file = bunmd, dyears = c(1988:2005), cohorts = c(1895:1940), complete_cases_vars = c("race_last", "bpl", "sex"), death_ages = c(65:100), hmd_deaths = hmd_deaths)
 ```
 
 
